@@ -9,7 +9,7 @@ import internal.BuiltinTypeInfo
 import kotlinx.cinterop.*
 import native.gtk.*
 
-class Window : Widget {
+open class Window : Widget {
     @Suppress("UNCHECKED_CAST")
     val gtkWindowPointer get() = gPointer as GtkWindow_autoptr
 

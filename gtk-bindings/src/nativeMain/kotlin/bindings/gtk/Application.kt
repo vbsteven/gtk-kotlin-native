@@ -1,9 +1,14 @@
 package bindings.gtk
 
+import bindings.gio.ActionMap
 import bindings.gio.GApplication
+import bindings.gio.MenuModel
+import bindings.gio.asMenuModel
 import bindings.gobject.ObjectCompanion
+import bindings.gobject.asTypedPointer
 import internal.BuiltinTypeInfo
 import kotlinx.cinterop.*
+import native.gio.GActionMap
 import native.gio.GApplicationFlags
 import native.gio.G_APPLICATION_DEFAULT_FLAGS
 import native.gobject.GCallback
@@ -11,10 +16,12 @@ import native.gobject.g_signal_connect_data
 import native.gobject.gpointer
 import native.gtk.*
 
-open class Application(pointer: CPointer<*>) : GApplication(pointer) {
+open class Application(pointer: CPointer<*>) : GApplication(pointer), ActionMap {
 
     @Suppress("UNCHECKED_CAST")
     val gtkApplicationPointer get() = gPointer as GtkApplication_autoptr
+
+    override val gActionMapPointer get() = gPointer.asTypedPointer<GActionMap>()
 
     companion object : ObjectCompanion<Application>(
         BuiltinTypeInfo(
@@ -38,24 +45,9 @@ open class Application(pointer: CPointer<*>) : GApplication(pointer) {
         )
     }
 
-
-//
-//    /*
-//     * ACTIONS
-//     * TODO: move this to an interface for all classes implementing ActionMap?
-//     */
-//
-//    /**
-//     * Add the given [action] to the application action map
-//     */
-//    fun add_action(action: GSimpleAction) {
-//        g_action_map_add_action(gPointer.reinterpret(), action.gPointer.reinterpret())
-//    }
-//
-//    fun add_action(name: String, handler: ActionHandler) {
-//        val action = GSimpleAction(name, handler)
-//        g_action_map_add_action(gPointer.reinterpret(), action.gPointer.reinterpret())
-//    }
+    var menuBar: MenuModel?
+        get() = gtk_application_get_menubar(gtkApplicationPointer)?.asMenuModel()
+        set(value) = gtk_application_set_menubar(gtkApplicationPointer, value?.gMenuModelPointer)
 
 }
 

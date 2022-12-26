@@ -1,6 +1,7 @@
 package bindings.gtk.testutils
 
 import bindings.gtk.Application
+import bindings.gtk.ApplicationWindow
 import bindings.gtk.Window
 import native.gtk.gtk_init
 
@@ -27,13 +28,12 @@ open class GtkTestBase {
      * When the window is presented, the given [func] will run.
      */
     fun runTestApplicationWindow(
-        func: (Window) -> Unit
+        func: (ApplicationWindow) -> Unit
     ) {
         runTestApplication {
-            val window = Window()
+            val window = ApplicationWindow(it.app)
             window.title = this::class.simpleName
             window.application = it.app
-
 
             func(window)
             window.present()
