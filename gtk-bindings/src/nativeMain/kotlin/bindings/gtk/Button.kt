@@ -12,9 +12,10 @@ import native.gobject.g_signal_connect_data
 import native.gobject.gpointer
 import native.gtk.*
 
-open class Button : Widget {
+open class Button : Widget, Actionable {
 
     val gtkButtonPointer get() = gPointer.asTypedPointer<GtkButton>()
+    override val gtkActionablePointer get() = gPointer.asTypedPointer<GtkActionable>()
 
     constructor() : this(gtk_button_new()!!)
     constructor(label: String) : this(gtk_button_new_with_label(label)!!)
