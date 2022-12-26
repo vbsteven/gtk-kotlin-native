@@ -16,6 +16,6 @@ class WindowTests : GtkTestBase() {
 
         window.present()
 
-        assertEquals(1, Window.toplevels.itemCount.toInt())
+        assertEquals(1, Window.toplevels.itemCount)
     }
 }
