@@ -8,3 +8,6 @@ import native.gobject.gboolean
 
 val gboolean.boolean: Boolean
     get() = this > 0
+
+val Boolean.gboolean: gboolean
+    get() = if (this) 1 else 0

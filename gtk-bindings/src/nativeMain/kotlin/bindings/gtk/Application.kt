@@ -59,7 +59,9 @@ open class Application(pointer: CPointer<*>) : GApplication(pointer) {
 
 }
 
+fun CPointer<GtkApplication>.asApplication(): Application = Application(this)
 
+// TODO would this make sence in GApplication instead?
 private val onActivateCallbackFunc: GCallback =
     staticCFunction { _: gpointer?, data: gpointer? ->
         data?.asStableRef<() -> Unit>()?.get()?.invoke()

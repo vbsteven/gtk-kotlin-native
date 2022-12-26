@@ -1,5 +1,6 @@
 package bindings.gtk
 
+import bindings.gtk.testutils.GtkTestBase
 import kotlin.test.Test
 import kotlin.test.assertEquals
 

@@ -1,6 +1,7 @@
 package bindings.gtk
 
 import bindings.gobject.Object
+import bindings.gtk.testutils.GtkTestBase
 import usertypes.registerTypeClass
 import native.gobject.g_object_new
 import native.gobject.g_object_ref_sink

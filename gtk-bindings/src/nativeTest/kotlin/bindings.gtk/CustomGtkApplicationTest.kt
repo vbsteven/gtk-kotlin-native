@@ -1,6 +1,7 @@
 package bindings.gtk
 
 import bindings.gobject.ObjectCompanion
+import bindings.gtk.testutils.GtkTestBase
 import usertypes.registerTypeClass
 import kotlinx.cinterop.CPointer
 import kotlin.test.Test

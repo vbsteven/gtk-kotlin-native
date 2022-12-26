@@ -11,6 +11,9 @@ import native.gtk.GtkWidgetClass
 
 open class Widget(pointer: CPointer<*>) : Object(pointer) {
 
+    @Suppress("UNCHECKED_CAST")
+    val widgetPointer: CPointer<GtkWidget> get() = gPointer as CPointer<GtkWidget>
+
     companion object : ObjectCompanion<Widget>(WidgetTypeInfo)
 }
 
@@ -21,3 +24,5 @@ val WidgetTypeInfo = BuiltinTypeInfo(
     sizeOf<GtkWidget>(),
     ::Widget,
 )
+
+fun CPointer<GtkWidget>.asWidget(): Widget = Widget(this)
