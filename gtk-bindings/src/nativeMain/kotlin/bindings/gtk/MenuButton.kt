@@ -1,6 +1,5 @@
 package bindings.gtk
 
-import bindings.gio.Menu
 import bindings.gio.MenuModel
 import bindings.gio.asMenuModel
 import bindings.gobject.ObjectCompanion
