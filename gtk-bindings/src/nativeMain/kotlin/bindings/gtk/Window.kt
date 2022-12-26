@@ -14,8 +14,6 @@ class Window : Widget {
     constructor() : super(gtk_window_new()!!)
     constructor(pointer: CPointer<*>) : super(pointer)
 
-    companion object : ObjectCompanion<Window>(WindowTypeInfo)
-
     var application: Application?
         get() = gtk_window_get_application(gtkWindowPointer)?.asApplication()
         set(value) = gtk_window_set_application(gtkWindowPointer, value?.gtkApplicationPointer)
@@ -113,6 +111,18 @@ class Window : Widget {
     fun unfullscreen() = gtk_window_unfullscreen(gtkWindowPointer)
     fun unmaximize() = gtk_window_unmaximize(gtkWindowPointer)
     fun unminimize() = gtk_window_unminimize(gtkWindowPointer)
+
+    companion object : ObjectCompanion<Window>(WindowTypeInfo) {
+        var defaultIconName: String?
+            get() = gtk_window_get_default_icon_name()?.toKString()
+            set(value) = gtk_window_set_default_icon_name(value)
+
+        fun setInteractiveDebugging(enable: Boolean) = gtk_window_set_interactive_debugging(enable.gboolean)
+        fun setAutoStartupNotification(setting: Boolean) = gtk_window_set_auto_startup_notification(setting.gboolean)
+
+        // TODO getTopLevels
+        // TODO listToplevels
+    }
 }
 
 val WindowTypeInfo = BuiltinTypeInfo<Window>(

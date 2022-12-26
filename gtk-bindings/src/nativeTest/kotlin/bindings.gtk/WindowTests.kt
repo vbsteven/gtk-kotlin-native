@@ -1,7 +1,6 @@
 package bindings.gtk
 
 import bindings.gtk.testutils.GtkTestBase
-import kotlin.test.Ignore
 import kotlin.test.Test
 
 class WindowTests : GtkTestBase() {
