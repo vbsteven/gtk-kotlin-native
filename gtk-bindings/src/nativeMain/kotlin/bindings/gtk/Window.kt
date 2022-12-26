@@ -1,5 +1,7 @@
 package bindings.gtk
 
+import bindings.gio.ListModel
+import bindings.gio.asListModel
 import bindings.gobject.ObjectCompanion
 import bindings.gobject.boolean
 import bindings.gobject.gboolean
@@ -120,7 +122,9 @@ class Window : Widget {
         fun setInteractiveDebugging(enable: Boolean) = gtk_window_set_interactive_debugging(enable.gboolean)
         fun setAutoStartupNotification(setting: Boolean) = gtk_window_set_auto_startup_notification(setting.gboolean)
 
-        // TODO getTopLevels
+        val toplevels: ListModel
+            get() = gtk_window_get_toplevels()!!.asListModel()
+
         // TODO listToplevels
     }
 }

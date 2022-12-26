@@ -2,6 +2,7 @@ package bindings.gtk
 
 import bindings.gtk.testutils.GtkTestBase
 import kotlin.test.Test
+import kotlin.test.assertEquals
 
 class WindowTests : GtkTestBase() {
     @Test
@@ -14,5 +15,7 @@ class WindowTests : GtkTestBase() {
         window.child = Button("Click me")
 
         window.present()
+
+        assertEquals(1, Window.toplevels.itemCount.toInt())
     }
 }
