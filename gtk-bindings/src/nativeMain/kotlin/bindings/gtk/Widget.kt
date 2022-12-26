@@ -5,14 +5,15 @@ import bindings.gobject.ObjectCompanion
 import internal.BuiltinTypeInfo
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.sizeOf
-import native.gtk.GTK_TYPE_WIDGET
-import native.gtk.GtkWidget
-import native.gtk.GtkWidgetClass
+import native.gtk.*
 
 open class Widget(pointer: CPointer<*>) : Object(pointer) {
 
     @Suppress("UNCHECKED_CAST")
     val widgetPointer: CPointer<GtkWidget> get() = gPointer as CPointer<GtkWidget>
+
+    fun show() = gtk_widget_show(widgetPointer)
+    fun hide() = gtk_widget_hide(widgetPointer)
 
     companion object : ObjectCompanion<Widget>(WidgetTypeInfo)
 }

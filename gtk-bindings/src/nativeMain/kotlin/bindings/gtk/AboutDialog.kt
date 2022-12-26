@@ -97,3 +97,5 @@ val AboutDialogTypeInfo = BuiltinTypeInfo(
     -1,
     ::AboutDialog
 )
+
+fun CPointer<GtkAboutDialog>.asAboutDialog(): AboutDialog = AboutDialog(this)

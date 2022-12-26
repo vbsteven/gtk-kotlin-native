@@ -3,15 +3,18 @@ package bindings.gtk
 import bindings.gio.ListModel
 import bindings.gio.asListModel
 import bindings.gobject.ObjectCompanion
+import bindings.gobject.asTypedPointer
 import bindings.gobject.boolean
 import bindings.gobject.gboolean
 import internal.BuiltinTypeInfo
 import kotlinx.cinterop.*
 import native.gtk.*
 
-open class Window : Widget {
+open class Window : Widget, Root {
     @Suppress("UNCHECKED_CAST")
     val gtkWindowPointer get() = gPointer as GtkWindow_autoptr
+
+    override val gtkNativePointer = gtkWindowPointer.asTypedPointer<GtkNative>()
 
     constructor() : super(gtk_window_new()!!)
     constructor(pointer: CPointer<*>) : super(pointer)
@@ -57,7 +60,7 @@ open class Window : Widget {
         get() = gtk_window_get_destroy_with_parent(gtkWindowPointer).boolean
         set(value) = gtk_window_set_destroy_with_parent(gtkWindowPointer, value.gboolean)
 
-    var focus: Widget?
+    override var focus: Widget?
         get() = gtk_window_get_focus(gtkWindowPointer)?.asWidget()
         set(value) = gtk_window_set_focus(gtkWindowPointer, value?.widgetPointer)
 

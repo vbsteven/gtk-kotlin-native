@@ -51,3 +51,5 @@ val BoxTypeInfo = BuiltinTypeInfo(
     sizeOf<GtkBox>(),
     ::Box
 )
+
+fun CPointer<GtkBox>.asBox(): Box = Box(this)
