@@ -12,7 +12,7 @@ import native.gobject.gint
 import native.gobject.gpointer
 import native.gtk.*
 
-class Dialog : Window {
+open class Dialog : Window {
 
     val gtkDialogPointer get() = gtkWindowPointer.asTypedPointer<GtkDialog>()
 
