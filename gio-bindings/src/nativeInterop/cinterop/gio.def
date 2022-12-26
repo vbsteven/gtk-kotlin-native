@@ -1,0 +1,18 @@
+headers = "gio/gio.h"
+package = native.gio
+headerFilter = "gio/*"
+
+
+compilerOpts.linux = \
+-I/usr/include/glib-2.0 \
+-I/usr/lib/glib-2.0/include \
+-I/usr/include/sysprof-4 \
+-I/usr/include/libmount \
+-I/usr/include/blkid \
+-pthread
+
+linkerOpts.linux = \
+-L/usr/lib \
+-lgio-2.0 \
+-lgobject-2.0 \
+-lglib-2.0
