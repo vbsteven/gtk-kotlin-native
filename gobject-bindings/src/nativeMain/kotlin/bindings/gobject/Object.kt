@@ -1,26 +1,43 @@
 package bindings.gobject
 
+import internal.BuiltinTypeInfo
+import internal.TypeRegistry
 import kotlinx.cinterop.CPointer
-import native.gobject.GType
+import kotlinx.cinterop.reinterpret
+import kotlinx.cinterop.sizeOf
+import kotlinx.cinterop.toKString
 import native.gobject.G_TYPE_OBJECT
-import native.gobject.g_object_new
+import native.gobject.g_type_name_from_instance
+
 
 open class Object(pointer: CPointer<*>) {
     val gPointer: CPointer<*> = pointer
 
-    constructor() : this(newInstancePointer())
+    constructor() : this(typeInfo.newInstancePointer())
 
-    companion object : KGType() {
-        override val gType: GType = G_TYPE_OBJECT
-        override fun newInstancePointer(): CPointer<*> {
-            return g_object_new(G_TYPE_OBJECT, null)!!
-        }
+    init {
+        associateCustomObject()
     }
 
+    companion object : ObjectCompanion<Object>(ObjectTypeInfo)
+
+    private fun associateCustomObject() {
+        // TODO is there a better way to get the type from an object?
+        val typeInfo = g_type_name_from_instance(gPointer.reinterpret())
+            ?.toKString()
+            ?.let { TypeRegistry.getTypeInfoForName(it) }
+
+        typeInfo?.associate(this, this.gPointer)
+    }
 }
 
-abstract class KGType {
-    abstract val gType: GType
-    abstract fun newInstancePointer(): CPointer<*>
-}
+val ObjectTypeInfo = BuiltinTypeInfo<Object>(
+    "GObject",
+    G_TYPE_OBJECT,
+    sizeOf<native.gobject.GObjectClass>(),
+    sizeOf<native.gobject.GObject>(),
+    ::Object
+)
+
+
 

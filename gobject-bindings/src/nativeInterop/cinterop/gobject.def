@@ -1,4 +1,4 @@
-headers = glib-object.h
+headers = glib.h glib-object.h
 package = native.gobject
 headerFilter = gobject/* glib/*
 
@@ -12,3 +12,25 @@ linkerOpts.linux = \
 -L/usr/lib \
 -lgobject-2.0 \
 -lglib-2.0
+
+---
+
+typedef struct {
+  int dispose_has_run;
+  int test_value;
+  void *internal_obj;
+} CustomObjectProperties;
+
+typedef struct {
+  GObject parent_instance;
+  CustomObjectProperties properties;
+} CustomObject;
+
+typedef struct {
+  void *kg_type_obj;
+} CustomObjectClassProperties;
+
+typedef struct {
+  GObjectClass parent_class;
+  CustomObjectClassProperties properties;
+} CustomObjectClass;
