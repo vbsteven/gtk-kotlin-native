@@ -21,6 +21,7 @@ kotlin {
         val nativeMain by getting {
             dependencies {
                 api(project(":gobject-bindings"))
+                api(project(":gio-bindings"))
             }
         }
         val nativeTest by getting
