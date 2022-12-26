@@ -2,11 +2,13 @@ package bindings.gobject
 
 import internal.BuiltinTypeInfo
 import internal.TypeRegistry
-import kotlinx.cinterop.*
+import kotlinx.cinterop.CPointer
+import kotlinx.cinterop.reinterpret
+import kotlinx.cinterop.sizeOf
+import kotlinx.cinterop.toKString
 import native.gobject.GObject
 import native.gobject.G_TYPE_OBJECT
 import native.gobject.g_type_name_from_instance
-import native.gobject.gpointer
 
 
 open class Object(pointer: CPointer<*>) {
