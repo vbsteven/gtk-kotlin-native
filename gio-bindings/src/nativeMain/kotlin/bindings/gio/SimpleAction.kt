@@ -8,7 +8,7 @@ import bindings.gobject.ObjectCompanion
 import bindings.gobject.asTypedPointer
 import bindings.gobject.gboolean
 import internal.BuiltinTypeInfo
-import internal.gio.staticStableRefDestroy
+import bindings.gio.internal.staticStableRefDestroy
 import kotlinx.cinterop.*
 import native.gio.*
 import native.gobject.GCallback
@@ -56,7 +56,7 @@ class SimpleAction : Object, Action {
     companion object : ObjectCompanion<SimpleAction>(SimpleActionTypeInfo)
 }
 
-val SimpleActionTypeInfo = BuiltinTypeInfo<SimpleAction>(
+private val SimpleActionTypeInfo = BuiltinTypeInfo(
     "GSimpleAction",
     G_TYPE_SIMPLE_ACTION,
     -1,

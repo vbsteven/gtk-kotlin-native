@@ -1,4 +1,4 @@
-package internal.gio
+package bindings.gio.internal
 
 import kotlinx.cinterop.asStableRef
 import kotlinx.cinterop.reinterpret

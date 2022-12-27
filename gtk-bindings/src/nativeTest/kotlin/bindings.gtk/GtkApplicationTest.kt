@@ -2,7 +2,6 @@ package bindings.gtk
 
 import bindings.gio.Menu
 import bindings.gio.SimpleAction
-import bindings.gio.SimpleActionTypeInfo
 import bindings.gtk.testutils.GtkTestBase
 import kotlin.test.Test
 import kotlin.test.assertTrue

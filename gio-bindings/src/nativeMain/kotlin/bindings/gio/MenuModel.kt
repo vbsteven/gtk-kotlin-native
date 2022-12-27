@@ -19,7 +19,7 @@ open class MenuModel : Object {
     // TODO getItemAttributeValue
 
     /**
-     * The
+     * The count of items in this model.
      */
     val itemCount: Int get() = g_menu_model_get_n_items(gMenuModelPointer)
 
@@ -38,12 +38,10 @@ open class MenuModel : Object {
 }
 
 
-val MenuModelTypeInfo = BuiltinTypeInfo(
+private val MenuModelTypeInfo = BuiltinTypeInfo(
     "GMenuModel",
     G_TYPE_MENU_MODEL,
     sizeOf<GMenuModelClass>(),
     sizeOf<GMenuModel>(),
     ::MenuModel
 )
-
-fun CPointer<GMenuModel>.asMenuModel(): MenuModel = MenuModel(this)

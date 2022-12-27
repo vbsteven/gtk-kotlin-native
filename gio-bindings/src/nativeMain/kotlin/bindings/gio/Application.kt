@@ -1,13 +1,15 @@
 package bindings.gio
 
 import bindings.gobject.Object
+import bindings.gobject.asTypedPointer
+import internal.BuiltinTypeInfo
 import kotlinx.cinterop.CPointer
+import kotlinx.cinterop.sizeOf
 import native.gio.*
 
-open class GApplication(pointer: CPointer<*>) : Object(pointer) {
+open class Application(pointer: CPointer<*>) : Object(pointer) {
 
-    @Suppress("UNCHECKED_CAST")
-    val gApplicationPointer get() = this.gPointer as GApplication_autoptr
+    val gApplicationPointer get() = this.gPointer.asTypedPointer<GApplication>()
 
     constructor(applicationId: String, flags: GApplicationFlags = G_APPLICATION_DEFAULT_FLAGS)
             : this(g_application_new(applicationId, flags)!!)
@@ -32,3 +34,11 @@ open class GApplication(pointer: CPointer<*>) : Object(pointer) {
         g_application_quit(gApplicationPointer)
     }
 }
+
+private val ApplicationTypeInfo = BuiltinTypeInfo(
+    "GApplication",
+    G_TYPE_APPLICATION,
+    sizeOf<GApplicationClass>(),
+    sizeOf<GApplication>(),
+    ::Application
+)

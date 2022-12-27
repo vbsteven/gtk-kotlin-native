@@ -2,16 +2,16 @@ package bindings.gio
 
 import bindings.gobject.Object
 import bindings.gobject.ObjectCompanion
+import bindings.gobject.asTypedPointer
 import internal.BuiltinTypeInfo
 import kotlinx.cinterop.CPointer
 import native.gio.*
 import native.gobject.GType
 
 class ListStore : Object, ListModel {
-    @Suppress("UNCHECKED_CAST")
-    override val gListModelPointer get() = gPointer as CPointer<GListModel>
+    override val gListModelPointer get() = gPointer.asTypedPointer<GListModel>()
 
-    val gListStorePointer get() = gPointer as CPointer<GListStore>
+    val gListStorePointer get() = gPointer.asTypedPointer<GListStore>()
 
     constructor(itemType: GType) : super(g_list_store_new(itemType)!!)
     constructor(pointer: CPointer<*>) : super(pointer)
@@ -35,7 +35,7 @@ class ListStore : Object, ListModel {
     companion object : ObjectCompanion<ListStore>(ListStoreTypeInfo)
 }
 
-val ListStoreTypeInfo = BuiltinTypeInfo(
+private val ListStoreTypeInfo = BuiltinTypeInfo(
     "GListStore",
     G_TYPE_LIST_STORE,
     -1,

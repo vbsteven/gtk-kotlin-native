@@ -1,7 +1,7 @@
 package bindings.gtk
 
 import bindings.gio.ActionMap
-import bindings.gio.GApplication
+import bindings.gio.Application
 import bindings.gio.MenuModel
 import bindings.gio.asMenuModel
 import bindings.gobject.ObjectCompanion
@@ -17,7 +17,7 @@ import native.gobject.g_signal_connect_data
 import native.gobject.gpointer
 import native.gtk.*
 
-open class Application(pointer: CPointer<*>) : GApplication(pointer), ActionMap {
+open class Application(pointer: CPointer<*>) : Application(pointer), ActionMap {
 
     val gtkApplicationPointer get() = gPointer.asTypedPointer<GtkApplication>()
 

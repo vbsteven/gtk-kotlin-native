@@ -18,9 +18,3 @@ interface ActionMap {
 
     fun removeAction(actionName: String) = g_action_map_remove_action(gActionMapPointer, actionName)
 }
-
-fun CPointer<GActionMap>.asActionMap(): ActionMap = ActionMapWrapper(this)
-
-private class ActionMapWrapper(
-    override val gActionMapPointer: CPointer<GActionMap>
-) : ActionMap

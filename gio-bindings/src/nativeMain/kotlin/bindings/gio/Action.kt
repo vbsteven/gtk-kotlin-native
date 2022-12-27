@@ -49,9 +49,3 @@ interface Action {
         }
     }
 }
-
-fun CPointer<GAction>.asAction(): Action = ActionWrapper(this)
-
-private class ActionWrapper(
-    override val gActionPointer: CPointer<GAction>
-) : Action

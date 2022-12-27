@@ -35,7 +35,7 @@ class MenuItem : Object {
     companion object : ObjectCompanion<MenuItem>(MenuItemTypeInfo)
 }
 
-val MenuItemTypeInfo = BuiltinTypeInfo(
+private val MenuItemTypeInfo = BuiltinTypeInfo(
     "GMenuItem",
     G_TYPE_MENU_ITEM,
     -1,

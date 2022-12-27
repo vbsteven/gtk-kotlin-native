@@ -1,8 +1,10 @@
 package bindings.gio
 
-import bindings.gobject.asTypedPointer
 import kotlinx.cinterop.CPointer
-import native.gio.*
+import native.gio.GListModel
+import native.gio.g_list_model_get_item_type
+import native.gio.g_list_model_get_n_items
+import native.gio.g_list_model_get_object
 import native.gobject.GType
 import native.gobject.gpointer
 
@@ -20,10 +22,4 @@ interface ListModel {
     }
 
     fun getObject(position: Int) = getObject(position.toUInt())
-}
-
-fun CPointer<GListModel>.asListModel(): ListModel = ListModelWrapper(this)
-
-private class ListModelWrapper(pointer: CPointer<*>) : ListModel {
-    override val gListModelPointer = pointer.asTypedPointer<GListModel>()
 }

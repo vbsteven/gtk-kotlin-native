@@ -54,7 +54,7 @@ class Menu : MenuModel {
     companion object : ObjectCompanion<Menu>(MenuTypeInfo)
 }
 
-val MenuTypeInfo = BuiltinTypeInfo(
+private val MenuTypeInfo = BuiltinTypeInfo(
     "GMenu",
     G_TYPE_MENU,
     -1,
