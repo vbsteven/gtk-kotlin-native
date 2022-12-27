@@ -10,7 +10,7 @@ import kotlinx.cinterop.sizeOf
 import native.adwaita.*
 import bindings.gtk.Window as GtkWindow
 
-class Window : GtkWindow {
+open class Window : GtkWindow {
 
     val adwWindowPointer get() = gtkWindowPointer.asTypedPointer<AdwWindow>()
 
