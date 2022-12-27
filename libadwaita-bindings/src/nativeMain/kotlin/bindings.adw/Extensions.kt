@@ -10,6 +10,7 @@ fun CPointer<AdwApplicationWindow>.asApplicationWindow(): ApplicationWindow = Ap
 fun CPointer<AdwAvatar>.asAvatar(): Avatar = Avatar(this)
 fun CPointer<AdwButtonContent>.asButtonContent(): ButtonContent = ButtonContent(this)
 fun CPointer<AdwClamp>.asClamp(): Clamp = Clamp(this)
+fun CPointer<AdwComboRow>.asComboRow(): ComboRow = ComboRow(this)
 fun CPointer<AdwEntryRow>.asEntryRow(): EntryRow = EntryRow(this)
 fun CPointer<AdwExpanderRow>.asExpanderRow(): ExpanderRow = ExpanderRow(this)
 fun CPointer<AdwHeaderBar>.asHeaderBar(): HeaderBar = HeaderBar(this)

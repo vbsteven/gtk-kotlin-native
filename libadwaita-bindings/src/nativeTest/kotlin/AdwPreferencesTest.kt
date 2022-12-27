@@ -1,6 +1,9 @@
 import bindings.adw.*
+import bindings.gio.ListStore
 import bindings.gtk.Button
 import bindings.gtk.Label
+import bindings.gtk.StringList
+import native.gobject.G_TYPE_STRING
 import native.gtk.GtkAlign
 import kotlin.test.Test
 
@@ -61,11 +64,19 @@ class AdwPreferencesTest : AdwTestBase() {
         })
         expanderRow.addAction(Label("Action"))
 
+        val comboRow = ComboRow()
+        comboRow.title = "Combo Row"
+        comboRow.subtitle = "Subtitle for combo row"
+
+        val comboListModel = StringList(listOf("Item 1", "Item 2", "Item 3"))
+        comboRow.model = comboListModel
+
         prefsGroup.add(pref1)
         prefsGroup.add(pref2)
         prefsGroup.add(entryPref)
         prefsGroup.add(passwordPref)
         prefsGroup.add(expanderRow)
+        prefsGroup.add(comboRow)
 
         prefsPage.add(prefsGroup)
         prefsWindow.add(prefsPage)

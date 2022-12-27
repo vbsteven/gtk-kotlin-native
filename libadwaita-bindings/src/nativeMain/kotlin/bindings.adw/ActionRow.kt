@@ -10,7 +10,7 @@ import kotlinx.cinterop.sizeOf
 import kotlinx.cinterop.toKString
 import native.adwaita.*
 
-class ActionRow : PreferencesRow {
+open class ActionRow : PreferencesRow {
     val adwActionRowPointer get() = adwPreferencesRowPointer.asTypedPointer<AdwActionRow>()
 
     constructor(pointer: CPointer<*>) : super(pointer)
