@@ -57,6 +57,15 @@ that use GTK for desktop platforms, UIKit with Kotlin/Native for iOS and Kotlin 
   * Dialogs
     * AboutDialog
     * MessageDialog
+  * Lists
+    * StringList
+  * Interfaces
+    * Actionable
+    * Editable
+    * Native
+    * Orientable
+    * Root
+    * SelectionModel
 * `libadwaita-bindings` module
   * Application and Windows
     * Application
@@ -66,8 +75,13 @@ that use GTK for desktop platforms, UIKit with Kotlin/Native for iOS and Kotlin 
   * Widgets
     * ActionRow
     * Avatar
+    * ButtonContent
+    * ComboRow
     * Clamp
+    * EntryRow
+    * ExpanderRow
     * HeaderBar
+    * PasswordEntryRow
     * PreferencesRow
     * StatusPage
     * TabView
