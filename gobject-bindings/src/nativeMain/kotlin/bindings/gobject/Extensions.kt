@@ -2,6 +2,7 @@ package bindings.gobject
 
 import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
+import native.gobject.GObject
 import native.gobject.gboolean
 import native.gobject.gpointer
 
@@ -19,4 +20,4 @@ inline val Boolean.gboolean: gboolean
  * Convert a generic [gpointer] into a [CPointer] of the given type.
  */
 @Suppress("UNCHECKED_CAST")
-inline fun <T: CPointed> gpointer.asTypedPointer() = this as CPointer<T>
+inline fun <T : CPointed> gpointer.asTypedPointer() = this as CPointer<T>

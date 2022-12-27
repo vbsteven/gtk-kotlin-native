@@ -9,6 +9,7 @@ import kotlinx.cinterop.toKString
 import native.gobject.GObject
 import native.gobject.G_TYPE_OBJECT
 import native.gobject.g_type_name_from_instance
+import native.gobject.gpointer
 
 
 open class Object(pointer: CPointer<*>) {
@@ -41,5 +42,6 @@ val ObjectTypeInfo = BuiltinTypeInfo<Object>(
 )
 
 fun CPointer<GObject>.asObject(): Object = Object(this)
+fun gpointer.asObject(): Object = Object(this)
 
 
