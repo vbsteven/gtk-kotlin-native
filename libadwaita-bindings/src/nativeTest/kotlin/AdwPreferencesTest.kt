@@ -1,7 +1,4 @@
-import bindings.adw.ActionRow
-import bindings.adw.PreferencesGroup
-import bindings.adw.PreferencesPage
-import bindings.adw.PreferencesWindow
+import bindings.adw.*
 import bindings.gtk.Button
 import native.gtk.GtkAlign
 import kotlin.test.Test
@@ -35,8 +32,23 @@ class AdwPreferencesTest : AdwTestBase() {
             title = "Preference 2"
             subtitle = "Short description for 2"
         }
+
+        val entryPref = EntryRow()
+        entryPref.title = "Name"
+        entryPref.text = "Your name"
+        entryPref.showApplyButton = true
+        entryPref.onApply {
+            val text = entryPref.text
+            if (text.isNotEmpty())
+                prefsWindow.addToast(Toast("Hello ${entryPref.text}"))
+        }
+        entryPref.onChanged {
+            println("EntryPref emitted changed signal with text: ${entryPref.text}")
+        }
+
         prefsGroup.add(pref1)
         prefsGroup.add(pref2)
+        prefsGroup.add(entryPref)
 
         prefsPage.add(prefsGroup)
         prefsWindow.add(prefsPage)
