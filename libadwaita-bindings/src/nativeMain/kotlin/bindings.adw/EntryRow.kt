@@ -15,7 +15,7 @@ import native.gtk.GtkEditable
 import native.gtk.GtkInputHints
 import native.gtk.GtkInputPurpose
 
-class EntryRow : PreferencesRow, Editable {
+open class EntryRow : PreferencesRow, Editable {
     val adwEntryRowPointer get() = gtkWidgetPointer.asTypedPointer<AdwEntryRow>()
 
     override var gtkEditablePointer = adwEntryRowPointer.asTypedPointer<GtkEditable>()

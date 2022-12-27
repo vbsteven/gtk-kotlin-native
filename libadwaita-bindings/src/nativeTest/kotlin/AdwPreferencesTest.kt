@@ -46,9 +46,13 @@ class AdwPreferencesTest : AdwTestBase() {
             println("EntryPref emitted changed signal with text: ${entryPref.text}")
         }
 
+        val passwordPref = PasswordEntryRow()
+        passwordPref.title = "Password"
+
         prefsGroup.add(pref1)
         prefsGroup.add(pref2)
         prefsGroup.add(entryPref)
+        prefsGroup.add(passwordPref)
 
         prefsPage.add(prefsGroup)
         prefsWindow.add(prefsPage)
