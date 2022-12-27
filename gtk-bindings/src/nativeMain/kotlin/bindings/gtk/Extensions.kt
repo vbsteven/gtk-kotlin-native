@@ -11,6 +11,7 @@ fun CPointer<GtkApplicationWindow>.asApplicationWindow(): ApplicationWindow = Ap
 fun CPointer<GtkBox>.asBox(): Box = Box(this)
 fun CPointer<GtkButton>.asButton(): Button = Button(this)
 fun CPointer<GtkDialog>.asDialog(): Dialog = Dialog(this)
+fun CPointer<GtkEditable>.asEditable(): Editable = EditableWrapper(this)
 fun CPointer<GtkHeaderBar>.asHeaderBar(): HeaderBar = HeaderBar(this)
 fun CPointer<GtkLabel>.asLabel(): Label = Label(this)
 fun CPointer<GtkListBox>.asListBox(): ListBox = ListBox(this)

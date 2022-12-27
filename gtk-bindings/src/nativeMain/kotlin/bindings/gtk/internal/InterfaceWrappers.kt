@@ -26,3 +26,7 @@ internal class RootWrapper(
 internal class SelectionModelWrapper(
     override val gtkSelectionModelPointer: CPointer<GtkSelectionModel>
 ) : SelectionModel
+
+internal class EditableWrapper(
+    override var gtkEditablePointer: CPointer<GtkEditable>
+) : Editable
