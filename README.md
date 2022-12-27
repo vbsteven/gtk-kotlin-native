@@ -45,6 +45,7 @@ that use GTK for desktop platforms, UIKit with Kotlin/Native for iOS and Kotlin 
     * Application
     * Window
     * ApplicationWindow
+    * PreferencesWindow
   * Widgets
     * Widget
     * Label
@@ -73,6 +74,11 @@ that use GTK for desktop platforms, UIKit with Kotlin/Native for iOS and Kotlin 
     * TabBar
     * TabPage
   * Message Dialogs
+  * Preferences
+    * PreferencesGroup
+    * PreferencesRow
+    * PreferencesPage
+    * PreferencesWindow
   * Toasts
     * ToastOverlay
     * Toast
