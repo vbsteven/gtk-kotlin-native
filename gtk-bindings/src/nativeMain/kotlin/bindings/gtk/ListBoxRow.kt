@@ -9,9 +9,11 @@ import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.sizeOf
 import native.gtk.*
 
-open class ListBoxRow : Widget {
+open class ListBoxRow : Widget, Actionable {
 
     val gtkListBoxRowPointer get() = gPointer.asTypedPointer<GtkListBoxRow>()
+
+    override val gtkActionablePointer get() = gPointer.asTypedPointer<GtkActionable>()
 
     constructor() : super(gtk_list_box_row_new()!!)
     constructor(pointer: CPointer<*>) : super(pointer)
