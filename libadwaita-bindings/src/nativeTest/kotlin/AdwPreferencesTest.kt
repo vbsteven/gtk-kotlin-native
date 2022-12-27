@@ -1,5 +1,6 @@
 import bindings.adw.*
 import bindings.gtk.Button
+import bindings.gtk.Label
 import native.gtk.GtkAlign
 import kotlin.test.Test
 
@@ -49,10 +50,22 @@ class AdwPreferencesTest : AdwTestBase() {
         val passwordPref = PasswordEntryRow()
         passwordPref.title = "Password"
 
+        val expanderRow = ExpanderRow()
+
+        expanderRow.addPrefix(Label("Prefix"))
+        expanderRow.addRow(Label("Row 1"))
+        expanderRow.addRow(Label("Row 2"))
+        expanderRow.addRow(ActionRow().apply {
+            title = "Expanded action row"
+            subtitle = "Some subtitle"
+        })
+        expanderRow.addAction(Label("Action"))
+
         prefsGroup.add(pref1)
         prefsGroup.add(pref2)
         prefsGroup.add(entryPref)
         prefsGroup.add(passwordPref)
+        prefsGroup.add(expanderRow)
 
         prefsPage.add(prefsGroup)
         prefsWindow.add(prefsPage)
