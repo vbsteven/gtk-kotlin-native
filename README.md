@@ -56,6 +56,22 @@ that use GTK for desktop platforms, UIKit with Kotlin/Native for iOS and Kotlin 
   * Dialogs
     * AboutDialog
     * MessageDialog
+* `libadwaita-bindings` module
+  * Application and Windows
+    * Application
+    * Window
+    * ApplicationWindow
+    * AboutWindow
+  * Widgets
+    * ActionRow
+    * Avatar
+    * Clamp
+    * HeaderBar
+    * PreferencesRow
+    * StatusPage
+  * Toasts
+    * ToastOverlay
+    * Toast
 
 ## Notes on wrapping types
 
