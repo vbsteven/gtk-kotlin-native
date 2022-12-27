@@ -22,7 +22,7 @@ open class Window : Widget, Root {
         get() = gtk_window_get_application(gtkWindowPointer)?.asApplication()
         set(value) = gtk_window_set_application(gtkWindowPointer, value?.gtkApplicationPointer)
 
-    var child: Widget?
+    open var child: Widget?
         get() = gtk_window_get_child(gtkWindowPointer)?.asWidget()
         set(value) = gtk_window_set_child(gtkWindowPointer, value?.gtkWidgetPointer)
 
