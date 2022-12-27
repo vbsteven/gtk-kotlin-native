@@ -1,15 +1,9 @@
 package bindings.gtk.internal
 
 import bindings.gobject.asTypedPointer
-import bindings.gtk.Actionable
-import bindings.gtk.Native
-import bindings.gtk.Orientable
-import bindings.gtk.Root
+import bindings.gtk.*
 import kotlinx.cinterop.CPointer
-import native.gtk.GtkActionable
-import native.gtk.GtkNative
-import native.gtk.GtkOrientable
-import native.gtk.GtkRoot
+import native.gtk.*
 
 internal class ActionableWrapper(
     override val gtkActionablePointer: CPointer<GtkActionable>
@@ -28,3 +22,7 @@ internal class RootWrapper(
 ) : Root {
     override val gtkNativePointer: CPointer<GtkNative> get() = gtkRootPointer.asTypedPointer()
 }
+
+internal class SelectionModelWrapper(
+    override val gtkSelectionModelPointer: CPointer<GtkSelectionModel>
+) : SelectionModel

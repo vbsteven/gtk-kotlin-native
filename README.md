@@ -69,6 +69,10 @@ that use GTK for desktop platforms, UIKit with Kotlin/Native for iOS and Kotlin 
     * HeaderBar
     * PreferencesRow
     * StatusPage
+    * TabView
+    * TabBar
+    * TabPage
+  * Message Dialogs
   * Toasts
     * ToastOverlay
     * Toast

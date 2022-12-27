@@ -1,9 +1,6 @@
 package bindings.gtk
 
-import bindings.gtk.internal.ActionableWrapper
-import bindings.gtk.internal.NativeWrapper
-import bindings.gtk.internal.OrientableWrapper
-import bindings.gtk.internal.RootWrapper
+import bindings.gtk.internal.*
 import kotlinx.cinterop.CPointer
 import native.gtk.*
 
@@ -23,5 +20,6 @@ fun CPointer<GtkMessageDialog>.asMessageDialog(): MessageDialog = MessageDialog(
 fun CPointer<GtkNative>.asNative(): Native = NativeWrapper(this)
 fun CPointer<GtkOrientable>.asOrientable(): Orientable = OrientableWrapper(this)
 fun CPointer<GtkRoot>.asRoot(): Root = RootWrapper(this)
+fun CPointer<GtkSelectionModel>.asSelectionModel(): SelectionModel = SelectionModelWrapper(this)
 fun CPointer<GtkWidget>.asWidget(): Widget = Widget(this)
 fun CPointer<GtkWindow>.asWindow(): Window = Window(this)
