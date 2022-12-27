@@ -1,16 +1,16 @@
 package bindings.gtk
 
 import bindings.gobject.ObjectCompanion
+import bindings.gobject.asTypedPointer
 import internal.BuiltinTypeInfo
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
-import native.gtk.GTK_TYPE_LABEL
-import native.gtk.gtk_label_get_text
-import native.gtk.gtk_label_new
-import native.gtk.gtk_label_set_text
+import native.gtk.*
 
 open class Label(pointer: CPointer<*>) : Widget(pointer) {
+
+    val gtkLabelPointer get() = gtkWidgetPointer.asTypedPointer<GtkLabel>()
 
     companion object : ObjectCompanion<Label>(LabelTypeInfo)
 
@@ -23,7 +23,7 @@ open class Label(pointer: CPointer<*>) : Widget(pointer) {
 
 }
 
-val LabelTypeInfo = BuiltinTypeInfo(
+private val LabelTypeInfo = BuiltinTypeInfo(
     "GtkLabel",
     GTK_TYPE_LABEL,
     -1,

@@ -6,6 +6,7 @@ import bindings.gio.MenuModel
 import bindings.gio.asMenuModel
 import bindings.gobject.ObjectCompanion
 import bindings.gobject.asTypedPointer
+import bindings.gtk.internal.staticStableRefDestroy
 import internal.BuiltinTypeInfo
 import kotlinx.cinterop.*
 import native.gio.GActionMap
@@ -18,8 +19,7 @@ import native.gtk.*
 
 open class Application(pointer: CPointer<*>) : GApplication(pointer), ActionMap {
 
-    @Suppress("UNCHECKED_CAST")
-    val gtkApplicationPointer get() = gPointer as GtkApplication_autoptr
+    val gtkApplicationPointer get() = gPointer.asTypedPointer<GtkApplication>()
 
     override val gActionMapPointer get() = gPointer.asTypedPointer<GActionMap>()
 
@@ -40,8 +40,12 @@ open class Application(pointer: CPointer<*>) : GApplication(pointer), ActionMap 
 
     fun onActivate(func: () -> Unit) {
         g_signal_connect_data(
-            gPointer.reinterpret(), "activate", onActivateCallbackFunc,
-            StableRef.create(func).asCPointer(), null /* TODO Dispose stableref */, 0
+            gPointer.reinterpret(),
+            "activate",
+            onActivateCallbackFunc,
+            StableRef.create(func).asCPointer(),
+            staticStableRefDestroy,
+            0
         )
     }
 
@@ -50,8 +54,6 @@ open class Application(pointer: CPointer<*>) : GApplication(pointer), ActionMap 
         set(value) = gtk_application_set_menubar(gtkApplicationPointer, value?.gMenuModelPointer)
 
 }
-
-fun CPointer<GtkApplication>.asApplication(): Application = Application(this)
 
 // TODO would this make sence in GApplication instead?
 private val onActivateCallbackFunc: GCallback =

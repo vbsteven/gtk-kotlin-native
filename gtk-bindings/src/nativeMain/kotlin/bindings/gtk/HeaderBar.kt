@@ -18,7 +18,7 @@ class HeaderBar : Widget {
 
     var titleWidget: Widget?
         get() = gtk_header_bar_get_title_widget(gtkHeaderBarPointer)?.asWidget()
-        set(value) = gtk_header_bar_set_title_widget(gtkHeaderBarPointer, value?.widgetPointer)
+        set(value) = gtk_header_bar_set_title_widget(gtkHeaderBarPointer, value?.gtkWidgetPointer)
 
     var decorationLayout: String?
         get() = gtk_header_bar_get_decoration_layout(gtkHeaderBarPointer)?.toKString()
@@ -31,27 +31,25 @@ class HeaderBar : Widget {
     /**
      * Add [widget] to the end of the bar.
      */
-    fun packEnd(widget: Widget) = gtk_header_bar_pack_end(gtkHeaderBarPointer, widget.widgetPointer)
+    fun packEnd(widget: Widget) = gtk_header_bar_pack_end(gtkHeaderBarPointer, widget.gtkWidgetPointer)
 
     /**
      * Add [widget] to the start of the bar
      */
-    fun packStart(widget: Widget) = gtk_header_bar_pack_start(gtkHeaderBarPointer, widget.widgetPointer)
+    fun packStart(widget: Widget) = gtk_header_bar_pack_start(gtkHeaderBarPointer, widget.gtkWidgetPointer)
 
     /**
      * Remove [widget] from the bar
      */
-    fun remove(widget: Widget) = gtk_header_bar_remove(gtkHeaderBarPointer, widget.widgetPointer)
+    fun remove(widget: Widget) = gtk_header_bar_remove(gtkHeaderBarPointer, widget.gtkWidgetPointer)
 
     companion object : ObjectCompanion<HeaderBar>(HeaderBarTypeInfo)
 }
 
-val HeaderBarTypeInfo = BuiltinTypeInfo(
+private val HeaderBarTypeInfo = BuiltinTypeInfo(
     "GtkHeaderBar",
     GTK_TYPE_HEADER_BAR,
     -1,
     -1,
     ::HeaderBar
 )
-
-fun CPointer<GtkHeaderBar>.asHeaderBar(): HeaderBar = HeaderBar(this)

@@ -90,7 +90,7 @@ class AboutDialog : Window {
     companion object : ObjectCompanion<AboutDialog>(AboutDialogTypeInfo)
 }
 
-val AboutDialogTypeInfo = BuiltinTypeInfo(
+private val AboutDialogTypeInfo = BuiltinTypeInfo(
     "GtkAboutDialog",
     GTK_TYPE_ABOUT_DIALOG,
     -1,
@@ -98,4 +98,4 @@ val AboutDialogTypeInfo = BuiltinTypeInfo(
     ::AboutDialog
 )
 
-fun CPointer<GtkAboutDialog>.asAboutDialog(): AboutDialog = AboutDialog(this)
+

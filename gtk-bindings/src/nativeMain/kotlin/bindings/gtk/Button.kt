@@ -4,8 +4,8 @@ import bindings.gobject.ObjectCompanion
 import bindings.gobject.asTypedPointer
 import bindings.gobject.boolean
 import bindings.gobject.gboolean
+import bindings.gtk.internal.staticStableRefDestroy
 import internal.BuiltinTypeInfo
-import internal.gtk.staticStableRefDestroy
 import kotlinx.cinterop.*
 import native.gobject.GCallback
 import native.gobject.g_signal_connect_data
@@ -31,7 +31,7 @@ open class Button : Widget, Actionable {
 
     var child: Widget?
         get() = gtk_button_get_child(gtkButtonPointer)?.asWidget()
-        set(value) = gtk_button_set_child(gtkButtonPointer, value?.widgetPointer)
+        set(value) = gtk_button_set_child(gtkButtonPointer, value?.gtkWidgetPointer)
 
     var hasFrame: Boolean
         get() = gtk_button_get_has_frame(gtkButtonPointer).boolean
@@ -62,15 +62,13 @@ open class Button : Widget, Actionable {
     }
 }
 
-val ButtonTypeInfo = BuiltinTypeInfo(
+private val ButtonTypeInfo = BuiltinTypeInfo(
     "GtkButton",
     GTK_TYPE_BUTTON,
     sizeOf<native.gtk.GtkButtonClass>(),
     sizeOf<native.gtk.GtkButton>(),
     ::Button
 )
-
-fun CPointer<GtkButton>.asButton(): Button = Button(this)
 
 private val staticButtonClickedFunc: GCallback =
     staticCFunction { buttonPointer: CPointer<GtkButton>?,

@@ -36,7 +36,7 @@ class MenuButton : Widget {
 
     var child: Widget?
         get() = gtk_menu_button_get_child(gtkMenuButtonPointer)?.asWidget()
-        set(value) = gtk_menu_button_set_child(gtkMenuButtonPointer, value?.widgetPointer)
+        set(value) = gtk_menu_button_set_child(gtkMenuButtonPointer, value?.gtkWidgetPointer)
 
     var direction: GtkArrowType
         get() = gtk_menu_button_get_direction(gtkMenuButtonPointer)
@@ -61,7 +61,7 @@ class MenuButton : Widget {
     companion object : ObjectCompanion<MenuButton>(MenuButtonTypeInfo)
 }
 
-val MenuButtonTypeInfo = BuiltinTypeInfo(
+private val MenuButtonTypeInfo = BuiltinTypeInfo(
     "GtkMenuButton",
     GTK_TYPE_MENU_BUTTON,
     -1,

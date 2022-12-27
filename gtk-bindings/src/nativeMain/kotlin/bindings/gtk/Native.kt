@@ -17,8 +17,3 @@ interface Native {
     data class Coordinate(val x: Double, val y: Double)
 }
 
-fun CPointer<GtkNative>.asNative(): Native = NativeWrapper(this)
-
-private class NativeWrapper(
-    override val gtkNativePointer: CPointer<GtkNative>
-) : Native

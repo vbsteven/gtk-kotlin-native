@@ -11,7 +11,7 @@ import native.gtk.*
 
 open class Box : Widget, Orientable {
 
-    val gtkBoxPointer get() = widgetPointer.asTypedPointer<GtkBox>()
+    val gtkBoxPointer get() = gtkWidgetPointer.asTypedPointer<GtkBox>()
 
     override val gtkOrientablePointer get() = gtkBoxPointer.asTypedPointer<GtkOrientable>()
 
@@ -19,14 +19,14 @@ open class Box : Widget, Orientable {
 
     constructor(orientation: GtkOrientation, spacing: Int) : this(gtk_box_new(orientation, spacing)!!)
 
-    fun append(child: Widget) = gtk_box_append(gtkBoxPointer, child.widgetPointer)
+    fun append(child: Widget) = gtk_box_append(gtkBoxPointer, child.gtkWidgetPointer)
     fun appendAll(vararg children: Widget) = children.forEach(::append)
     fun appendAll(children: List<Widget>) = children.forEach(::append)
 
-    fun prepend(child: Widget) = gtk_box_prepend(gtkBoxPointer, child.widgetPointer)
-    fun remove(child: Widget) = gtk_box_remove(gtkBoxPointer, child.widgetPointer)
+    fun prepend(child: Widget) = gtk_box_prepend(gtkBoxPointer, child.gtkWidgetPointer)
+    fun remove(child: Widget) = gtk_box_remove(gtkBoxPointer, child.gtkWidgetPointer)
     fun reorderChildAfter(child: Widget, sibling: Widget?) =
-        gtk_box_reorder_child_after(gtkBoxPointer, child.widgetPointer, sibling?.widgetPointer)
+        gtk_box_reorder_child_after(gtkBoxPointer, child.gtkWidgetPointer, sibling?.gtkWidgetPointer)
 
     var baselinePosition: GtkBaselinePosition
         get() = gtk_box_get_baseline_position(gtkBoxPointer)
@@ -44,12 +44,10 @@ open class Box : Widget, Orientable {
     companion object : ObjectCompanion<Box>(BoxTypeInfo)
 }
 
-val BoxTypeInfo = BuiltinTypeInfo(
+private val BoxTypeInfo = BuiltinTypeInfo(
     "GtkBox",
     GTK_TYPE_BOX,
     sizeOf<GtkBoxClass>(),
     sizeOf<GtkBox>(),
     ::Box
 )
-
-fun CPointer<GtkBox>.asBox(): Box = Box(this)

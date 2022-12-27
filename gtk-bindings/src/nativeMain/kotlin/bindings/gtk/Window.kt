@@ -11,8 +11,7 @@ import kotlinx.cinterop.*
 import native.gtk.*
 
 open class Window : Widget, Root {
-    @Suppress("UNCHECKED_CAST")
-    val gtkWindowPointer get() = gPointer as GtkWindow_autoptr
+    val gtkWindowPointer get() = gPointer.asTypedPointer<GtkWindow>()
 
     override val gtkNativePointer = gtkWindowPointer.asTypedPointer<GtkNative>()
 
@@ -25,7 +24,7 @@ open class Window : Widget, Root {
 
     var child: Widget?
         get() = gtk_window_get_child(gtkWindowPointer)?.asWidget()
-        set(value) = gtk_window_set_child(gtkWindowPointer, value?.widgetPointer)
+        set(value) = gtk_window_set_child(gtkWindowPointer, value?.gtkWidgetPointer)
 
     var title: String?
         get() = gtk_window_get_title(gtkWindowPointer)?.toKString()
@@ -50,7 +49,7 @@ open class Window : Widget, Root {
 
     var defaultWidget: Widget?
         get() = gtk_window_get_default_widget(gtkWindowPointer)?.asWidget()
-        set(value) = gtk_window_set_default_widget(gtkWindowPointer, value?.widgetPointer)
+        set(value) = gtk_window_set_default_widget(gtkWindowPointer, value?.gtkWidgetPointer)
 
     var isDeletable: Boolean
         get() = gtk_window_get_deletable(gtkWindowPointer).boolean
@@ -62,7 +61,7 @@ open class Window : Widget, Root {
 
     override var focus: Widget?
         get() = gtk_window_get_focus(gtkWindowPointer)?.asWidget()
-        set(value) = gtk_window_set_focus(gtkWindowPointer, value?.widgetPointer)
+        set(value) = gtk_window_set_focus(gtkWindowPointer, value?.gtkWidgetPointer)
 
     var isFocusVisible: Boolean
         get() = gtk_window_get_focus_visible(gtkWindowPointer).boolean
@@ -93,7 +92,7 @@ open class Window : Widget, Root {
 
     var titleBar: Widget?
         get() = gtk_window_get_titlebar(gtkWindowPointer)?.asWidget()
-        set(value) = gtk_window_set_titlebar(gtkWindowPointer, value?.widgetPointer)
+        set(value) = gtk_window_set_titlebar(gtkWindowPointer, value?.gtkWidgetPointer)
 
     var transientFor: Window?
         get() = gtk_window_get_transient_for(gtkWindowPointer)?.asWindow()
@@ -132,12 +131,10 @@ open class Window : Widget, Root {
     }
 }
 
-val WindowTypeInfo = BuiltinTypeInfo<Window>(
+private val WindowTypeInfo = BuiltinTypeInfo(
     "GtkWindow",
     GTK_TYPE_WINDOW,
     sizeOf<GtkWindowClass>(),
     sizeOf<GtkWindow>(),
     ::Window
 )
-
-fun CPointer<GtkWindow>.asWindow(): Window = Window(this)

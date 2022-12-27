@@ -1,4 +1,4 @@
-package internal.gtk
+package bindings.gtk.internal
 
 import kotlinx.cinterop.asStableRef
 import kotlinx.cinterop.reinterpret

@@ -31,7 +31,7 @@ open class ApplicationWindow : Window, ActionMap {
     companion object : ObjectCompanion<ApplicationWindow>(ApplicationWindowTypeInfo)
 }
 
-val ApplicationWindowTypeInfo = BuiltinTypeInfo(
+private val ApplicationWindowTypeInfo = BuiltinTypeInfo(
     "GtkApplicationWindow",
     GTK_TYPE_APPLICATION_WINDOW,
     sizeOf<GtkApplicationWindowClass>(),

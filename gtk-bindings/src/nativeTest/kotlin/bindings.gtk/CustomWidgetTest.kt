@@ -13,7 +13,7 @@ class CustomWidgetTest : GtkTestBase() {
     @Test
     fun tmpInstantiateCustomWidget() {
         val widget = g_object_new(MyCustomWidgetTypeInfo.gType, null)
-        println("widget")
+        println("widget: $widget")
     }
 
     @Test

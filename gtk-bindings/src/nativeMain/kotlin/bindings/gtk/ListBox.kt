@@ -29,14 +29,14 @@ class ListBox : Widget {
 
     // TODO add adjustment :: GtkAdjustment
 
-    fun append(widget: Widget) = gtk_list_box_append(gtkListBoxPointer, widget.widgetPointer)
+    fun append(widget: Widget) = gtk_list_box_append(gtkListBoxPointer, widget.gtkWidgetPointer)
     fun appendAll(vararg widgets: Widget) = widgets.forEach { append(it) }
 
-    fun prepend(widget: Widget) = gtk_list_box_prepend(gtkListBoxPointer, widget.widgetPointer)
+    fun prepend(widget: Widget) = gtk_list_box_prepend(gtkListBoxPointer, widget.gtkWidgetPointer)
 
-    fun insert(widget: Widget, pos: Int) = gtk_list_box_insert(gtkListBoxPointer, widget.widgetPointer, pos)
+    fun insert(widget: Widget, pos: Int) = gtk_list_box_insert(gtkListBoxPointer, widget.gtkWidgetPointer, pos)
 
-    fun remove(widget: Widget) = gtk_list_box_remove(gtkListBoxPointer, widget.widgetPointer)
+    fun remove(widget: Widget) = gtk_list_box_remove(gtkListBoxPointer, widget.gtkWidgetPointer)
 
     fun selectAll() = gtk_list_box_select_all(gtkListBoxPointer)
     fun selectRow(row: ListBoxRow) = gtk_list_box_select_row(gtkListBoxPointer, row.gtkListBoxRowPointer)
@@ -54,12 +54,10 @@ class ListBox : Widget {
     companion object : ObjectCompanion<ListBox>(ListBoxTypeInfo)
 }
 
-val ListBoxTypeInfo = BuiltinTypeInfo(
+private val ListBoxTypeInfo = BuiltinTypeInfo(
     "GtkListBox",
     GTK_TYPE_LIST_BOX,
     -1,
     -1,
     ::ListBox
 )
-
-fun CPointer<GtkListBox>.asListBox(): ListBox = ListBox(this)

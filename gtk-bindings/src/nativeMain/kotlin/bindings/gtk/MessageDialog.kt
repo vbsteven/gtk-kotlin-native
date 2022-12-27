@@ -35,12 +35,10 @@ class MessageDialog : Dialog {
     companion object : ObjectCompanion<MessageDialog>(MessageDialogTypeInfo)
 }
 
-val MessageDialogTypeInfo = BuiltinTypeInfo(
+private val MessageDialogTypeInfo = BuiltinTypeInfo(
     "GtkMessageDialog",
     GTK_TYPE_MESSAGE_DIALOG,
     -1,
     -1,
     ::MessageDialog
 )
-
-fun CPointer<GtkMessageDialog>.asMessageDialog(): MessageDialog = MessageDialog(this)

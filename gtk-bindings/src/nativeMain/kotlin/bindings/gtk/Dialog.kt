@@ -3,8 +3,8 @@ package bindings.gtk
 import bindings.gobject.ObjectCompanion
 import bindings.gobject.asTypedPointer
 import bindings.gobject.gboolean
+import bindings.gtk.internal.staticStableRefDestroy
 import internal.BuiltinTypeInfo
-import internal.gtk.staticStableRefDestroy
 import kotlinx.cinterop.*
 import native.gobject.GCallback
 import native.gobject.g_signal_connect_data
@@ -29,7 +29,7 @@ open class Dialog : Window {
 
     fun addActionWidget(child: Widget, responseId: Int) {
         // TODO this api only supports activatable widgets, can we provide this in the signature?
-        gtk_dialog_add_action_widget(gtkDialogPointer, child.widgetPointer, responseId)
+        gtk_dialog_add_action_widget(gtkDialogPointer, child.gtkWidgetPointer, responseId)
     }
 
     val contentArea: Box
@@ -39,7 +39,7 @@ open class Dialog : Window {
         get() = gtk_dialog_get_header_bar(gtkDialogPointer)!!.asTypedPointer<GtkHeaderBar>().asHeaderBar()
 
     fun getResponseForWidget(widget: Widget): Int {
-        return gtk_dialog_get_response_for_widget(gtkDialogPointer, widget.widgetPointer)
+        return gtk_dialog_get_response_for_widget(gtkDialogPointer, widget.gtkWidgetPointer)
     }
 
     fun getWidgetForResponse(responseId: Int): Widget? {
@@ -63,7 +63,7 @@ open class Dialog : Window {
      */
     fun onResponse(func: (Int) -> Unit) {
         g_signal_connect_data(
-            widgetPointer,
+            gtkWidgetPointer,
             "response",
             staticDialogResponseCallbackFunc,
             StableRef.create(func).asCPointer(),
@@ -78,7 +78,7 @@ open class Dialog : Window {
      */
     fun onClose(func: () -> Unit) {
         g_signal_connect_data(
-            widgetPointer,
+            gtkWidgetPointer,
             "close",
             staticDialogCloseCallbackFunc,
             StableRef.create(func).asCPointer(),
@@ -111,7 +111,7 @@ open class Dialog : Window {
     }
 }
 
-val DialogTypeInfo = BuiltinTypeInfo(
+private val DialogTypeInfo = BuiltinTypeInfo(
     "GtkDialog",
     GTK_TYPE_DIALOG,
     sizeOf<GtkDialogClass>(),
@@ -119,17 +119,15 @@ val DialogTypeInfo = BuiltinTypeInfo(
     ::Dialog
 )
 
-fun CPointer<GtkDialog>.asDialog(): Dialog = Dialog(this)
-
 private val staticDialogResponseCallbackFunc: GCallback =
-    staticCFunction { dialogPointer: CPointer<GtkDialog>,
+    staticCFunction { _: CPointer<GtkDialog>,
                       response: gint,
                       data: gpointer ->
         data.asStableRef<(Int) -> Unit>().get().invoke(response)
     }.reinterpret()
 
 private val staticDialogCloseCallbackFunc: GCallback =
-    staticCFunction { dialogPointer: CPointer<GtkDialog>,
+    staticCFunction { _: CPointer<GtkDialog>,
                       data: gpointer ->
         data.asStableRef<() -> Unit>().get().invoke()
     }.reinterpret()
