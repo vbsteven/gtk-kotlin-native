@@ -10,9 +10,10 @@ This project **does not** provide bindings for the full GTK API surface and all 
 The main goal is to provide enough glue for application developers familiar with Kotlin to
 get started writing GTK applications without having to dig into the details of the C API.
 
-While this projects aims to wrap/abstract the existing C API into an idiomatic(-ish) Kotlin API, it does not
+While this project aims to wrap/abstract the existing C API into an idiomatic(-ish) Kotlin API, it does not
 hide the underlying C API from developers. When a Kotlin version of a type, method or function
 is not available, the original C version can still be used.
+
 
 ## Motivation
 
@@ -26,7 +27,34 @@ My endgame is a task/calendar/note application that I want to make available on 
 as much shared code as possible. The idea is to write the shared code as a Kotlin multiplatform project and on top of
 that use GTK for desktop platforms, UIKit with Kotlin/Native for iOS and Kotlin for Android.
 
+
+## High Level Overview
+
+This repository contains one multi-module Gradle project containing modules for library bindings and modules for 
+extensions and utility libraries.
+
+### Gradle modules
+
+| Module              | Description                                                                                 |
+|---------------------|---------------------------------------------------------------------------------------------|
+| gobject-bindings    | Kotlin bindings for [GObject](https://docs.gtk.org/gobject/).                               |
+| gio-bindings        | Kotlin bindings for [GIO](https://docs.gtk.org/gio/).                                       |
+| gtk-bindings        | Kotlin bindings for [GTK4](https://docs.gtk.org/gtk4/).                                     |
+| libadwaita-bindings | Kotlin bindings for [libadwaita](https://gnome.pages.gitlab.gnome.org/libadwaita/doc/1.2/). |
+
+
 ## Current State
+
+This project is still highly experimental. There should be enough ported/wrapped to write simple applications.
+
+Basic application, window and widget creation is available. As well as simple property binding, signal handling
+and working with actions.
+
+With these basics available, I'm focussing first on getting most of libadwaita wrapped since that provides most of
+the building blocks for modern UI applications (preferences, action rows, headers, dialogs, toasts, style classes,...).
+
+After that I'm working on supporting more of GTK (more widgets, shortcuts, search, text entry, file/color/font chooser dialogs,...)
+and some parts of GIO (lists, actions, icons, files).
 
 * `gobject-bindings` module
   * basic `GObject` support
@@ -38,9 +66,14 @@ that use GTK for desktop platforms, UIKit with Kotlin/Native for iOS and Kotlin 
   * Actions
     * Action
     * SimpleAction
+    * ActionMap
   * Lists
     * ListModel
     * ListStore
+  * Menus
+    * Menu
+    * MenuItem
+    * MenuModel
 * `gtk-bindings` module
   * Application and Windows
     * Application
@@ -104,6 +137,47 @@ that use GTK for desktop platforms, UIKit with Kotlin/Native for iOS and Kotlin 
     * ViewSwitcherBar
     * ViewSwitcherTitle
 
+
+## Future
+
+Some things I would like to experiment with in the near future:
+
+### Coroutines
+
+A `coroutines-gtk` module that adds coroutine support providing `Dispatchers.Gtk` context and `Dispatcher.Main` 
+implementation.  
+
+A set of extension properties providing `CoroutineScopes` for `Application`, `Window` and `Widget`.
+I'm thinking something similar to how Android provides `viewModelScope` and `lifecycleScope` properties.
+
+```kotlin
+windowScope.launch {
+    // Coroutine that is cancelled when the window closes.
+}
+
+```
+
+### Typed interfaces
+
+The current interface bindings (like `ListModel` for `GListModel`) don't have any type information. This means getting an 
+item from a `ListModel` will always return an `Object` instance which the user needs to downcast to the expected type.
+
+I want to experiment with adding type parameters to the bindings so that when a method returns a model for which the return
+type is known, it can return a `ListModel<SomeType>`.
+
+### Better support for subclassing GObject and GtkWidget
+
+Find a better way to create GObject subclasses and create custom widgets.
+
+### Building on Windows and macOS
+
+Currently the build only works on Linux. Windows and macOS support are on my list.
+
+### GLib reference counting
+
+Find a clean way to integrate GLib reference counting.
+
+
 ## Notes on wrapping types
 
 ### Naming conventions
@@ -130,7 +204,6 @@ For example the Kotlin class wrapping the native `GtkButton` type is named `Butt
 package in the `gtk-bindings` module.
 
 ### Wrapped classes
-
 
 * Wrapped classes are wrappers around a C pointer to the wrapped object and don't hold any state in the class instance.
 * Wrapped class implementations delegate most of the work to C methods for the wrapped type.
