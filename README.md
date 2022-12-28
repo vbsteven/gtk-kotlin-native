@@ -213,9 +213,13 @@ and some parts of GIO (lists, actions, icons, files).
     * Label
     * Button
     * Box
-    * MenuButton
     * ListBox
     * ListBoxRow
+    * MenuButton
+    * Stack
+    * StackPage
+    * StackSidebar
+    * ToggleButton
   * Dialogs
     * AboutDialog
     * MessageDialog
@@ -242,9 +246,11 @@ and some parts of GIO (lists, actions, icons, files).
     * Clamp
     * EntryRow
     * ExpanderRow
+    * Flap
     * HeaderBar
+    * Leaflet
+    * LeafletPage
     * PasswordEntryRow
-    * PreferencesRow
     * StatusPage
     * TabView
     * TabBar
