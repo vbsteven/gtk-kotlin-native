@@ -2,6 +2,8 @@ import bindings.adw.Application
 import bindings.adw.ApplicationWindow
 import bindings.adw.Flap
 import bindings.adw.HeaderBar
+import bindings.gio.Menu
+import bindings.gio.SimpleAction
 import bindings.gtk.*
 import native.gobject.G_BINDING_BIDIRECTIONAL
 import native.gtk.GtkOrientation
@@ -18,6 +20,15 @@ fun main() {
     app.onActivate {
         buildMainWindow(app).show()
     }
+
+    // build actions
+    app.addAction(SimpleAction("show-about").apply {
+        onActivate { showAbout() }
+    })
+    app.addAction(SimpleAction("quit").apply {
+        onActivate { app.quit() }
+    })
+
     app.runApplication()
     app.unref()
 }
@@ -37,8 +48,13 @@ fun buildTitleBar() = HeaderBar().apply {
     sidebarToggle = ToggleButton()
     sidebarToggle.active = true
     sidebarToggle.iconName = "sidebar-show"
-
     packStart(sidebarToggle)
+
+    val menuButton = MenuButton().apply {
+        iconName = "open-menu"
+        menuModel = buildMenu()
+    }
+    packEnd(menuButton)
 }
 
 fun buildContent(): Widget {
@@ -53,6 +69,7 @@ fun buildContent(): Widget {
     stack.hexpand = true
 
     stack.addTitled(buildToastDemoPage(), "Toasts", "Toasts")
+    stack.addTitled(buildAboutPage(), "About", "About")
 
     flap = Flap()
     flap.flap = stackSidebar
@@ -61,4 +78,12 @@ fun buildContent(): Widget {
     flap.bindProperty("reveal-flap", sidebarToggle, "active", G_BINDING_BIDIRECTIONAL)
 
     return flap
+}
+
+fun buildMenu(): Menu {
+    val menu = Menu()
+    menu.append("Close", "app.quit")
+    menu.append("About Adwaita Demo", "app.show-about")
+
+    return menu
 }
