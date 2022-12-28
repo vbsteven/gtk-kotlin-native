@@ -6,10 +6,7 @@ import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.sizeOf
 import kotlinx.cinterop.toKString
-import native.gobject.GObject
-import native.gobject.G_TYPE_OBJECT
-import native.gobject.g_type_name_from_instance
-import native.gobject.gpointer
+import native.gobject.*
 
 
 open class Object(pointer: CPointer<*>) {
@@ -19,6 +16,15 @@ open class Object(pointer: CPointer<*>) {
 
     init {
         associateCustomObject()
+    }
+
+    fun bindProperty(
+        property: String,
+        target: Object,
+        targetProperty: String,
+        flags: GBindingFlags = G_BINDING_DEFAULT
+    ): Binding {
+        return g_object_bind_property(gPointer, property, target.gPointer, targetProperty, flags)!!.asBinding()
     }
 
     companion object : ObjectCompanion<Object>(ObjectTypeInfo)
@@ -40,8 +46,3 @@ val ObjectTypeInfo = BuiltinTypeInfo<Object>(
     sizeOf<native.gobject.GObject>(),
     ::Object
 )
-
-fun CPointer<GObject>.asObject(): Object = Object(this)
-fun gpointer.asObject(): Object = Object(this)
-
-

@@ -80,4 +80,35 @@ class AdwViewSwitcherTest : AdwTestBase() {
         window.content = box
     }
 
+    @Test
+    fun testAdwViewSwitcherTitleAndBarBinding() = runApplicationWindow { window ->
+        val viewStack = ViewStack()
+
+        val viewSwitcherBar = ViewSwitcherBar()
+        val viewSwitcherTitle = ViewSwitcherTitle()
+
+        viewSwitcherBar.stack = viewStack
+        viewSwitcherTitle.stack = viewStack
+        viewSwitcherTitle.title = "Example Title"
+
+        repeat(3) { index ->
+            val widget = Button("Page $index")
+            widget.valign = GtkAlign.GTK_ALIGN_CENTER
+            widget.vexpand = true
+            viewStack.add(widget, "Page $index", "page-$index", "emblem-music")
+        }
+
+        val headerBar = HeaderBar()
+        headerBar.titleWidget = viewSwitcherTitle
+
+        val box = Box(GtkOrientation.GTK_ORIENTATION_VERTICAL, 0)
+        box.append(headerBar)
+        box.append(viewStack)
+        box.append(viewSwitcherBar)
+
+        viewSwitcherTitle.bindProperty("title-visible", viewSwitcherBar, "reveal")
+
+        window.content = box
+    }
+
 }

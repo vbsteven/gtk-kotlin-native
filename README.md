@@ -31,6 +31,7 @@ that use GTK for desktop platforms, UIKit with Kotlin/Native for iOS and Kotlin 
 * `gobject-bindings` module
   * basic `GObject` support
   * basic `GVariant` support
+  * basic property binding support
   * **experimental** support for subclassing `GObject` in user-defined types.
 * `gio-bindings` module
   * Application
