@@ -3,7 +3,7 @@ plugins {
 }
 
 allprojects {
-    group = "io.quantus"
+    group = "io.quantus.gtk-kotlin-native"
     version = "0.0.1-SNAPSHOT"
 
     repositories {
