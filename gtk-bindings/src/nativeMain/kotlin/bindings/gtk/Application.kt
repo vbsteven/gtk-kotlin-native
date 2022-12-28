@@ -11,7 +11,7 @@ import internal.BuiltinTypeInfo
 import kotlinx.cinterop.*
 import native.gio.GActionMap
 import native.gio.GApplicationFlags
-import native.gio.G_APPLICATION_DEFAULT_FLAGS
+import native.gio.G_APPLICATION_FLAGS_NONE
 import native.gobject.GCallback
 import native.gobject.g_signal_connect_data
 import native.gobject.gpointer
@@ -35,7 +35,7 @@ open class Application(pointer: CPointer<*>) : Application(pointer), ActionMap {
 
     constructor(
         applicationId: String,
-        flags: GApplicationFlags = G_APPLICATION_DEFAULT_FLAGS
+        flags: GApplicationFlags = G_APPLICATION_FLAGS_NONE
     ) : this(gtk_application_new(applicationId, flags)!!)
 
     fun onActivate(func: () -> Unit) {

@@ -10,7 +10,7 @@ import native.adwaita.AdwApplication
 import native.adwaita.AdwApplicationClass
 import native.adwaita.adw_application_new
 import native.gio.GApplicationFlags
-import native.gio.G_APPLICATION_DEFAULT_FLAGS
+import native.gio.G_APPLICATION_FLAGS_NONE
 import bindings.gtk.Application as GtkApplication
 
 class Application : GtkApplication {
@@ -19,7 +19,7 @@ class Application : GtkApplication {
 
     constructor(pointer: CPointer<*>) : super(pointer)
 
-    constructor(applicationId: String, flags: GApplicationFlags = G_APPLICATION_DEFAULT_FLAGS) : this(
+    constructor(applicationId: String, flags: GApplicationFlags = G_APPLICATION_FLAGS_NONE) : this(
         adw_application_new(applicationId, flags)!!
     )
 

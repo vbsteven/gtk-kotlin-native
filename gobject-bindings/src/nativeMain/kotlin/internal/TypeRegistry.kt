@@ -71,7 +71,7 @@ private fun buildDynamicTypeInfo(info: InternalTypeInfo): TypeRegistrationResult
     }
 
     val gType = g_type_register_static(
-        info.superType.gType, info.typeName, typeInfoStruct.ptr, G_TYPE_FLAG_NONE // TODO support type flags
+        info.superType.gType, info.typeName, typeInfoStruct.ptr, 0 // TODO support type flags
     )
 
     if (gType.toInt() <= 0) {

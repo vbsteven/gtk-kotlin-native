@@ -11,7 +11,7 @@ open class Application(pointer: CPointer<*>) : Object(pointer) {
 
     val gApplicationPointer get() = this.gPointer.asTypedPointer<GApplication>()
 
-    constructor(applicationId: String, flags: GApplicationFlags = G_APPLICATION_DEFAULT_FLAGS)
+    constructor(applicationId: String, flags: GApplicationFlags = G_APPLICATION_FLAGS_NONE)
             : this(g_application_new(applicationId, flags)!!)
 
     fun run() {
