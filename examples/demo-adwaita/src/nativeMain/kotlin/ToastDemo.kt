@@ -29,11 +29,11 @@ fun buildToastList(): Widget {
     prefGroup.add(demoToastRow("Toast with button", ::showButtonToast))
     prefGroup.add(demoToastRow("Custom Title", ::showCustomTitleToast))
 
-    val clamp = Clamp()
-    clamp.maximumSize = 400
-    clamp.tighteningThreshold = 300
-    clamp.child = prefGroup
-    return clamp
+    return Clamp().apply {
+        maximumSize = 400
+        tighteningThreshold = 300
+        child = prefGroup
+    }
 }
 
 private fun demoToastRow(label: String, handler: () -> Unit) = ActionRow().apply {

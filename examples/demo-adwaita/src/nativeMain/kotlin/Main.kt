@@ -68,6 +68,7 @@ fun buildContent(): Widget {
 
     stack.hexpand = true
 
+    stack.addTitled(buildButtonPage(), "Buttons", "Buttons")
     stack.addTitled(buildToastDemoPage(), "Toasts", "Toasts")
     stack.addTitled(buildAboutPage(), "About", "About")
 
