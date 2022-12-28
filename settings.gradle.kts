@@ -7,3 +7,4 @@ include("libadwaita-bindings")
 
 include("examples:hello-world-gtk")
 include("examples:counter-gtk")
+include("examples:demo-adwaita")
