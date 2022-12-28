@@ -5,8 +5,10 @@ import bindings.gtk.Box
 import bindings.gtk.Button
 import bindings.gtk.Label
 import native.gtk.GtkOrientation
+import kotlin.test.Ignore
 import kotlin.test.Test
 
+@Ignore
 class AdwHeaderBarTest {
     @Test
     fun testAdwHeaderBar() {

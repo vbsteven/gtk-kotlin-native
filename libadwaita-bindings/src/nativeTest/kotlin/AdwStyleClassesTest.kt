@@ -5,8 +5,10 @@ import bindings.gtk.Label
 import bindings.gtk.ListBox
 import native.gtk.GtkAlign
 import native.gtk.GtkOrientation
+import kotlin.test.Ignore
 import kotlin.test.Test
 
+@Ignore
 class AdwStyleClassesTest : AdwTestBase() {
 
     @Test

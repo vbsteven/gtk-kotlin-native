@@ -1,8 +1,10 @@
 import bindings.adw.Application
 import bindings.adw.ApplicationWindow
 import bindings.gtk.Button
+import kotlin.test.Ignore
 import kotlin.test.Test
 
+@Ignore
 class AdwApplicationWindowTest {
     @Test
     fun testAdwApplicationWindow() {

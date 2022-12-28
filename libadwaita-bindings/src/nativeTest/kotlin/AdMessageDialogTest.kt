@@ -4,8 +4,10 @@ import bindings.adw.Toast
 import bindings.adw.ToastOverlay
 import bindings.gtk.ListBox
 import native.adwaita.AdwResponseAppearance
+import kotlin.test.Ignore
 import kotlin.test.Test
 
+@Ignore
 class AdMessageDialogTest : AdwTestBase() {
 
     @Test

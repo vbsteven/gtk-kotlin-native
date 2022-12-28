@@ -5,8 +5,10 @@ import bindings.adw.ToastOverlay
 import bindings.gio.SimpleAction
 import bindings.gtk.*
 import native.gtk.GtkOrientation
+import kotlin.test.Ignore
 import kotlin.test.Test
 
+@Ignore
 class AdwToastTest : AdwTestBase() {
 
     @Test

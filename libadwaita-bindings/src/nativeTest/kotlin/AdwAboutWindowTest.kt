@@ -1,7 +1,9 @@
 import bindings.adw.AboutWindow
 import native.gtk.GtkLicense
+import kotlin.test.Ignore
 import kotlin.test.Test
 
+@Ignore
 class AdwAboutWindowTest : AdwTestBase() {
 
     @Test

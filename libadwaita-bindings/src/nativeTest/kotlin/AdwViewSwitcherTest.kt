@@ -3,8 +3,10 @@ import bindings.gtk.Box
 import bindings.gtk.Button
 import native.gtk.GtkAlign
 import native.gtk.GtkOrientation
+import kotlin.test.Ignore
 import kotlin.test.Test
 
+@Ignore
 class AdwViewSwitcherTest : AdwTestBase() {
 
     @Test

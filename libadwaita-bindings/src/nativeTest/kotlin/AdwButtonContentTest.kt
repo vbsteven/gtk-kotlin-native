@@ -1,8 +1,10 @@
 import bindings.adw.ButtonContent
 import bindings.gtk.Button
 import bindings.gtk.ListBox
+import kotlin.test.Ignore
 import kotlin.test.Test
 
+@Ignore
 class AdwButtonContentTest : AdwTestBase() {
 
     @Test

@@ -1,12 +1,12 @@
 import bindings.adw.*
-import bindings.gio.ListStore
 import bindings.gtk.Button
 import bindings.gtk.Label
 import bindings.gtk.StringList
-import native.gobject.G_TYPE_STRING
 import native.gtk.GtkAlign
+import kotlin.test.Ignore
 import kotlin.test.Test
 
+@Ignore
 class AdwPreferencesTest : AdwTestBase() {
     @Test
     fun testPreferences() = runApplication { app ->

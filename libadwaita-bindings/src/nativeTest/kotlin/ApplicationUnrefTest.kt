@@ -5,9 +5,11 @@ import bindings.gobject.asTypedPointer
 import bindings.gtk.Button
 import kotlinx.cinterop.*
 import native.gobject.*
+import kotlin.test.Ignore
 import kotlin.test.Test
 import kotlin.test.assertTrue
 
+@Ignore
 class ApplicationUnrefTest {
 
     @Test

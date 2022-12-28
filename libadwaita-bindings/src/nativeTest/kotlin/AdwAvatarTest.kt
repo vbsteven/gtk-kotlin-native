@@ -3,8 +3,10 @@ import bindings.adw.HeaderBar
 import bindings.gtk.Box
 import bindings.gtk.ListBox
 import native.gtk.GtkOrientation
+import kotlin.test.Ignore
 import kotlin.test.Test
 
+@Ignore
 class AdwAvatarTest : AdwTestBase() {
     @Test
     fun testAvatar() = runApplicationWindow { window ->

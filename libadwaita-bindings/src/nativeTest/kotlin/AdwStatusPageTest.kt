@@ -1,8 +1,10 @@
 import bindings.adw.Clamp
 import bindings.adw.StatusPage
 import bindings.gtk.Button
+import kotlin.test.Ignore
 import kotlin.test.Test
 
+@Ignore
 class AdwStatusPageTest : AdwTestBase() {
     @Test
     fun testAdwStatusPage() = runApplicationWindow { window ->

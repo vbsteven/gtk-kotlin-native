@@ -1,7 +1,9 @@
 import bindings.adw.Clamp
 import bindings.gtk.Button
+import kotlin.test.Ignore
 import kotlin.test.Test
 
+@Ignore
 class AdwClampTest : AdwTestBase() {
 
     @Test

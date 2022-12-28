@@ -1,7 +1,9 @@
 import bindings.adw.Application
+import kotlin.test.Ignore
 import kotlin.test.Test
 import kotlin.test.assertTrue
 
+@Ignore
 class AdwApplicationTest {
     @Test
     fun testAdwApplication() {
