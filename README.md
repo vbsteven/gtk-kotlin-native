@@ -43,6 +43,78 @@ extensions and utility libraries.
 | libadwaita-bindings | Kotlin bindings for [libadwaita](https://gnome.pages.gitlab.gnome.org/libadwaita/doc/1.2/). |
 
 
+## Examples
+
+### Hello World
+
+A hello world example using only GTK.
+
+```kotlin
+import bindings.gtk.Application
+import bindings.gtk.ApplicationWindow
+import bindings.gtk.Label
+
+fun main() {
+    val app = Application("com.example.app")
+
+    app.onActivate {
+        val window = ApplicationWindow(app)
+        window.title = "Hello World"
+        window.defaultSize = Pair(600, 400)
+
+        window.child = Label("Hello from Kotlin/Native")
+
+        window.show()
+    }
+
+    app.runApplication()
+    app.unref()
+}
+```
+
+### Counter
+
+A counter example using only GTK.
+
+```kotlin
+import bindings.gtk.*
+import native.gtk.GtkAlign.GTK_ALIGN_CENTER
+import native.gtk.GtkOrientation.GTK_ORIENTATION_VERTICAL
+
+fun main() {
+    val app = Application("com.example.app")
+
+    var counter = 0
+
+    app.onActivate {
+        val window = ApplicationWindow(app)
+        window.title = "Hello World"
+        window.defaultSize = Pair(600, 400)
+
+        val label = Label()
+
+        val button = Button("Click me")
+        button.onClicked {
+            label.text = "You clicked ${++counter} times"
+        }
+
+        val box = Box(GTK_ORIENTATION_VERTICAL, 20)
+        box.valign = GTK_ALIGN_CENTER
+        box.append(button)
+        box.append(label)
+
+        window.child = box
+
+        window.show()
+    }
+
+    app.runApplication()
+    app.unref()
+}
+```
+
+See the [examples](examples) folder for more examples.
+
 ## Current State
 
 This project is still highly experimental. There should be enough ported/wrapped to write simple applications.
