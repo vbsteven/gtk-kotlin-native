@@ -36,3 +36,4 @@ fun CPointer<AdwViewSwitcher>.asViewSwitcher(): ViewSwitcher = ViewSwitcher(this
 fun CPointer<AdwViewSwitcherBar>.asViewSwitcherBar(): ViewSwitcherBar = ViewSwitcherBar(this)
 fun CPointer<AdwViewSwitcherTitle>.asViewSwitcherTitle(): ViewSwitcherTitle = ViewSwitcherTitle(this)
 fun CPointer<AdwWindow>.asWindow(): Window = Window(this)
+fun CPointer<AdwWindowTitle>.asWindowTitle(): WindowTitle = WindowTitle(this)

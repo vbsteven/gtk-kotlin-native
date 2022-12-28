@@ -1,6 +1,6 @@
+import bindings.adw.*
 import bindings.adw.Application
 import bindings.adw.ApplicationWindow
-import bindings.adw.Flap
 import bindings.adw.HeaderBar
 import bindings.gio.Menu
 import bindings.gio.SimpleAction
@@ -43,7 +43,7 @@ fun buildMainWindow(app: Application) = ApplicationWindow(app).apply {
 }
 
 fun buildTitleBar() = HeaderBar().apply {
-    titleWidget = Label("Adwaita Demo")
+    titleWidget = WindowTitle("Adwaita Demo", "Gtk Kotlin/Native Showcase")
 
     sidebarToggle = ToggleButton()
     sidebarToggle.active = true
