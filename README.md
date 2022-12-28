@@ -35,12 +35,12 @@ extensions and utility libraries.
 
 ### Gradle modules
 
-| Module              | Description                                                                                 |
-|---------------------|---------------------------------------------------------------------------------------------|
-| gobject-bindings    | Kotlin bindings for [GObject](https://docs.gtk.org/gobject/).                               |
-| gio-bindings        | Kotlin bindings for [GIO](https://docs.gtk.org/gio/).                                       |
-| gtk-bindings        | Kotlin bindings for [GTK4](https://docs.gtk.org/gtk4/).                                     |
-| libadwaita-bindings | Kotlin bindings for [libadwaita](https://gnome.pages.gitlab.gnome.org/libadwaita/doc/1.2/). |
+| Module              | Description                                                                                                      |
+|---------------------|------------------------------------------------------------------------------------------------------------------|
+| gobject-bindings    | Kotlin bindings for [GObject](https://docs.gtk.org/gobject/).                                                    |
+| gio-bindings        | Kotlin bindings for [GIO](https://docs.gtk.org/gio/).                                                            |
+| gtk-bindings        | Kotlin bindings for [GTK4](https://docs.gtk.org/gtk4/).                                   |
+| libadwaita-bindings | Kotlin bindings for [libadwaita](https://gnome.pages.gitlab.gnome.org/libadwaita/doc/1.2/) (target version 1.2). |
 
 
 ## Examples
@@ -114,6 +114,62 @@ fun main() {
 ```
 
 See the [examples](examples) folder for more examples.
+
+## Building
+
+### Dependencies
+
+Currently building this project requires fairly recent versions of its dependencies. I'll try to get the required
+dependency versions down a little in the near future.
+
+* gio >= 2.74
+* gtk4 >= 4.6.6
+* libadwaita-1 >= 1.2 (optional, only when using libadwaita-bindings
+
+Ubuntu
+
+`apt install libgtk4-dev gcc-multilib`
+
+Arch
+
+`pacman -S gtk4 libadwaita`
+
+Building the full project (requires libadwaita >= 1.2)
+
+```shell
+./gradlew build
+```
+
+Building only the gtk bindings
+
+```shell
+./gradlew gtk-bindings:build
+```
+
+Building a gtk-only example
+
+### Using the binding libraries
+
+This project is not yet published to a repository. The best way to get started is to publish
+to your local Maven repository.
+
+```shell
+./gradlew publishToMavenLocal
+```
+
+And then in your own project build.gradle.kts file:
+```
+repositories {
+  mavenCentral()
+  mavenLocal()
+}
+
+dependencies {
+    implementation("io.quantus.gtk-kotlin-native:gtk-bindings:0.0.1-SNAPSHOT")
+    implementation("io.quantus.gtk-kotlin-native:libadwaita-bindings:0.0.1-SNAPSHOT")
+}
+```
+
 
 ## Current State
 
