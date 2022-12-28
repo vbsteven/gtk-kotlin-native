@@ -23,6 +23,7 @@ fun CPointer<AdwPreferencesGroup>.asPreferencesGroup(): PreferencesGroup = Prefe
 fun CPointer<AdwPreferencesPage>.asPreferencesPage(): PreferencesPage = PreferencesPage(this)
 fun CPointer<AdwPreferencesRow>.asPreferencesRow(): PreferencesRow = PreferencesRow(this)
 fun CPointer<AdwPreferencesWindow>.asPreferencesWindow(): PreferencesWindow = PreferencesWindow(this)
+fun CPointer<AdwSplitButton>.asSplitButton(): SplitButton = SplitButton(this)
 fun CPointer<AdwStatusPage>.asStatusPage(): StatusPage = StatusPage(this)
 fun CPointer<AdwTabBar>.asTabBar(): TabBar = TabBar(this)
 fun CPointer<AdwTabView>.asTabView(): TabView = TabView(this)
