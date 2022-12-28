@@ -6,8 +6,10 @@ import bindings.gobject.gboolean
 import kotlinx.cinterop.*
 import native.gtk.*
 
-class Popover : Widget {
+class Popover : Widget, ShortcutManager {
     val gtkPopoverPointer get() = gtkWidgetPointer.asTypedPointer<GtkPopover>()
+
+    override val gtkShortcutManagerPointer get() = gtkWidgetPointer.asTypedPointer<GtkShortcutManager>()
 
     constructor(pointer: CPointer<*>) : super(pointer)
     constructor() : this(gtk_popover_new()!!)

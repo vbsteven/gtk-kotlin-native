@@ -10,7 +10,10 @@ import internal.BuiltinTypeInfo
 import kotlinx.cinterop.*
 import native.gtk.*
 
-open class Window : Widget, Root {
+open class Window : Widget, Root, ShortcutManager {
+
+    override val gtkShortcutManagerPointer get() = gtkWindowPointer.asTypedPointer<GtkShortcutManager>()
+
     val gtkWindowPointer get() = gPointer.asTypedPointer<GtkWindow>()
 
     override val gtkNativePointer = gtkWindowPointer.asTypedPointer<GtkNative>()

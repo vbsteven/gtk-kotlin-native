@@ -30,3 +30,7 @@ internal class SelectionModelWrapper(
 internal class EditableWrapper(
     override var gtkEditablePointer: CPointer<GtkEditable>
 ) : Editable
+
+internal class ShortcutManagerWrapper(
+    override val gtkShortcutManagerPointer: CPointer<GtkShortcutManager>
+) : ShortcutManager
