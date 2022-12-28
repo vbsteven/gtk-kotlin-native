@@ -2,8 +2,10 @@ package bindings.gtk
 
 import bindings.gio.Menu
 import bindings.gtk.testutils.GtkTestBase
+import kotlin.test.Ignore
 import kotlin.test.Test
 
+@Ignore
 class GtkHeaderBartest : GtkTestBase() {
 
     @Test

@@ -4,6 +4,7 @@ import bindings.gobject.ObjectCompanion
 import bindings.gtk.testutils.GtkTestBase
 import usertypes.registerTypeClass
 import kotlinx.cinterop.CPointer
+import kotlin.test.Ignore
 import kotlin.test.Test
 import kotlin.test.assertTrue
 

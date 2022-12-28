@@ -2,8 +2,10 @@ package bindings.gtk
 
 import bindings.gtk.testutils.GtkTestBase
 import native.gtk.GtkLicense
+import kotlin.test.Ignore
 import kotlin.test.Test
 
+@Ignore
 class GtkAboutDialogTest : GtkTestBase() {
 
     @Test

@@ -3,9 +3,11 @@ package bindings.gtk
 import bindings.gio.Menu
 import bindings.gio.SimpleAction
 import bindings.gtk.testutils.GtkTestBase
+import kotlin.test.Ignore
 import kotlin.test.Test
 import kotlin.test.assertTrue
 
+@Ignore
 class GtkApplicationTest : GtkTestBase() {
     @Test
     fun startGtkApplication() {
