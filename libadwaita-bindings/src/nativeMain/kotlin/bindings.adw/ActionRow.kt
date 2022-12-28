@@ -19,7 +19,10 @@ open class ActionRow : PreferencesRow {
 
     // TODO activate signal handler
 
-    fun activate() = adw_action_row_activate(adwActionRowPointer)
+    override fun activate(): Boolean {
+        adw_action_row_activate(adwActionRowPointer)
+        return true
+    }
 
     fun addPrefix(widget: Widget) = adw_action_row_add_prefix(adwActionRowPointer, widget.gtkWidgetPointer)
 
