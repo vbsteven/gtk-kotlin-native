@@ -3,6 +3,8 @@ package internal
 import bindings.gobject.Object
 import kotlinx.cinterop.*
 import native.gobject.*
+import usertypes.ObjectClassInitFunc
+import usertypes.ObjectClass
 
 internal object TypeRegistry {
 
@@ -12,10 +14,11 @@ internal object TypeRegistry {
     fun <T : Object, S : Object> registerType(
         typeName: String,
         superType: KGTypeInfo<S>,
+        classInitFunc: ObjectClassInitFunc
     ): DynamicTypeInfo<T> {
         @Suppress("UNCHECKED_CAST")
         return typeMap.getOrPut(typeName) {
-            val registrationResult = buildDynamicTypeInfo(InternalTypeInfo(typeName, superType))
+            val registrationResult = buildDynamicTypeInfo(InternalTypeInfo(typeName, superType, classInitFunc))
             val info = DynamicTypeInfo<T>(
                 typeName, registrationResult.gType, registrationResult.classSize, registrationResult.instanceSize,
                 superType.classSize,
@@ -37,6 +40,7 @@ internal object TypeRegistry {
 internal data class InternalTypeInfo(
     val typeName: String,
     val superType: KGTypeInfo<*>,
+    val classInitFunc: ObjectClassInitFunc
 ) {
     override fun toString() = "Type: $typeName :: (superType=${superType.name})"
 
@@ -113,7 +117,11 @@ private val staticCustomObjectClassInit: GClassInitFunc =
         val propertiesPointer = internalTypeInfo.getClassPropertiesPointerFromClassInstancePointer(g_class)
         propertiesPointer.pointed.kg_type_obj = data
 
+        val classRef = ObjectClass(g_class)
+        internalTypeInfo.classInitFunc.invoke(classRef)
+
         // TODO add class finalize to cleanup data pointer
+
     }.reinterpret()
 
 /**
