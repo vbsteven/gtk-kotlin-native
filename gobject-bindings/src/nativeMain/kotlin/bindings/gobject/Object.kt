@@ -2,10 +2,8 @@ package bindings.gobject
 
 import internal.BuiltinTypeInfo
 import internal.TypeRegistry
-import kotlinx.cinterop.CPointer
-import kotlinx.cinterop.reinterpret
-import kotlinx.cinterop.sizeOf
-import kotlinx.cinterop.toKString
+import internal.staticStableRefDestroy
+import kotlinx.cinterop.*
 import native.gobject.*
 
 
@@ -83,6 +81,30 @@ open class Object(pointer: CPointer<*>) {
      */
     fun thawNotify() = g_object_thaw_notify(gPointer.asTypedPointer())
 
+    /* Signals */
+
+    /**
+     * Emit a signal by name without arguments.
+     */
+    fun emitSignal(signalName: String) = g_signal_emit_by_name(gPointer, signalName)
+
+    /**
+     * Connect [handler] to signal by name.
+     *
+     * @param signalName name of the signal to connect to
+     * @param flags signal flags passed to g_signal_connect
+     * @param handler handler to be invoked on signal emission
+     * @return handler id
+     */
+    fun connectSignal(signalName: String, flags: GSignalFlags = 0.toUInt(), handler: () -> Unit): ULong =
+        g_signal_connect_data(
+            gPointer, signalName,
+            staticNoArgSignalHandler,
+            StableRef.create(handler).asCPointer(),
+            staticStableRefDestroy,
+            flags
+        )
+
     companion object : ObjectCompanion<Object>(ObjectTypeInfo)
 
     private fun associateCustomObject() {
@@ -102,3 +124,10 @@ val ObjectTypeInfo = BuiltinTypeInfo<Object>(
     sizeOf<native.gobject.GObject>(),
     ::Object
 )
+
+private val staticNoArgSignalHandler: GCallback =
+    staticCFunction { objectPointer: gpointer,
+                      data: gpointer ->
+        data.asStableRef<() -> Unit>().get().invoke()
+        Unit
+    }.reinterpret()
