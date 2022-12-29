@@ -425,5 +425,53 @@ interface Orientable {
 }
 ```
 
+## Deriving custom widget classes
 
+Deriving custom widgets is currently possible with limited support for actions and signals. (properties coming soon)
+
+* Declare a Kotlin class that extends `Widget` (or another class subclassed from Widget).
+* Add a (primary) constructor that takes a `CPointer<*>` argument and pass the pointer to `super` constructor.
+* Add a companion object that extends `WidgetCompanion<T>` where `T` is your class.
+  * Override the `typeName` property with the name for your class.
+  * Override the `parentType` property with the `typeInfo` object from your parent class.
+  * Override `classInit` and install any signals, actions or properties your widget provides.
+* Add a secondary constructor that calls `newInstance()` from your companion object and pass the resulting pointer to the primary constructor.
+* (optional) The secondary constructor block can assign instance properties from your constructor arguments.
+
+An example for a custom widget named `MyWidget` that extends the libadwaita `Bin` widget and provides an action and a signal:
+
+```kotlin
+class MyWidget(pointer: CPointer<*>) : Bin(pointer) {
+
+    var name: String = ""
+
+    constructor(name: String) : this(newInstance()) {
+        this.name = name
+
+        val button = Button(name)
+        button.actionName = "mywidgetbutton-clicked"
+        
+        this.child = button
+    }
+
+    private fun myButtonClickedAction() {
+        emitSignal(TEST_SIGNAL)
+    }
+
+    companion object : WidgetCompanion<MyWidget>() {
+        override val typeName = "MyWidget"
+        override val parentType = Bin.typeInfo
+
+        const val TEST_SIGNAL = "test-signal"
+
+        override fun classInit(klass: WidgetClass<MyWidget>) {
+            // install the signal
+            klass.installSignal(TEST_SIGNAL, G_SIGNAL_RUN_FIRST)
+            // install the action with the handler
+            klass.installAction("mywidgetbutton-clicked", MyWidget::myButtonClickedAction)
+        }
+    }
+}
+
+```
 
