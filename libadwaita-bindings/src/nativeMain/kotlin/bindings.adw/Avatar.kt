@@ -1,11 +1,9 @@
 package bindings.adw
 
-import bindings.gobject.ObjectCompanion
 import bindings.gobject.asTypedPointer
 import bindings.gobject.boolean
 import bindings.gobject.gboolean
 import bindings.gtk.Widget
-import internal.BuiltinTypeInfo
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.toKString
 import native.adwaita.*
@@ -38,13 +36,4 @@ class Avatar : Widget {
         get() = adw_avatar_get_text(adwAvatarPointer)?.toKString()
         set(value) = adw_avatar_set_text(adwAvatarPointer, value)
 
-    companion object : ObjectCompanion<Avatar>(avatarTypeInfo)
 }
-
-private val avatarTypeInfo = BuiltinTypeInfo(
-    "AdwAvatar",
-    ADW_TYPE_AVATAR,
-    -1,
-    -1,
-    ::Avatar
-)

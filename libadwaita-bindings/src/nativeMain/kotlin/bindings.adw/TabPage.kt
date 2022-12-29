@@ -55,9 +55,4 @@ class TabPage : Object {
         get() = adw_tab_page_get_tooltip(adwTabPagePointer)?.toKString()
         set(value) = adw_tab_page_set_tooltip(adwTabPagePointer, value)
 
-
-
-
-
-
 }

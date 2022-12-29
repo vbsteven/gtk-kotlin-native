@@ -1,12 +1,10 @@
 package bindings.adw
 
-import bindings.gobject.ObjectCompanion
 import bindings.gobject.asTypedPointer
 import bindings.gobject.boolean
 import bindings.gobject.gboolean
 import bindings.gtk.Widget
 import bindings.gtk.asWidget
-import internal.BuiltinTypeInfo
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.toKString
 import native.adwaita.*
@@ -44,14 +42,4 @@ class HeaderBar : Widget {
     fun packEnd(widget: Widget) = adw_header_bar_pack_end(adwHeaderBarPointer, widget.gtkWidgetPointer)
 
     fun remove(widget: Widget) = adw_header_bar_remove(adwHeaderBarPointer, widget.gtkWidgetPointer)
-
-    companion object : ObjectCompanion<HeaderBar>(headerBarTypeInfo)
 }
-
-private val headerBarTypeInfo = BuiltinTypeInfo(
-    "AdwHeaderBar",
-    ADW_TYPE_HEADER_BAR,
-    -1,
-    -1,
-    ::HeaderBar
-)

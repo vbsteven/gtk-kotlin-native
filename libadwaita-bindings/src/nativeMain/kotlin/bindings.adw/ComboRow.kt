@@ -3,10 +3,12 @@ package bindings.adw
 import bindings.gio.ListModel
 import bindings.gio.asListModel
 import bindings.gobject.*
+import internal.BuiltinTypeInfo
 import kotlinx.cinterop.CPointer
+import kotlinx.cinterop.sizeOf
 import native.adwaita.*
 
-class ComboRow : ActionRow {
+open class ComboRow : ActionRow {
     val adwComboRowPointer get() = adwActionRowPointer.asTypedPointer<AdwComboRow>()
 
     constructor(pointer: CPointer<*>) : super(pointer)
@@ -33,4 +35,13 @@ class ComboRow : ActionRow {
         get() = adw_combo_row_get_use_subtitle(adwComboRowPointer).boolean
         set(value) = adw_combo_row_set_use_subtitle(adwComboRowPointer, value.gboolean)
 
+    companion object {
+        val typeInfo = BuiltinTypeInfo(
+            "AdwComboRow",
+            ADW_TYPE_COMBO_ROW,
+            sizeOf<AdwComboRowClass>(),
+            sizeOf<AdwComboRow>(),
+            ::ComboRow
+        )
+    }
 }

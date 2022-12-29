@@ -1,6 +1,5 @@
 package bindings.adw
 
-import bindings.gobject.ObjectCompanion
 import bindings.gobject.asTypedPointer
 import bindings.gtk.Widget
 import bindings.gtk.asWidget
@@ -51,13 +50,13 @@ open class ActionRow : PreferencesRow {
         get() = adw_action_row_get_subtitle_lines(adwActionRowPointer)
         set(value) = adw_action_row_set_subtitle_lines(adwActionRowPointer, value)
 
-    companion object : ObjectCompanion<ActionRow>(ActionRowTypeInfo)
+    companion object {
+        val typeInfo = BuiltinTypeInfo(
+            "AdwActionRow",
+            ADW_TYPE_ACTION_ROW,
+            sizeOf<AdwActionRowClass>(),
+            sizeOf<AdwActionRow>(),
+            ::ActionRow
+        )
+    }
 }
-
-private val ActionRowTypeInfo = BuiltinTypeInfo(
-    "AdwActionRow",
-    ADW_TYPE_ACTION_ROW,
-    sizeOf<AdwActionRowClass>(),
-    sizeOf<AdwActionRow>(),
-    ::ActionRow
-)

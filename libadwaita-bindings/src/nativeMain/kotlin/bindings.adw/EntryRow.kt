@@ -6,6 +6,7 @@ import bindings.gobject.boolean
 import bindings.gobject.gboolean
 import bindings.gtk.Editable
 import bindings.gtk.Widget
+import internal.BuiltinTypeInfo
 import kotlinx.cinterop.*
 import native.adwaita.*
 import native.gobject.GCallback
@@ -77,6 +78,15 @@ open class EntryRow : PreferencesRow, Editable {
         )
     }
 
+    companion object {
+        val typeInfo = BuiltinTypeInfo(
+            "AdwEntryRow",
+            ADW_TYPE_ENTRY_ROW,
+            sizeOf<AdwEntryRowClass>(),
+            sizeOf<AdwEntryRow>(),
+            ::EntryRow
+        )
+    }
 }
 
 private val staticEntryRowCallbackFunc: GCallback =

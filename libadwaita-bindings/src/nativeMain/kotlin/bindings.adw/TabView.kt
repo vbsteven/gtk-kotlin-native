@@ -2,14 +2,12 @@ package bindings.adw
 
 import bindings.gio.MenuModel
 import bindings.gio.asMenuModel
-import bindings.gobject.ObjectCompanion
 import bindings.gobject.asTypedPointer
 import bindings.gobject.boolean
 import bindings.gobject.gboolean
 import bindings.gtk.SelectionModel
 import bindings.gtk.Widget
 import bindings.gtk.asSelectionModel
-import internal.BuiltinTypeInfo
 import kotlinx.cinterop.CPointer
 import native.adwaita.*
 
@@ -111,14 +109,4 @@ class TabView : Widget {
         adw_tab_view_transfer_page(adwTabViewPointer, page.adwTabPagePointer, otherView.adwTabViewPointer, position)
 
     // TODO signal handlers
-
-    companion object : ObjectCompanion<TabView>(tabViewTypeInfo)
 }
-
-private val tabViewTypeInfo = BuiltinTypeInfo(
-    "AdwTabView",
-    ADW_TYPE_TAB_VIEW,
-    -1,
-    -1,
-    ::TabView
-)

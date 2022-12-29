@@ -1,6 +1,5 @@
 package bindings.adw
 
-import bindings.gobject.ObjectCompanion
 import bindings.gobject.asTypedPointer
 import bindings.gtk.Widget
 import bindings.gtk.asWidget
@@ -19,13 +18,13 @@ open class Bin : Widget {
         get() = adw_bin_get_child(adwBinPointer)?.asWidget()
         set(value) = adw_bin_set_child(adwBinPointer, value?.gtkWidgetPointer)
 
-    companion object : ObjectCompanion<Bin>(BinTypeInfo)
+    companion object {
+        val typeInfo = BuiltinTypeInfo(
+            "AdwBin",
+            ADW_TYPE_BIN,
+            sizeOf<AdwBinClass>(),
+            sizeOf<AdwBin>(),
+            ::Bin
+        )
+    }
 }
-
-private val BinTypeInfo = BuiltinTypeInfo(
-    "AdwBin",
-    ADW_TYPE_BIN,
-    sizeOf<AdwBinClass>(),
-    sizeOf<AdwBin>(),
-    ::Bin
-)

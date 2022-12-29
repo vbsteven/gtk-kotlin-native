@@ -4,11 +4,13 @@ import bindings.gobject.asTypedPointer
 import bindings.gobject.boolean
 import bindings.gobject.gboolean
 import bindings.gtk.Widget
+import internal.BuiltinTypeInfo
 import kotlinx.cinterop.CPointer
+import kotlinx.cinterop.sizeOf
 import kotlinx.cinterop.toKString
 import native.adwaita.*
 
-class PreferencesPage : Widget {
+open class PreferencesPage : Widget {
     val adwPreferencesPagePointer get() = gtkWidgetPointer.asTypedPointer<AdwPreferencesPage>()
 
     constructor(pointer: CPointer<*>) : super(pointer)
@@ -36,5 +38,15 @@ class PreferencesPage : Widget {
 
     fun remove(group: PreferencesGroup) =
         adw_preferences_page_remove(adwPreferencesPagePointer, group.adwPreferencesGroupPointer)
+
+    companion object {
+        val typeInfo = BuiltinTypeInfo(
+            "AdwPreferencesPage",
+            ADW_TYPE_PREFERENCES_PAGE,
+            sizeOf<AdwPreferencesPageClass>(),
+            sizeOf<AdwPreferencesPage>(),
+            ::PreferencesPage
+        )
+    }
 
 }

@@ -4,11 +4,13 @@ import bindings.gobject.asTypedPointer
 import bindings.gobject.boolean
 import bindings.gobject.gboolean
 import bindings.gtk.Widget
+import internal.BuiltinTypeInfo
 import kotlinx.cinterop.CPointer
+import kotlinx.cinterop.sizeOf
 import kotlinx.cinterop.toKString
 import native.adwaita.*
 
-class ExpanderRow : PreferencesRow {
+open class ExpanderRow : PreferencesRow {
 
     val adwExpanderRowPointer get() = adwPreferencesRowPointer.asTypedPointer<AdwExpanderRow>()
 
@@ -43,4 +45,14 @@ class ExpanderRow : PreferencesRow {
     fun addRow(widget: Widget) = adw_expander_row_add_row(adwExpanderRowPointer, widget.gtkWidgetPointer)
 
     fun remove(widget: Widget) = adw_expander_row_remove(adwExpanderRowPointer, widget.gtkWidgetPointer)
+
+    companion object {
+        val typeInfo = BuiltinTypeInfo(
+            "AdwExpanderRow",
+            ADW_TYPE_EXPANDER_ROW,
+            sizeOf<AdwExpanderRowClass>(),
+            sizeOf<AdwExpanderRow>(),
+            ::ExpanderRow
+        )
+    }
 }

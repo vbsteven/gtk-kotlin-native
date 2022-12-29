@@ -3,11 +3,13 @@ package bindings.adw
 import bindings.gobject.asTypedPointer
 import bindings.gtk.Widget
 import bindings.gtk.asWidget
+import internal.BuiltinTypeInfo
 import kotlinx.cinterop.CPointer
+import kotlinx.cinterop.sizeOf
 import kotlinx.cinterop.toKString
 import native.adwaita.*
 
-class PreferencesGroup : Widget {
+open class PreferencesGroup : Widget {
     val adwPreferencesGroupPointer get() = gtkWidgetPointer.asTypedPointer<AdwPreferencesGroup>()
 
     constructor(pointer: CPointer<*>) : super(pointer)
@@ -28,5 +30,15 @@ class PreferencesGroup : Widget {
     fun add(widget: Widget) = adw_preferences_group_add(adwPreferencesGroupPointer, widget.gtkWidgetPointer)
 
     fun remove(widget: Widget) = adw_preferences_group_remove(adwPreferencesGroupPointer, widget.gtkWidgetPointer)
+
+    companion object {
+        val typeInfo = BuiltinTypeInfo(
+            "AdwPreferencesGroup",
+            ADW_TYPE_PREFERENCES_GROUP,
+            sizeOf<AdwPreferencesGroupClass>(),
+            sizeOf<AdwPreferencesGroup>(),
+            ::PreferencesGroup
+        )
+    }
 
 }

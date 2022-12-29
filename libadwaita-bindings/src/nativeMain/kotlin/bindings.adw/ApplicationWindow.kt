@@ -1,6 +1,5 @@
 package bindings.adw
 
-import bindings.gobject.ObjectCompanion
 import bindings.gobject.asTypedPointer
 import bindings.gtk.Application
 import bindings.gtk.Widget
@@ -11,7 +10,7 @@ import kotlinx.cinterop.sizeOf
 import native.adwaita.*
 import bindings.gtk.ApplicationWindow as GtkApplicationWindow
 
-class ApplicationWindow : GtkApplicationWindow {
+open class ApplicationWindow : GtkApplicationWindow {
 
     val adwApplicationWindowPointer get() = gtkWindowPointer.asTypedPointer<AdwApplicationWindow>()
 
@@ -24,13 +23,13 @@ class ApplicationWindow : GtkApplicationWindow {
 
     override var child = this.content
 
-    companion object : ObjectCompanion<ApplicationWindow>(ApplicationWindowTypeInfo)
+    companion object {
+        val typeInfo = BuiltinTypeInfo(
+            "AdwApplicationWindow",
+            ADW_TYPE_APPLICATION_WINDOW,
+            sizeOf<AdwApplicationWindowClass>(),
+            sizeOf<AdwApplicationWindow>(),
+            ::ApplicationWindow
+        )
+    }
 }
-
-private val ApplicationWindowTypeInfo = BuiltinTypeInfo(
-    "AdwApplicationWindow",
-    ADW_TYPE_APPLICATION_WINDOW,
-    sizeOf<AdwApplicationWindowClass>(),
-    sizeOf<AdwApplicationWindow>(),
-    ::ApplicationWindow
-)

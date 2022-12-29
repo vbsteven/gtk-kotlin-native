@@ -1,7 +1,6 @@
 package bindings.adw
 
 import bindings.adw.internal.staticStableRefDestroy
-import bindings.gobject.ObjectCompanion
 import bindings.gobject.asTypedPointer
 import bindings.gobject.boolean
 import bindings.gobject.gboolean
@@ -16,7 +15,7 @@ import native.gobject.g_signal_connect_data
 import native.gobject.gchararray
 import native.gobject.gpointer
 
-class MessageDialog : Window {
+open class MessageDialog : Window {
     val adwMessageDialogPointer get() = gtkWindowPointer.asTypedPointer<AdwMessageDialog>()
 
     constructor(pointer: CPointer<*>) : super(pointer)
@@ -109,16 +108,17 @@ class MessageDialog : Window {
         )
     }
 
-    companion object : ObjectCompanion<MessageDialog>(messageDialogTypeInfo)
+    companion object {
+        val typeInfo = BuiltinTypeInfo(
+            "AdwMessageDialog",
+            ADW_TYPE_MESSAGE_DIALOG,
+            sizeOf<AdwMessageDialogClass>(),
+            sizeOf<AdwMessageDialog>(),
+            ::MessageDialog
+        )
+    }
 }
 
-private val messageDialogTypeInfo = BuiltinTypeInfo(
-    "AdwMessageDialog",
-    ADW_TYPE_MESSAGE_DIALOG,
-    -1,
-    -1,
-    ::MessageDialog
-)
 
 private val staticAdwMessageDialogResponseCallbackFunc: GCallback =
     staticCFunction { widgetPointer: AdwMessageDialog_autoptr,

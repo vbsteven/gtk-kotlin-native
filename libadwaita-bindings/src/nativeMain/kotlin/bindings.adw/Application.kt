@@ -1,6 +1,5 @@
 package bindings.adw
 
-import bindings.gobject.ObjectCompanion
 import bindings.gobject.asTypedPointer
 import internal.BuiltinTypeInfo
 import kotlinx.cinterop.CPointer
@@ -13,7 +12,7 @@ import native.gio.GApplicationFlags
 import native.gio.G_APPLICATION_FLAGS_NONE
 import bindings.gtk.Application as GtkApplication
 
-class Application : GtkApplication {
+open class Application : GtkApplication {
 
     val adwApplicationPointer get() = gApplicationPointer.asTypedPointer<AdwApplication>()
 
@@ -23,13 +22,13 @@ class Application : GtkApplication {
         adw_application_new(applicationId, flags)!!
     )
 
-    companion object : ObjectCompanion<Application>(ApplicationTypeInfo)
+    companion object {
+        val typeInfo = BuiltinTypeInfo(
+            "AdwApplication",
+            ADW_TYPE_APPLICATION,
+            sizeOf<AdwApplicationClass>(),
+            sizeOf<AdwApplication>(),
+            ::Application
+        )
+    }
 }
-
-private val ApplicationTypeInfo = BuiltinTypeInfo(
-    "AdwApplication",
-    ADW_TYPE_APPLICATION,
-    sizeOf<AdwApplicationClass>(),
-    sizeOf<AdwApplication>(),
-    ::Application
-)

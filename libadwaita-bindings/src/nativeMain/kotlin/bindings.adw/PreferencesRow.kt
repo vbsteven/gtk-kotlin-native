@@ -1,6 +1,5 @@
 package bindings.adw
 
-import bindings.gobject.ObjectCompanion
 import bindings.gobject.asTypedPointer
 import bindings.gobject.boolean
 import bindings.gobject.gboolean
@@ -39,13 +38,13 @@ open class PreferencesRow : ListBoxRow, Actionable {
         get() = adw_preferences_row_get_title_selectable(adwPreferencesRowPointer).boolean
         set(value) = adw_preferences_row_set_title_selectable(adwPreferencesRowPointer, value.gboolean)
 
-    companion object : ObjectCompanion<PreferencesRow>(PreferencesRowTypeInfo)
+    companion object {
+        val typeInfo = BuiltinTypeInfo(
+            "AdwPreferencesRow",
+            ADW_TYPE_PREFERENCES_ROW,
+            sizeOf<AdwPreferencesRowClass>(),
+            sizeOf<AdwPreferencesRow>(),
+            ::PreferencesRow
+        )
+    }
 }
-
-private val PreferencesRowTypeInfo = BuiltinTypeInfo(
-    "AdwPreferencesRow",
-    ADW_TYPE_PREFERENCES_ROW,
-    sizeOf<AdwPreferencesRowClass>(),
-    sizeOf<AdwPreferencesRow>(),
-    ::PreferencesRow
-)

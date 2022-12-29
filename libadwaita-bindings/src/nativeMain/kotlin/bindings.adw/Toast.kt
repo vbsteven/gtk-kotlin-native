@@ -4,11 +4,9 @@ import bindings.adw.internal.staticStableRefDestroy
 import bindings.glib.Variant
 import bindings.glib.asVariant
 import bindings.gobject.Object
-import bindings.gobject.ObjectCompanion
 import bindings.gobject.asTypedPointer
 import bindings.gtk.Widget
 import bindings.gtk.asWidget
-import internal.BuiltinTypeInfo
 import kotlinx.cinterop.*
 import native.adwaita.*
 import native.gobject.GCallback
@@ -76,17 +74,7 @@ class Toast : Object {
             0
         )
     }
-
-    companion object : ObjectCompanion<Toast>(toastTypeInfo)
 }
-
-private val toastTypeInfo = BuiltinTypeInfo(
-    "AdwToast",
-    ADW_TYPE_TOAST,
-    -1,
-    -1,
-    ::Toast
-)
 
 private val staticAdwToastCallbackFunc: GCallback =
     staticCFunction { toastPointer: CPointer<AdwToast>,

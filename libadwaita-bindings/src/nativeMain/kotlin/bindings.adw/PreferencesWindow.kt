@@ -4,11 +4,13 @@ import bindings.gobject.asTypedPointer
 import bindings.gobject.boolean
 import bindings.gobject.gboolean
 import bindings.gtk.Widget
+import internal.BuiltinTypeInfo
 import kotlinx.cinterop.CPointer
+import kotlinx.cinterop.sizeOf
 import kotlinx.cinterop.toKString
 import native.adwaita.*
 
-class PreferencesWindow : Window {
+open class PreferencesWindow : Window {
     val adwPreferencesWindowPointer get() = adwWindowPointer.asTypedPointer<AdwPreferencesWindow>()
 
     constructor(pointer: CPointer<*>) : super(pointer)
@@ -51,6 +53,16 @@ class PreferencesWindow : Window {
 
     fun closeSubpage() {
         adw_preferences_window_close_subpage(adwPreferencesWindowPointer)
+    }
+
+    companion object {
+        val typeInfo = BuiltinTypeInfo(
+            "AdwPreferencesWindow",
+            ADW_TYPE_PREFERENCES_WINDOW,
+            sizeOf<AdwPreferencesWindowClass>(),
+            sizeOf<AdwPreferencesWindow>(),
+            ::PreferencesWindow
+        )
     }
 
 }

@@ -1,6 +1,5 @@
 package bindings.adw
 
-import bindings.gobject.ObjectCompanion
 import bindings.gobject.asTypedPointer
 import bindings.gtk.Widget
 import bindings.gtk.asWidget
@@ -24,13 +23,13 @@ open class Window : GtkWindow {
 
     override var child = this.content
 
-    companion object : ObjectCompanion<Window>(WindowTypeInfo)
+    companion object {
+        val typeInfo = BuiltinTypeInfo(
+            "AdwWindow",
+            ADW_TYPE_WINDOW,
+            sizeOf<AdwWindowClass>(),
+            sizeOf<AdwWindow>(),
+            ::Window
+        )
+    }
 }
-
-private val WindowTypeInfo = BuiltinTypeInfo(
-    "AdwWindow",
-    ADW_TYPE_WINDOW,
-    sizeOf<AdwWindowClass>(),
-    sizeOf<AdwWindow>(),
-    ::Window
-)

@@ -1,10 +1,8 @@
 package bindings.adw
 
-import bindings.gobject.ObjectCompanion
 import bindings.gobject.asTypedPointer
 import bindings.util.toCStringList
 import bindings.util.toStringList
-import internal.BuiltinTypeInfo
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.memScoped
 import kotlinx.cinterop.toKString
@@ -127,15 +125,4 @@ class AboutWindow : Window {
     var website: String
         get() = adw_about_window_get_website(adwAboutWindowPointer)?.toKString() ?: ""
         set(value) = adw_about_window_set_website(adwAboutWindowPointer, value)
-
-
-    companion object : ObjectCompanion<AboutWindow>(aboutWindowTypeInfo)
 }
-
-private val aboutWindowTypeInfo = BuiltinTypeInfo(
-    "AdwAboutWindow",
-    ADW_TYPE_ABOUT_WINDOW,
-    -1,
-    -1,
-    ::AboutWindow
-)

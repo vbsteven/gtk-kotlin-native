@@ -1,12 +1,10 @@
 package bindings.adw
 
-import bindings.gobject.ObjectCompanion
 import bindings.gobject.asTypedPointer
 import bindings.gobject.boolean
 import bindings.gobject.gboolean
 import bindings.gtk.Widget
 import bindings.gtk.asWidget
-import internal.BuiltinTypeInfo
 import kotlinx.cinterop.CPointer
 import native.adwaita.*
 
@@ -47,13 +45,5 @@ class TabBar : Widget {
     // TODO setupExtraDropTarget once there is GdkDragAction support
     // TODO extra-drag-drop signal
 
-    companion object : ObjectCompanion<TabBar>(tabBarTypeInfo)
 }
 
-private val tabBarTypeInfo = BuiltinTypeInfo(
-    "AdwTabBar",
-    ADW_TYPE_TAB_BAR,
-    -1,
-    -1,
-    ::TabBar
-)
