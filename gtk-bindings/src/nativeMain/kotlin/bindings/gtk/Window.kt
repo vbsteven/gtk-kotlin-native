@@ -2,7 +2,6 @@ package bindings.gtk
 
 import bindings.gio.ListModel
 import bindings.gio.asListModel
-import bindings.gobject.ObjectCompanion
 import bindings.gobject.asTypedPointer
 import bindings.gobject.boolean
 import bindings.gobject.gboolean
@@ -119,7 +118,7 @@ open class Window : Widget, Root, ShortcutManager {
     fun unmaximize() = gtk_window_unmaximize(gtkWindowPointer)
     fun unminimize() = gtk_window_unminimize(gtkWindowPointer)
 
-    companion object : ObjectCompanion<Window>(WindowTypeInfo) {
+    companion object {
         var defaultIconName: String?
             get() = gtk_window_get_default_icon_name()?.toKString()
             set(value) = gtk_window_set_default_icon_name(value)
@@ -131,13 +130,14 @@ open class Window : Widget, Root, ShortcutManager {
             get() = gtk_window_get_toplevels()!!.asListModel()
 
         // TODO listToplevels
+
+        val typeInfo = BuiltinTypeInfo(
+            "GtkWindow",
+            GTK_TYPE_WINDOW,
+            sizeOf<GtkWindowClass>(),
+            sizeOf<GtkWindow>(),
+            ::Window
+        )
     }
 }
 
-private val WindowTypeInfo = BuiltinTypeInfo(
-    "GtkWindow",
-    GTK_TYPE_WINDOW,
-    sizeOf<GtkWindowClass>(),
-    sizeOf<GtkWindow>(),
-    ::Window
-)

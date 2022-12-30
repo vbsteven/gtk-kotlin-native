@@ -40,7 +40,7 @@ open class MessageDialog : Window {
         adw_message_dialog_set_response_appearance(adwMessageDialogPointer, response, appearance)
     }
 
-    fun getResponseAppeareance(response: String): AdwResponseAppearance {
+    fun getResponseAppearance(response: String): AdwResponseAppearance {
         return adw_message_dialog_get_response_appearance(adwMessageDialogPointer, response)
     }
 

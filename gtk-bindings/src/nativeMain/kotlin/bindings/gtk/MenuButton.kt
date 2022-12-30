@@ -2,11 +2,9 @@ package bindings.gtk
 
 import bindings.gio.MenuModel
 import bindings.gio.asMenuModel
-import bindings.gobject.ObjectCompanion
 import bindings.gobject.asTypedPointer
 import bindings.gobject.boolean
 import bindings.gobject.gboolean
-import internal.BuiltinTypeInfo
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.toKString
 import native.gtk.*
@@ -58,13 +56,4 @@ class MenuButton : Widget {
         get() = gtk_menu_button_get_use_underline(gtkMenuButtonPointer).boolean
         set(value) = gtk_menu_button_set_use_underline(gtkMenuButtonPointer, value.gboolean)
 
-    companion object : ObjectCompanion<MenuButton>(MenuButtonTypeInfo)
 }
-
-private val MenuButtonTypeInfo = BuiltinTypeInfo(
-    "GtkMenuButton",
-    GTK_TYPE_MENU_BUTTON,
-    -1,
-    -1,
-    ::MenuButton
-)

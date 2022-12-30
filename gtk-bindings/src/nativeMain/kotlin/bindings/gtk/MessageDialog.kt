@@ -1,8 +1,6 @@
 package bindings.gtk
 
-import bindings.gobject.ObjectCompanion
 import bindings.gobject.asTypedPointer
-import internal.BuiltinTypeInfo
 import kotlinx.cinterop.CPointer
 import native.gtk.*
 
@@ -32,13 +30,4 @@ class MessageDialog : Dialog {
 
     fun setMarkup(markup: String) = gtk_message_dialog_set_markup(gtkMessageDialogPointer, markup)
 
-    companion object : ObjectCompanion<MessageDialog>(MessageDialogTypeInfo)
 }
-
-private val MessageDialogTypeInfo = BuiltinTypeInfo(
-    "GtkMessageDialog",
-    GTK_TYPE_MESSAGE_DIALOG,
-    -1,
-    -1,
-    ::MessageDialog
-)

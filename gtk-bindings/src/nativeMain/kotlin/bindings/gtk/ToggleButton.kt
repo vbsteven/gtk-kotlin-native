@@ -4,13 +4,14 @@ import bindings.gobject.asTypedPointer
 import bindings.gobject.boolean
 import bindings.gobject.gboolean
 import bindings.gtk.internal.staticStableRefDestroy
+import internal.BuiltinTypeInfo
 import kotlinx.cinterop.*
 import native.gobject.GCallback
 import native.gobject.g_signal_connect_data
 import native.gobject.gpointer
 import native.gtk.*
 
-class ToggleButton : Button {
+open class ToggleButton : Button {
     val gtkToggleButtonPointer get() = gtkWidgetPointer.asTypedPointer<GtkToggleButton>()
 
     constructor(pointer: CPointer<*>) : super(pointer)
@@ -38,6 +39,16 @@ class ToggleButton : Button {
             StableRef.create(handler).asCPointer(),
             staticStableRefDestroy,
             0
+        )
+    }
+
+    companion object {
+        val typeInfo = BuiltinTypeInfo(
+            "GtkToggleButton",
+            GTK_TYPE_TOGGLE_BUTTON,
+            sizeOf<GtkToggleButtonClass>(),
+            sizeOf<GtkToggleButton>(),
+            ::ToggleButton
         )
     }
 

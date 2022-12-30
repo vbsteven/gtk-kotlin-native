@@ -33,12 +33,14 @@ open class Application(pointer: CPointer<*>) : Object(pointer) {
     fun quit() {
         g_application_quit(gApplicationPointer)
     }
-}
 
-private val ApplicationTypeInfo = BuiltinTypeInfo(
-    "GApplication",
-    G_TYPE_APPLICATION,
-    sizeOf<GApplicationClass>(),
-    sizeOf<GApplication>(),
-    ::Application
-)
+    companion object {
+        val typeInfo = BuiltinTypeInfo(
+            "GApplication",
+            G_TYPE_APPLICATION,
+            sizeOf<GApplicationClass>(),
+            sizeOf<GApplication>(),
+            ::Application
+        )
+    }
+}

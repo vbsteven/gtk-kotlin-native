@@ -1,10 +1,8 @@
 package bindings.gtk
 
-import bindings.gobject.ObjectCompanion
 import bindings.gobject.asTypedPointer
 import bindings.gobject.boolean
 import bindings.gobject.gboolean
-import internal.BuiltinTypeInfo
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.toKString
 import native.gtk.*
@@ -43,13 +41,5 @@ class HeaderBar : Widget {
      */
     fun remove(widget: Widget) = gtk_header_bar_remove(gtkHeaderBarPointer, widget.gtkWidgetPointer)
 
-    companion object : ObjectCompanion<HeaderBar>(HeaderBarTypeInfo)
 }
 
-private val HeaderBarTypeInfo = BuiltinTypeInfo(
-    "GtkHeaderBar",
-    GTK_TYPE_HEADER_BAR,
-    -1,
-    -1,
-    ::HeaderBar
-)

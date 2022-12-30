@@ -1,12 +1,10 @@
 package bindings.gtk
 
-import bindings.gobject.ObjectCompanion
 import bindings.gobject.asTypedPointer
 import bindings.gobject.boolean
 import bindings.gobject.gboolean
 import bindings.util.toCStringList
 import bindings.util.toStringList
-import internal.BuiltinTypeInfo
 import kotlinx.cinterop.*
 import native.gtk.*
 
@@ -85,17 +83,6 @@ class AboutDialog : Window {
     var translatorCredits: String?
         get() = gtk_about_dialog_get_translator_credits(gtkAboutDialogPointer)?.toKString()
         set(value) = gtk_about_dialog_set_translator_credits(gtkAboutDialogPointer, value)
-
-
-    companion object : ObjectCompanion<AboutDialog>(AboutDialogTypeInfo)
 }
-
-private val AboutDialogTypeInfo = BuiltinTypeInfo(
-    "GtkAboutDialog",
-    GTK_TYPE_ABOUT_DIALOG,
-    -1,
-    -1,
-    ::AboutDialog
-)
 
 

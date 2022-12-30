@@ -1,32 +1,37 @@
 package bindings.gtk
 
-import bindings.gobject.ObjectCompanion
 import bindings.gobject.asTypedPointer
-import internal.BuiltinTypeInfo
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import kotlinx.cinterop.toKString
 import native.gtk.*
 
-open class Label(pointer: CPointer<*>) : Widget(pointer) {
+class Label(pointer: CPointer<*>) : Widget(pointer) {
 
     val gtkLabelPointer get() = gtkWidgetPointer.asTypedPointer<GtkLabel>()
 
-    companion object : ObjectCompanion<Label>(LabelTypeInfo)
-
-    constructor() : this(LabelTypeInfo.newInstancePointer())
-    constructor(text: String?) : this(gtk_label_new(text)!!)
+    /**
+     * Creates a new [Label] with the given [text] inside it.
+     *
+     * If [withMnemonic] is true, characters in [text] that are preceded by an underscore are underlined.
+     *
+     * @param text the label text
+     * @param withMnemonic true
+     */
+    constructor(text: String? = null, withMnemonic: Boolean = false) : this(newPointer(text, withMnemonic))
 
     var text: String
         get() = gtk_label_get_text(gPointer.reinterpret())?.toKString() ?: ""
         set(value) = gtk_label_set_text(gPointer.reinterpret(), value)
 
-}
+    companion object {
 
-private val LabelTypeInfo = BuiltinTypeInfo(
-    "GtkLabel",
-    GTK_TYPE_LABEL,
-    -1,
-    -1,
-    ::Label
-)
+        /* helpers for constructor */
+        private fun newPointer(text: String?, withMnemonic: Boolean) =
+            if (withMnemonic) newPointerWithLabel(text)
+            else newPointerWithMnemonic(text)
+
+        private fun newPointerWithLabel(text: String?) = gtk_label_new(text)!!
+        private fun newPointerWithMnemonic(text: String?) = gtk_label_new_with_mnemonic(text)!!
+    }
+}

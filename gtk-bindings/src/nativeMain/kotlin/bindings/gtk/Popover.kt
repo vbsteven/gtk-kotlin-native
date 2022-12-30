@@ -3,10 +3,11 @@ package bindings.gtk
 import bindings.gobject.asTypedPointer
 import bindings.gobject.boolean
 import bindings.gobject.gboolean
+import internal.BuiltinTypeInfo
 import kotlinx.cinterop.*
 import native.gtk.*
 
-class Popover : Widget, ShortcutManager {
+open class Popover : Widget, ShortcutManager {
     val gtkPopoverPointer get() = gtkWidgetPointer.asTypedPointer<GtkPopover>()
 
     override val gtkShortcutManagerPointer get() = gtkWidgetPointer.asTypedPointer<GtkShortcutManager>()
@@ -65,6 +66,16 @@ class Popover : Widget, ShortcutManager {
     fun present() = gtk_popover_present(gtkPopoverPointer)
 
     fun setDefaultWidget(widget: Widget?) = gtk_popover_set_default_widget(gtkPopoverPointer, widget?.gtkWidgetPointer)
+
+    companion object {
+        val typeInfo = BuiltinTypeInfo(
+            "GtkPopover",
+            GTK_TYPE_POPOVER,
+            sizeOf<GtkPopoverClass>(),
+            sizeOf<GtkPopover>(),
+            ::Popover
+        )
+    }
 }
 
 data class PopoverOffset(val x: Int, val y: Int)

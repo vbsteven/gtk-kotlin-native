@@ -1,6 +1,5 @@
 package bindings.gtk
 
-import bindings.gobject.ObjectCompanion
 import bindings.gobject.asTypedPointer
 import bindings.gobject.boolean
 import bindings.gobject.gboolean
@@ -41,12 +40,6 @@ open class Button : Widget, Actionable {
         get() = gtk_button_get_use_underline(gtkButtonPointer).boolean
         set(value) = gtk_button_set_use_underline(gtkButtonPointer, value.gboolean)
 
-    companion object : ObjectCompanion<Button>(ButtonTypeInfo) {
-
-        fun newFromIconName(iconName: String) = Button(gtk_button_new_from_icon_name(iconName)!!)
-        fun newWithLabel(label: String) = Button(label)
-        fun newWithMnemonic(label: String) = Button(gtk_button_new_with_mnemonic(label)!!)
-    }
 
     /**
      * Connect [func] as a handler for the "clicked" signal.
@@ -60,15 +53,22 @@ open class Button : Widget, Actionable {
             0
         )
     }
+
+    companion object {
+        val typeInfo = BuiltinTypeInfo(
+            "GtkButton",
+            GTK_TYPE_BUTTON,
+            sizeOf<native.gtk.GtkButtonClass>(),
+            sizeOf<native.gtk.GtkButton>(),
+            ::Button
+        )
+
+        fun newFromIconName(iconName: String) = Button(gtk_button_new_from_icon_name(iconName)!!)
+        fun newWithLabel(label: String) = Button(label)
+        fun newWithMnemonic(label: String) = Button(gtk_button_new_with_mnemonic(label)!!)
+    }
 }
 
-private val ButtonTypeInfo = BuiltinTypeInfo(
-    "GtkButton",
-    GTK_TYPE_BUTTON,
-    sizeOf<native.gtk.GtkButtonClass>(),
-    sizeOf<native.gtk.GtkButton>(),
-    ::Button
-)
 
 private val staticButtonClickedFunc: GCallback =
     staticCFunction { buttonPointer: CPointer<GtkButton>?,

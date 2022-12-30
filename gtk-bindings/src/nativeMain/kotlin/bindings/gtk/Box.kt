@@ -1,6 +1,5 @@
 package bindings.gtk
 
-import bindings.gobject.ObjectCompanion
 import bindings.gobject.asTypedPointer
 import bindings.gobject.boolean
 import bindings.gobject.gboolean
@@ -40,14 +39,14 @@ open class Box : Widget, Orientable {
         get() = gtk_box_get_spacing(gtkBoxPointer)
         set(value) = gtk_box_set_spacing(gtkBoxPointer, value)
 
-
-    companion object : ObjectCompanion<Box>(BoxTypeInfo)
+    companion object {
+        val typeInfo = BuiltinTypeInfo(
+            "GtkBox",
+            GTK_TYPE_BOX,
+            sizeOf<GtkBoxClass>(),
+            sizeOf<GtkBox>(),
+            ::Box
+        )
+    }
 }
 
-private val BoxTypeInfo = BuiltinTypeInfo(
-    "GtkBox",
-    GTK_TYPE_BOX,
-    sizeOf<GtkBoxClass>(),
-    sizeOf<GtkBox>(),
-    ::Box
-)

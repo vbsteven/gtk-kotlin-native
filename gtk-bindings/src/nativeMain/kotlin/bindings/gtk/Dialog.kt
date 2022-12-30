@@ -1,6 +1,5 @@
 package bindings.gtk
 
-import bindings.gobject.ObjectCompanion
 import bindings.gobject.asTypedPointer
 import bindings.gobject.gboolean
 import bindings.gtk.internal.staticStableRefDestroy
@@ -88,7 +87,15 @@ open class Dialog : Window {
     }
 
 
-    companion object : ObjectCompanion<Dialog>(DialogTypeInfo) {
+    companion object {
+        val typeInfo = BuiltinTypeInfo(
+            "GtkDialog",
+            GTK_TYPE_DIALOG,
+            sizeOf<GtkDialogClass>(),
+            sizeOf<GtkDialog>(),
+            ::Dialog
+        )
+
         fun newDialogWithButtons(
             title: String?,
             parent: Window?,
@@ -111,13 +118,6 @@ open class Dialog : Window {
     }
 }
 
-private val DialogTypeInfo = BuiltinTypeInfo(
-    "GtkDialog",
-    GTK_TYPE_DIALOG,
-    sizeOf<GtkDialogClass>(),
-    sizeOf<GtkDialog>(),
-    ::Dialog
-)
 
 private val staticDialogResponseCallbackFunc: GCallback =
     staticCFunction { _: CPointer<GtkDialog>,

@@ -1,6 +1,5 @@
 package bindings.gtk
 
-import bindings.gobject.ObjectCompanion
 import bindings.gobject.asTypedPointer
 import bindings.gobject.boolean
 import bindings.gobject.gboolean
@@ -42,13 +41,13 @@ open class ListBoxRow : Widget, Actionable {
      */
     fun changed() = gtk_list_box_row_changed(gtkListBoxRowPointer)
 
-    companion object : ObjectCompanion<ListBoxRow>(ListBoxRowTypeInfo)
+    companion object {
+        val typeInfo = BuiltinTypeInfo(
+            "GtkListBoxRow",
+            GTK_TYPE_LIST_BOX_ROW,
+            sizeOf<GtkListBoxRowClass>(),
+            sizeOf<GtkListBoxRow>(),
+            ::ListBoxRow
+        )
+    }
 }
-
-private val ListBoxRowTypeInfo = BuiltinTypeInfo(
-    "GtkListBoxRow",
-    GTK_TYPE_LIST_BOX_ROW,
-    sizeOf<GtkListBoxRowClass>(),
-    sizeOf<GtkListBoxRow>(),
-    ::ListBoxRow
-)

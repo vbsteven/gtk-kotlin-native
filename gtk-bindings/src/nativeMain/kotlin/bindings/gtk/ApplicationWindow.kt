@@ -1,7 +1,6 @@
 package bindings.gtk
 
 import bindings.gio.ActionMap
-import bindings.gobject.ObjectCompanion
 import bindings.gobject.asTypedPointer
 import bindings.gobject.boolean
 import bindings.gobject.gboolean
@@ -28,13 +27,13 @@ open class ApplicationWindow : Window, ActionMap {
         get() = gtk_application_window_get_show_menubar(gtkApplicationWindowPointer).boolean
         set(value) = gtk_application_window_set_show_menubar(gtkApplicationWindowPointer, value.gboolean)
 
-    companion object : ObjectCompanion<ApplicationWindow>(ApplicationWindowTypeInfo)
+    companion object {
+        val typeInfo = BuiltinTypeInfo(
+            "GtkApplicationWindow",
+            GTK_TYPE_APPLICATION_WINDOW,
+            sizeOf<GtkApplicationWindowClass>(),
+            sizeOf<GtkApplicationWindow>(),
+            ::ApplicationWindow
+        )
+    }
 }
-
-private val ApplicationWindowTypeInfo = BuiltinTypeInfo(
-    "GtkApplicationWindow",
-    GTK_TYPE_APPLICATION_WINDOW,
-    sizeOf<GtkApplicationWindowClass>(),
-    sizeOf<GtkApplication>(),
-    ::ApplicationWindow
-)

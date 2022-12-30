@@ -1,7 +1,10 @@
 package bindings.gtk
 
 import bindings.glib.Variant
-import bindings.gobject.*
+import bindings.gobject.Object
+import bindings.gobject.asTypedPointer
+import bindings.gobject.boolean
+import bindings.gobject.gboolean
 import bindings.util.toCStringList
 import bindings.util.toStringList
 import internal.BuiltinTypeInfo
@@ -167,15 +170,15 @@ open class Widget(pointer: CPointer<*>) : Object(pointer) {
         get() = gtk_widget_get_tooltip_markup(gtkWidgetPointer)?.toKString()
         set(value) = gtk_widget_set_tooltip_markup(gtkWidgetPointer, value)
 
-    companion object : ObjectCompanion<Widget>(WidgetTypeInfo)
-
     data class SizeRequest(val width: Int, val height: Int)
-}
 
-private val WidgetTypeInfo = BuiltinTypeInfo(
-    "GtkWidget",
-    GTK_TYPE_WIDGET,
-    sizeOf<GtkWidgetClass>(),
-    sizeOf<GtkWidget>(),
-    ::Widget,
-)
+    companion object {
+        val typeInfo = BuiltinTypeInfo(
+            "GtkWidget",
+            GTK_TYPE_WIDGET,
+            sizeOf<GtkWidgetClass>(),
+            sizeOf<GtkWidget>(),
+            ::Widget,
+        )
+    }
+}
