@@ -28,6 +28,7 @@ fun CPointer<GtkSelectionModel>.asSelectionModel(): SelectionModel = SelectionMo
 fun CPointer<GtkSeparator>.asSeparator(): Separator = Separator(this)
 fun CPointer<GtkShortcutManager>.asShortcutsManager(): ShortcutManager = ShortcutManagerWrapper(this)
 fun CPointer<GtkShortcutsWindow>.asShortcutsWindow(): ShortcutsWindow = ShortcutsWindow(this)
+fun CPointer<GtkSearchBar>.asSearchBar(): SearchBar = SearchBar(this)
 fun CPointer<GtkStack>.asStack(): Stack = Stack(this)
 fun CPointer<GtkStackPage>.asStackPage(): StackPage = StackPage(this)
 fun CPointer<GtkStackSidebar>.asStackSidebar(): StackSidebar = StackSidebar(this)
