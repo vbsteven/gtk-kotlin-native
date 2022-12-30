@@ -2,16 +2,13 @@ import bindings.adw.*
 import bindings.gio.Menu
 import bindings.gio.MenuItem
 import bindings.gio.SimplePermission
-import bindings.gtk.Button
-import bindings.gtk.CheckButton
-import bindings.gtk.LockButton
-import bindings.gtk.Widget
+import bindings.gtk.*
 import native.gtk.GtkAlign.GTK_ALIGN_CENTER
 
 fun buildButtonPage() = StatusPage().apply {
     title = "Buttons"
     child = Clamp().apply {
-        maximumSize = 400
+        maximumSize = 800
         child = PreferencesGroup().apply {
             addButton("Simple button") {
                 Button(it)
@@ -87,6 +84,12 @@ fun buildButtonPage() = StatusPage().apply {
             }
             addButton("Lock button") {
                 LockButton(SimplePermission(false))
+            }
+            addButton("Link Button") {
+                LinkButton("https://github.com/vbsteven/gtk-kotlin-native")
+            }
+            addButton("Link Button Label") {
+                LinkButton("https://github.com/vbsteven/gtk-kotlin-native", "Github")
             }
         }
     }
