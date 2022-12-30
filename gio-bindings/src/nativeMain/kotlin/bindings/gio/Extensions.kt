@@ -15,5 +15,6 @@ fun CPointer<GMenu>.asMenu(): Menu = Menu(this)
 fun CPointer<GMenuItem>.asMenuItem(): MenuItem = MenuItem(this)
 fun CPointer<GMenuModel>.asMenuModel(): MenuModel = MenuModel(this)
 fun CPointer<GPermission>.asPermission(): Permission = Permission(this)
+fun CPointer<GSimplePermission>.asSimplePermission(): SimplePermission = SimplePermission(this)
 
 

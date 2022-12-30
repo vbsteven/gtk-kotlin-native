@@ -1,8 +1,10 @@
 import bindings.adw.*
 import bindings.gio.Menu
 import bindings.gio.MenuItem
+import bindings.gio.SimplePermission
 import bindings.gtk.Button
 import bindings.gtk.CheckButton
+import bindings.gtk.LockButton
 import bindings.gtk.Widget
 import native.gtk.GtkAlign.GTK_ALIGN_CENTER
 
@@ -82,6 +84,9 @@ fun buildButtonPage() = StatusPage().apply {
             }
             addButton("Check Button Selection mode") {
                 CheckButton().apply { addCssClass("selection-mode") }
+            }
+            addButton("Lock button") {
+                LockButton(SimplePermission(false))
             }
         }
     }
