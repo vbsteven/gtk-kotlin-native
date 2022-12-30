@@ -34,3 +34,7 @@ internal class EditableWrapper(
 internal class ShortcutManagerWrapper(
     override val gtkShortcutManagerPointer: CPointer<GtkShortcutManager>
 ) : ShortcutManager
+
+internal class ScrollableWrapper(
+    override val gtkScrollablePointer: CPointer<GtkScrollable>
+) : Scrollable

@@ -5,6 +5,7 @@ import kotlinx.cinterop.CPointer
 import native.gtk.*
 
 fun CPointer<GtkAboutDialog>.asAboutDialog(): AboutDialog = AboutDialog(this)
+fun CPointer<GtkAdjustment>.asAdjustment(): Adjustment = Adjustment(this)
 fun CPointer<GtkActionable>.asActionable(): Actionable = ActionableWrapper(this)
 fun CPointer<GtkApplication>.asApplication(): Application = Application(this)
 fun CPointer<GtkApplicationWindow>.asApplicationWindow(): ApplicationWindow = ApplicationWindow(this)
@@ -27,6 +28,7 @@ fun CPointer<GtkNative>.asNative(): Native = NativeWrapper(this)
 fun CPointer<GtkOrientable>.asOrientable(): Orientable = OrientableWrapper(this)
 fun CPointer<GtkPopover>.asPopover(): Popover = Popover(this)
 fun CPointer<GtkRoot>.asRoot(): Root = RootWrapper(this)
+fun CPointer<GtkScrollable>.asScrollable(): Scrollable = ScrollableWrapper(this)
 fun CPointer<GtkSelectionModel>.asSelectionModel(): SelectionModel = SelectionModelWrapper(this)
 fun CPointer<GtkSeparator>.asSeparator(): Separator = Separator(this)
 fun CPointer<GtkShortcutManager>.asShortcutsManager(): ShortcutManager = ShortcutManagerWrapper(this)
