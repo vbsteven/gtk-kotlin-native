@@ -1,4 +1,4 @@
-val kotlinVersion by extra("1.7.21")
+val kotlinVersion by extra("1.8.0")
 
 plugins {
     `kotlin-dsl`
