@@ -11,9 +11,9 @@ import native.gobject.*
 /**
  * Initializer for user-defined Object subclasses.
  */
-typealias ObjectClassInitFunc = (klass: ObjectClass) -> Unit
+typealias ObjectClassInitFunc = (klass: ObjectClass<*>) -> Unit
 
-open class ObjectClass(val pointer: CPointer<*>) {
+open class ObjectClass<T: Object>(val pointer: CPointer<*>) {
     val gType: GType = pointer.asTypedPointer<GTypeClass>().pointed.g_type
 
     /**

@@ -105,8 +105,6 @@ open class Object(pointer: CPointer<*>) {
             flags
         )
 
-    companion object : ObjectCompanion<Object>(ObjectTypeInfo)
-
     private fun associateCustomObject() {
         // TODO is there a better way to get the type from an object?
         val typeInfo = g_type_name_from_instance(gPointer.reinterpret())
@@ -115,15 +113,18 @@ open class Object(pointer: CPointer<*>) {
 
         typeInfo?.associate(this, this.gPointer)
     }
+
+    companion object {
+        val typeInfo = BuiltinTypeInfo(
+            "GObject",
+            G_TYPE_OBJECT,
+            sizeOf<GObjectClass>(),
+            sizeOf<GObject>(),
+            ::Object
+        )
+    }
 }
 
-val ObjectTypeInfo = BuiltinTypeInfo<Object>(
-    "GObject",
-    G_TYPE_OBJECT,
-    sizeOf<native.gobject.GObjectClass>(),
-    sizeOf<native.gobject.GObject>(),
-    ::Object
-)
 
 private val staticNoArgSignalHandler: GCallback =
     staticCFunction { objectPointer: gpointer,

@@ -1,7 +1,9 @@
-import bindings.gobject.*
+import bindings.gobject.Object
+import bindings.gobject.ObjectCompanion
+import bindings.gobject.boolean
+import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.reinterpret
 import native.gobject.g_type_check_instance_is_a
-import usertypes.registerTypeClass
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertFalse
@@ -13,9 +15,9 @@ class CustomObjectTest {
     fun testCustomObjectCreation() {
         val o = MyCustomObject()
         assertEquals("", o.name)
-        assertTrue(g_type_check_instance_is_a(o.gPointer.reinterpret(), MyCustomObject.gType).boolean)
-        assertTrue(g_type_check_instance_is_a(o.gPointer.reinterpret(), Object.gType).boolean)
-        assertFalse(g_type_check_instance_is_a(o.gPointer.reinterpret(), AnotherClass.gType).boolean)
+        assertTrue(g_type_check_instance_is_a(o.gPointer.reinterpret(), MyCustomObject.typeInfo.gType).boolean)
+        assertTrue(g_type_check_instance_is_a(o.gPointer.reinterpret(), Object.typeInfo.gType).boolean)
+        assertFalse(g_type_check_instance_is_a(o.gPointer.reinterpret(), AnotherClass.typeInfo.gType).boolean)
     }
 
     @Test
@@ -31,29 +33,34 @@ class CustomObjectTest {
 
         val pointer = o.gPointer
 
-        val anotherObject = MyCustomObject.fromPointer(pointer)
+        val anotherObject = MyCustomObject.instanceFromPointer(pointer)
         assertEquals("Steven", anotherObject.name)
     }
 
 }
 
-class MyCustomObject(
-    val name: String = ""
-) : Object(MyCustomObject.newInstancePointer()) {
+class MyCustomObject : Object {
+    var name: String = ""
 
-    companion object : ObjectCompanion<MyCustomObject>(MyCustomObjectTypeInfo)
+    constructor(pointer: CPointer<*>) : super(pointer)
+
+    constructor() : this(newInstancePointer())
+
+    constructor(name: String) : this() {
+        this.name = name
+    }
+
+    companion object : ObjectCompanion<MyCustomObject>() {
+        override val typeName = "MyCustomObject"
+        override val parentType = Object.typeInfo
+    }
 }
 
-val MyCustomObjectTypeInfo = registerTypeClass<MyCustomObject>(
-    "MyCustomObject",
-    Object.typeInfo,
-)
+class AnotherClass : Object {
+    constructor(pointer: CPointer<*>) : super(pointer)
 
-class AnotherClass : Object() {
-    companion object : ObjectCompanion<AnotherClass>(AnotherCustomObjectTypeInfo)
+    companion object : ObjectCompanion<AnotherClass>() {
+        override val typeName = "AnotherClass"
+        override val parentType = Object.typeInfo
+    }
 }
-
-val AnotherCustomObjectTypeInfo = registerTypeClass<AnotherClass>(
-    "AnotherClass",
-    Object.typeInfo,
-)

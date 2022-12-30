@@ -117,7 +117,7 @@ private val staticCustomObjectClassInit: GClassInitFunc =
         val propertiesPointer = internalTypeInfo.getClassPropertiesPointerFromClassInstancePointer(g_class)
         propertiesPointer.pointed.kg_type_obj = data
 
-        val classRef = ObjectClass(g_class)
+        val classRef = ObjectClass<Object>(g_class)
         internalTypeInfo.classInitFunc.invoke(classRef)
 
         // TODO add class finalize to cleanup data pointer
