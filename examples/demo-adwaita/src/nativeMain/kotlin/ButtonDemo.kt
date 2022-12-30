@@ -2,6 +2,7 @@ import bindings.adw.*
 import bindings.gio.Menu
 import bindings.gio.MenuItem
 import bindings.gtk.Button
+import bindings.gtk.CheckButton
 import bindings.gtk.Widget
 import native.gtk.GtkAlign.GTK_ALIGN_CENTER
 
@@ -72,6 +73,15 @@ fun buildButtonPage() = StatusPage().apply {
                         this.appendItem(MenuItem("Another"))
                     }
                 }
+            }
+            addButton("Check Button") {
+                CheckButton()
+            }
+            addButton("Check Button Label") {
+                CheckButton("Label")
+            }
+            addButton("Check Button Selection mode") {
+                CheckButton().apply { addCssClass("selection-mode") }
             }
         }
     }
