@@ -4,17 +4,29 @@ import bindings.gobject.Object
 import bindings.gobject.asTypedPointer
 import internal.KGTypeInfo
 import internal.TypeRegistry
+import internal.objectproperties.IntObjectProperty
+import internal.objectproperties.NullableStringObjectProperty
+import internal.objectproperties.ObjectClassProperties
+import internal.objectproperties.StringObjectProperty
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.pointed
 import native.gobject.*
+import kotlin.reflect.KMutableProperty1
 
 /**
  * Initializer for user-defined Object subclasses.
  */
 typealias ObjectClassInitFunc = (klass: ObjectClass<*>) -> Unit
 
-open class ObjectClass<T: Object>(val pointer: CPointer<*>) {
+open class ObjectClass<T : Object> constructor(
+    val pointer: CPointer<*>,
+    val objectProperties: ObjectClassProperties
+) {
     val gType: GType = pointer.asTypedPointer<GTypeClass>().pointed.g_type
+
+    private val objectClassPointer get() = pointer.asTypedPointer<GObjectClass>()
+
+    /* Signals */
 
     /**
      * Install a signal to this object class.
@@ -44,6 +56,10 @@ open class ObjectClass<T: Object>(val pointer: CPointer<*>) {
             throw Error("Error installing signal $signalName")
         }
     }
+
+    /* Properties */
+
+    fun installProperty(property: KGObjectProperty<*, *>) = objectProperties.installProperty(property)
 }
 
 
@@ -57,3 +73,35 @@ fun <T : Object> registerTypeClass(
 ): KGTypeInfo<T> {
     return TypeRegistry.registerType(typeName, superType, classInitFunc)
 }
+
+
+fun <OBJECT_TYPE : Object> stringProperty(
+    property: KMutableProperty1<OBJECT_TYPE, String>,
+    name: String,
+    nick: String? = null,
+    blurb: String? = null,
+    defaultValue: String,
+    flags: GParamFlags = G_PARAM_READWRITE
+): KGObjectProperty<OBJECT_TYPE, String> = StringObjectProperty(property, name, nick, blurb, defaultValue, flags)
+
+fun <OBJECT_TYPE : Object> nullableStringProperty(
+    property: KMutableProperty1<OBJECT_TYPE, String?>,
+    name: String,
+    nick: String? = null,
+    blurb: String? = null,
+    defaultValue: String?,
+    flags: GParamFlags = G_PARAM_READWRITE
+): KGObjectProperty<OBJECT_TYPE, String?> =
+    NullableStringObjectProperty(property, name, nick, blurb, defaultValue, flags)
+
+fun <OBJECT_TYPE : Object> intProperty(
+    property: KMutableProperty1<OBJECT_TYPE, Int>,
+    name: String,
+    nick: String? = null,
+    blurb: String? = null,
+    minimum: Int,
+    maximum: Int,
+    defaultValue: Int,
+    flags: GParamFlags = G_PARAM_READWRITE
+): KGObjectProperty<OBJECT_TYPE, Int> =
+    IntObjectProperty(property, name, nick, blurb, minimum, maximum, defaultValue, flags)

@@ -3,6 +3,7 @@ package bindings.gtk.usertypes
 import bindings.gtk.Button
 import bindings.gtk.Widget
 import internal.KGTypeInfo
+import internal.objectproperties.ObjectClassProperties
 import kotlinx.cinterop.*
 import native.gobject.GVariant
 import native.gobject.g_object_new
@@ -88,7 +89,8 @@ abstract class WidgetCompanion<T : Widget> {
             typeName,
             parentType
         ) { objectClass: ObjectClass<*> ->
-            val widgetClass = WidgetClass<T>(objectClass.pointer, actionHandlerMap)
+            // TODO the way objectProperties are passed should be handled better.
+            val widgetClass = WidgetClass<T>(objectClass.pointer, actionHandlerMap, objectClass.objectProperties)
             // delegate to user init
             classInit(widgetClass)
         }
@@ -103,8 +105,9 @@ abstract class WidgetCompanion<T : Widget> {
 
 class WidgetClass<T : Widget> internal constructor(
     pointer: CPointer<*>,
-    private val actionHandlerMap: MutableMap<String, (T) -> Unit>
-) : ObjectClass<T>(pointer) {
+    private val actionHandlerMap: MutableMap<String, (T) -> Unit>,
+    objectClassProperties: ObjectClassProperties
+) : ObjectClass<T>(pointer, objectClassProperties) {
 
     /**
      * Install action in this widget class.

@@ -36,6 +36,7 @@ typedef struct {
 
 typedef struct {
   void *kg_type_obj;
+  void *kg_object_class_properties;
 } CustomObjectClassProperties;
 
 typedef struct {

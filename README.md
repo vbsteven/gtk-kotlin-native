@@ -435,7 +435,7 @@ Deriving custom widgets is currently possible with limited support for actions a
   * Override the `typeName` property with the name for your class.
   * Override the `parentType` property with the `typeInfo` object from your parent class.
   * Override `classInit` and install any signals, actions or properties your widget provides.
-* Add a secondary constructor that calls `newInstance()` from your companion object and pass the resulting pointer to the primary constructor.
+* Add a secondary constructor that calls `newInstancePointer()` from your companion object and pass the resulting pointer to the primary constructor.
 * (optional) The secondary constructor block can assign instance properties from your constructor arguments.
 
 An example for a custom widget named `MyWidget` that extends the libadwaita `Bin` widget and provides an action and a signal:
@@ -445,7 +445,7 @@ class MyWidget(pointer: CPointer<*>) : Bin(pointer) {
 
     var name: String = ""
 
-    constructor(name: String) : this(newInstance()) {
+    constructor(name: String) : this(newInstancePointer()) {
         this.name = name
 
         val button = Button(name)
@@ -472,6 +472,69 @@ class MyWidget(pointer: CPointer<*>) : Bin(pointer) {
         }
     }
 }
+
+```
+
+### Deriving custom object classes with properties
+
+* Declare a Kotlin class that extends `Object` (or another class subclasses from Object).
+* Add a (primary) constructor that takes a `CPointer<*>` argument and pass the pointer to `super` constructor.
+* Add a companion object that extends `ObjectCompanion<T>` where `T` is your class.
+  * Override the `typeName` property with the name for your class.
+  * Override the `parentType` property with the `typeInfo` object from your parent class.
+  * Override `classInit` and install any signals or properties your object provides.
+* Add a secondary constructor that calls `newInstancePointer()` from your companion object and pass the resulting pointer to the primary constructor.
+* (optional) The secondary constructor block can assign instance properties from your constructor arguments.
+
+An example for a custom object class named `MyPerson` with some properties:
+
+```kotlin
+private class MyPerson : Object {
+    constructor(pointer: CPointer<*>) : super(pointer)
+    constructor() : this(newInstancePointer())
+
+    var name: String by NAME_PROPERTY
+    var surname: String? by SURNAME_PROPERTY
+    var age: Int by AGE_PROPERTY
+
+    companion object : ObjectCompanion<MyPerson>() {
+        override val typeName = "MyPerson"
+        override val parentType = Object.typeInfo
+
+        private val NAME_PROPERTY = stringProperty(MyPerson::name, "name", defaultValue = "")
+        private val SURNAME_PROPERTY = nullableStringProperty(MyPerson::surname, "surname", defaultValue = null)
+        private val AGE_PROPERTY = intProperty(MyPerson::age, "age", "age", "A persons age", 0, 200, 0)
+
+        override fun classInit(klass: ObjectClass<MyPerson>) {
+            klass.installProperty(NAME_PROPERTY)
+            klass.installProperty(SURNAME_PROPERTY)
+            klass.installProperty(AGE_PROPERTY)
+        }
+    }
+}
+```
+
+With the `MyPerson` class defined like this, you can instantiate it as you would with any regular Kotlin class and it will
+act as a GObject.
+
+* Assigning a value to the `name`, `surname` and `age` properties of the kotlin instance will update the instance property
+  as well as notify on the GObject for the property.
+* Assigning a value to a property by name using external g_object methods (for example through property binding) will update
+  the instance properties.
+
+```kotlin
+val person = MyPerson()
+person.name = "Steven" // notifies on name property
+person.age = 35 // notifies on age property
+
+person.setProperty("age", 19) // update property through gobject
+println(person.age) // prints 19
+
+// property binding works as expected
+val anotherPerson = MyPerson()
+person.bindProperty("age", anotherPerson, "age")
+person.age = 42
+println(anotherPerson.age) // prints 42
 
 ```
 

@@ -39,7 +39,7 @@ class CustomObjectTest {
 
 }
 
-class MyCustomObject : Object {
+private class MyCustomObject : Object {
     var name: String = ""
 
     constructor(pointer: CPointer<*>) : super(pointer)
@@ -56,7 +56,7 @@ class MyCustomObject : Object {
     }
 }
 
-class AnotherClass : Object {
+private class AnotherClass : Object {
     constructor(pointer: CPointer<*>) : super(pointer)
 
     companion object : ObjectCompanion<AnotherClass>() {

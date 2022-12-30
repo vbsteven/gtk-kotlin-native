@@ -114,6 +114,36 @@ open class Object(pointer: CPointer<*>) {
         typeInfo?.associate(this, this.gPointer)
     }
 
+    /* properties */
+
+    fun setProperty(name: String, value: String?) = memScoped {
+        val gValue = alloc<GValue>()
+        g_value_init(gValue.ptr, G_TYPE_STRING)
+        g_value_set_string(gValue.ptr, value)
+        g_object_set_property(gPointer.asTypedPointer(), name, gValue.ptr)
+    }
+
+    fun setProperty(name: String, value: Int) = memScoped {
+        val gValue = alloc<GValue>()
+        g_value_init(gValue.ptr, G_TYPE_INT)
+        g_value_set_int(gValue.ptr, value)
+        g_object_set_property(gPointer.asTypedPointer(), name, gValue.ptr)
+    }
+
+    fun getStringProperty(name: String): String? = memScoped {
+        val gValue = alloc<GValue>()
+        g_value_init(gValue.ptr, G_TYPE_STRING)
+        g_object_get_property(gPointer.asTypedPointer(), name, gValue.ptr)
+        return g_value_get_string(gValue.ptr)?.toKString()
+    }
+
+    fun getIntProperty(name: String): Int = memScoped {
+        val gValue = alloc<GValue>()
+        g_value_init(gValue.ptr, G_TYPE_INT)
+        g_object_get_property(gPointer.asTypedPointer(), name, gValue.ptr)
+        return g_value_get_int(gValue.ptr)
+    }
+
     companion object {
         val typeInfo = BuiltinTypeInfo(
             "GObject",

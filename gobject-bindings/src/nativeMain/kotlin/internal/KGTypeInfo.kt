@@ -1,12 +1,9 @@
 package internal
 
 import bindings.gobject.Object
-import kotlinx.cinterop.CPointer
-import kotlinx.cinterop.StableRef
-import kotlinx.cinterop.asStableRef
-import kotlinx.cinterop.pointed
-import native.gobject.GType
-import native.gobject.g_object_new
+import kotlinx.cinterop.*
+import native.gobject.*
+import internal.objectproperties.ObjectClassProperties
 
 /**
  * Info about a GObject type.
@@ -99,10 +96,16 @@ internal class DynamicTypeInfo<T : Object>(
 
     internal fun associate(obj: Object, pointer: CPointer<*>) {
         val instanceProperties = pointer.getCustomObjectPropertiesPointer(this)
-        if(instanceProperties.pointed.internal_obj != null) {
+        if (instanceProperties.pointed.internal_obj != null) {
             throw Error("Object already associated")
         }
         val dataHolder = InstanceDataHolder(obj)
         instanceProperties.pointed.internal_obj = StableRef.create(dataHolder).asCPointer()
+    }
+
+    fun getObjectClassPropertiesForClassPointer(pointer: CPointer<GTypeClass>): ObjectClassProperties {
+        val raw = pointer.rawValue.plus(parentClassSize)
+        val interpreted = interpretCPointer<CustomObjectClassProperties>(raw)!!
+        return interpreted.pointed.kg_object_class_properties!!.asStableRef<ObjectClassProperties>().get()
     }
 }
