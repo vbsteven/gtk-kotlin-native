@@ -11,6 +11,7 @@ fun CPointer<GtkApplicationWindow>.asApplicationWindow(): ApplicationWindow = Ap
 fun CPointer<GtkAspectFrame>.asAspectFrame(): AspectFrame = AspectFrame(this)
 fun CPointer<GtkBox>.asBox(): Box = Box(this)
 fun CPointer<GtkCenterBox>.asCenterBox(): CenterBox = CenterBox(this)
+fun CPointer<GtkCheckButton>.asCheckButton(): CheckButton = CheckButton(this)
 fun CPointer<GtkButton>.asButton(): Button = Button(this)
 fun CPointer<GtkDialog>.asDialog(): Dialog = Dialog(this)
 fun CPointer<GtkEditable>.asEditable(): Editable = EditableWrapper(this)
