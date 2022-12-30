@@ -1,7 +1,6 @@
 package bindings.gio
 
 import bindings.gobject.Object
-import bindings.gobject.ObjectCompanion
 import bindings.gobject.asTypedPointer
 import bindings.gobject.boolean
 import internal.BuiltinTypeInfo
@@ -34,14 +33,15 @@ open class MenuModel : Object {
     // TODO iterateItemAttributes
     // TODO iterateItemLinks
 
-    companion object : ObjectCompanion<MenuModel>(MenuModelTypeInfo)
+
+    companion object {
+        val typeInfo = BuiltinTypeInfo(
+            "GMenuModel",
+            G_TYPE_MENU_MODEL,
+            sizeOf<GMenuModelClass>(),
+            sizeOf<GMenuModel>(),
+            ::MenuModel
+        )
+    }
+
 }
-
-
-private val MenuModelTypeInfo = BuiltinTypeInfo(
-    "GMenuModel",
-    G_TYPE_MENU_MODEL,
-    sizeOf<GMenuModelClass>(),
-    sizeOf<GMenuModel>(),
-    ::MenuModel
-)

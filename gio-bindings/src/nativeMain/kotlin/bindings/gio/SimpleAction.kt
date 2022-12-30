@@ -1,14 +1,12 @@
 package bindings.gio
 
+import bindings.gio.internal.staticStableRefDestroy
 import bindings.glib.Variant
 import bindings.glib.VariantType
 import bindings.glib.asVariant
 import bindings.gobject.Object
-import bindings.gobject.ObjectCompanion
 import bindings.gobject.asTypedPointer
 import bindings.gobject.gboolean
-import internal.BuiltinTypeInfo
-import bindings.gio.internal.staticStableRefDestroy
 import kotlinx.cinterop.*
 import native.gio.*
 import native.gobject.GCallback
@@ -53,16 +51,8 @@ class SimpleAction : Object, Action {
         )
     }
 
-    companion object : ObjectCompanion<SimpleAction>(SimpleActionTypeInfo)
 }
 
-private val SimpleActionTypeInfo = BuiltinTypeInfo(
-    "GSimpleAction",
-    G_TYPE_SIMPLE_ACTION,
-    -1,
-    -1,
-    ::SimpleAction
-)
 
 private val staticActionCallbackFunc: GCallback =
     staticCFunction { action: CPointer<GAction>,

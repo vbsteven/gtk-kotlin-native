@@ -1,9 +1,7 @@
 package bindings.gio
 
 import bindings.gobject.Object
-import bindings.gobject.ObjectCompanion
 import bindings.gobject.asTypedPointer
-import internal.BuiltinTypeInfo
 import kotlinx.cinterop.CPointer
 import native.gio.*
 
@@ -32,13 +30,4 @@ class MenuItem : Object {
     fun setSection(section: MenuModel?) = g_menu_item_set_section(gMenuItemPointer, section?.gMenuModelPointer)
     fun setSubmenu(submenu: MenuModel?) = g_menu_item_set_submenu(gMenuItemPointer, submenu?.gMenuModelPointer)
 
-    companion object : ObjectCompanion<MenuItem>(MenuItemTypeInfo)
 }
-
-private val MenuItemTypeInfo = BuiltinTypeInfo(
-    "GMenuItem",
-    G_TYPE_MENU_ITEM,
-    -1,
-    -1,
-    ::MenuItem
-)
