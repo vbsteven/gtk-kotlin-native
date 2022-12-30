@@ -46,7 +46,7 @@ class MyWidget : Bin {
 
     constructor(pointer: CPointer<*>) : super(pointer)
 
-    constructor(name: String) : this(newInstance()) {
+    constructor(name: String) : this(newInstancePointer()) {
         this.name = name
 
         this.child = Button(name).apply {

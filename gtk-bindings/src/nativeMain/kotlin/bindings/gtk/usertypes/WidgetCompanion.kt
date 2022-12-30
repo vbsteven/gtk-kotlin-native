@@ -45,17 +45,17 @@ abstract class WidgetCompanion<T : Widget> {
      *              actions, properties and signals on your custom type.
      * @see WidgetClass
      */
-    abstract fun classInit(klass: WidgetClass<T>)
+    open fun classInit(klass: WidgetClass<T>) {}
 
     /**
      * Instantiate a new instance pointer of the associated Widget subclass.
      *
-     * This method should be used in constructors of the associated Widget subclassa
+     * This method should be used in constructors of the associated Widget subclass
      * and the resulting pointer should be passed on to the constructor of the parent class.
      *
      * @return a pointer to the instance
      */
-    fun newInstance(): CPointer<*> = g_object_new(typeInfo.gType, null)!!
+    fun newInstancePointer(): CPointer<*> = g_object_new(typeInfo.gType, null)!!
 
     /**
      * TypeInfo property of the associated Widget class.
@@ -87,7 +87,7 @@ abstract class WidgetCompanion<T : Widget> {
         val info = registerTypeClass<T>(
             typeName,
             parentType
-        ) { objectClass: ObjectClass ->
+        ) { objectClass: ObjectClass<*> ->
             val widgetClass = WidgetClass<T>(objectClass.pointer, actionHandlerMap)
             // delegate to user init
             classInit(widgetClass)
@@ -101,13 +101,10 @@ abstract class WidgetCompanion<T : Widget> {
 }
 
 
-class WidgetClass<T : Widget> : ObjectClass {
-
+class WidgetClass<T : Widget> internal constructor(
+    pointer: CPointer<*>,
     private val actionHandlerMap: MutableMap<String, (T) -> Unit>
-
-    internal constructor(pointer: CPointer<*>, actionHandlerMap: MutableMap<String, (T) -> Unit>) : super(pointer) {
-        this.actionHandlerMap = actionHandlerMap
-    }
+) : ObjectClass<T>(pointer) {
 
     /**
      * Install action in this widget class.

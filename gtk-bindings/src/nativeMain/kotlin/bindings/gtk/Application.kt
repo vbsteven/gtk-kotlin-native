@@ -23,15 +23,16 @@ open class Application(pointer: CPointer<*>) : Application(pointer), ActionMap {
 
     override val gActionMapPointer get() = gPointer.asTypedPointer<GActionMap>()
 
-    companion object : ObjectCompanion<Application>(
-        BuiltinTypeInfo(
-            "GtkApplication",
-            GTK_TYPE_APPLICATION,
-            sizeOf<GtkApplicationClass>(),
-            sizeOf<GtkApplication>(),
-            ::Application
-        )
-    )
+    companion object {
+        val typeInfo =
+            BuiltinTypeInfo(
+                "GtkApplication",
+                GTK_TYPE_APPLICATION,
+                sizeOf<GtkApplicationClass>(),
+                sizeOf<GtkApplication>(),
+                ::Application
+            )
+    }
 
     constructor(
         applicationId: String,
