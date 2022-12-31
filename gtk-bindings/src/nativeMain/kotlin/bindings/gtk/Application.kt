@@ -1,15 +1,12 @@
 package bindings.gtk
 
-import bindings.gio.ActionMap
 import bindings.gio.Application
 import bindings.gio.MenuModel
 import bindings.gio.asMenuModel
-import bindings.gobject.ObjectCompanion
 import bindings.gobject.asTypedPointer
 import bindings.gtk.internal.staticStableRefDestroy
 import internal.BuiltinTypeInfo
 import kotlinx.cinterop.*
-import native.gio.GActionMap
 import native.gio.GApplicationFlags
 import native.gio.G_APPLICATION_FLAGS_NONE
 import native.gobject.GCallback
@@ -17,11 +14,9 @@ import native.gobject.g_signal_connect_data
 import native.gobject.gpointer
 import native.gtk.*
 
-open class Application(pointer: CPointer<*>) : Application(pointer), ActionMap {
+open class Application(pointer: CPointer<*>) : Application(pointer) {
 
     val gtkApplicationPointer get() = gPointer.asTypedPointer<GtkApplication>()
-
-    override val gActionMapPointer get() = gPointer.asTypedPointer<GActionMap>()
 
     companion object {
         val typeInfo =
@@ -38,6 +33,18 @@ open class Application(pointer: CPointer<*>) : Application(pointer), ActionMap {
         applicationId: String,
         flags: GApplicationFlags = G_APPLICATION_FLAGS_NONE
     ) : this(gtk_application_new(applicationId, flags)!!)
+
+    fun inhibit(window: Window?, flags: GtkApplicationInhibitFlags, reason: String?): UInt =
+        gtk_application_inhibit(gtkApplicationPointer, window?.gtkWindowPointer, flags, reason)
+
+    fun uninhibit(cookie: UInt) = gtk_application_uninhibit(gtkApplicationPointer, cookie)
+
+    fun addWindow(window: Window) = gtk_application_add_window(gtkApplicationPointer, window?.gtkWindowPointer)
+
+    fun getWindowById(id: UInt): Window? = gtk_application_get_window_by_id(gtkApplicationPointer, id)?.asWindow()
+
+    fun removeWindow(window: Window) = gtk_application_remove_window(gtkApplicationPointer, window.gtkWindowPointer)
+
 
     fun onActivate(func: () -> Unit) {
         g_signal_connect_data(
@@ -56,7 +63,7 @@ open class Application(pointer: CPointer<*>) : Application(pointer), ActionMap {
 
 }
 
-// TODO would this make sence in GApplication instead?
+// TODO would this make sense in GApplication instead?
 private val onActivateCallbackFunc: GCallback =
     staticCFunction { _: gpointer?, data: gpointer? ->
         data?.asStableRef<() -> Unit>()?.get()?.invoke()
