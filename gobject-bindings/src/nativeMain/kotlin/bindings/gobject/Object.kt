@@ -10,6 +10,11 @@ import native.gobject.*
 open class Object(pointer: CPointer<*>) {
     val gPointer: CPointer<*> = pointer
 
+    /**
+     * Get the GType from the current instance
+     */
+    val gType: GType by lazy { gPointer.asTypedPointer<GObject>().pointed!!.g_type_instance.g_class!!.pointed.g_type }
+
     constructor() : this(typeInfo.newInstancePointer())
 
     init {
@@ -106,12 +111,7 @@ open class Object(pointer: CPointer<*>) {
         )
 
     private fun associateCustomObject() {
-        // TODO is there a better way to get the type from an object?
-        val typeInfo = g_type_name_from_instance(gPointer.reinterpret())
-            ?.toKString()
-            ?.let { TypeRegistry.getTypeInfoForName(it) }
-
-        typeInfo?.associate(this, this.gPointer)
+        TypeRegistry.getTypeInfoForType(gType)?.associate(this, this.gPointer)
     }
 
     /* properties */
@@ -142,6 +142,11 @@ open class Object(pointer: CPointer<*>) {
         g_value_init(gValue.ptr, G_TYPE_INT)
         g_object_get_property(gPointer.asTypedPointer(), name, gValue.ptr)
         return g_value_get_int(gValue.ptr)
+    }
+
+    override fun toString(): String {
+        val objectTypeName = g_type_name_from_instance(gPointer.asTypedPointer())?.toKString()
+        return "Object :: $objectTypeName :: ${super.toString()})"
     }
 
     companion object {
