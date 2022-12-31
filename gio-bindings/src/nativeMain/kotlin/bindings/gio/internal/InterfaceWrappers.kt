@@ -1,11 +1,13 @@
 package bindings.gio.internal
 
 import bindings.gio.Action
+import bindings.gio.ActionGroup
 import bindings.gio.ActionMap
 import bindings.gio.ListModel
 import bindings.gobject.asTypedPointer
 import kotlinx.cinterop.CPointer
 import native.gio.GAction
+import native.gio.GActionGroup
 import native.gio.GActionMap
 import native.gio.GListModel
 
@@ -19,4 +21,8 @@ internal class ActionMapWrapper(
 
 internal class ListModelWrapper(pointer: CPointer<*>) : ListModel {
     override val gListModelPointer = pointer.asTypedPointer<GListModel>()
+}
+
+internal class ActionGroupWrapper(pointer: CPointer<*>) : ActionGroup {
+    override val gActionGroupPointer = pointer.asTypedPointer<GActionGroup>()
 }
