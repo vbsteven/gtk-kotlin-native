@@ -15,6 +15,13 @@ class ScrolledWindow : Widget {
     constructor(pointer: CPointer<*>) : super(pointer)
     constructor() : this(gtk_scrolled_window_new()!!)
 
+    /**
+     * Utility constructor creating an instance and immediately setting the child property
+     */
+    constructor(child: Widget) : this() {
+        this.child = child
+    }
+
     var child: Widget?
         get() = gtk_scrolled_window_get_child(gtkScrolledWindowPointer)?.asWidget()
         set(value) = gtk_scrolled_window_set_child(gtkScrolledWindowPointer, value?.gtkWidgetPointer)

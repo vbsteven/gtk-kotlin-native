@@ -8,7 +8,6 @@ import bindings.gobject.boolean
 import bindings.gobject.gboolean
 import bindings.gtk.internal.staticStableRefDestroy
 import kotlinx.cinterop.*
-import native.gobject.GObject
 import native.gobject.gpointer
 import native.gtk.*
 
@@ -58,7 +57,7 @@ class TreeListModel : Widget {
 typealias TreeListModelCreateModelFunc = (item: Object) -> ListModel?
 
 private val staticTreeListModelCreateModelFunc: GtkTreeListModelCreateModelFunc =
-    staticCFunction { item: CPointer<GObject>,
-                      data: gpointer ->
-        data?.asStableRef<TreeListModelCreateModelFunc>()?.get()?.invoke(Object(item))
+    staticCFunction { item: gpointer,
+                      data: gpointer? ->
+        data?.asStableRef<TreeListModelCreateModelFunc>()?.get()?.invoke(Object(item))?.gListModelPointer
     }.reinterpret()

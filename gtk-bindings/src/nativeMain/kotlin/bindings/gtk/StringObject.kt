@@ -17,4 +17,13 @@ class StringObject : Object {
     val string: String
         get() = gtk_string_object_get_string(gtkStringObjectPointer)!!.toKString()
 
+    companion object {
+        /**
+         * // TODO can we make this generic for all final non-derivable wrapper classes?
+         * @see [bindings.gobject.ObjectCompanion.fromObject]
+         */
+        fun fromObject(o: Object): StringObject {
+            return StringObject(o.gPointer)
+        }
+    }
 }

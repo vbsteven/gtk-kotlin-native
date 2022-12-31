@@ -34,6 +34,7 @@ open class GtkTestBase {
             val window = ApplicationWindow(it.app)
             window.title = this::class.simpleName
             window.application = it.app
+            window.defaultSize = Pair(600, 400)
 
             func(window)
             window.present()
