@@ -19,7 +19,7 @@ fun main() {
         val window = ApplicationWindow(app)
         window.title = "TreeListModel Example"
         window.defaultSize = Pair(600, 400)
-        buildWindow(window)
+        buildUI(window)
         window.show()
     }
     app.run()
@@ -27,7 +27,7 @@ fun main() {
 }
 
 
-fun buildWindow(window: Window) {
+private fun buildUI(window: Window) {
     // create a listStore to store the items
     val listStore = ListStore(Task.typeInfo.gType)
 
