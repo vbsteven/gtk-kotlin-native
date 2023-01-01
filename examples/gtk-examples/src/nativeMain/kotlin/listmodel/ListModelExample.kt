@@ -6,7 +6,7 @@ import bindings.gtk.*
  * An example showing how to build a GTK4 [ListView] with string items.
  */
 fun main() {
-    val app = Application("io.quantus.gtk-kotlin-native.example.listviewmodel")
+    val app = Application("io.quantus.gtk-kotlin-native.example.listmodel")
     app.onActivate {
         val window = ApplicationWindow(app)
         window.title = "ListModel"
