@@ -14,6 +14,24 @@ class ListStore : Object, ListModel {
     constructor(itemType: GType) : super(g_list_store_new(itemType)!!)
     constructor(pointer: CPointer<*>) : super(pointer)
 
+    /**
+     * Utility constructor for creating a listStore with initial items.
+     *
+     * This is the same as creating a new listStore and immediately calling [appendAll] on it.
+     */
+    constructor(itemType: GType, vararg items: Object) : this(itemType) {
+        this.appendAll(*items)
+    }
+
+    /**
+     * Utility constructor for creating a listStore with initial items.
+     *
+     * This is the same as creating a new listStore and immediately calling [appendAll] on it.
+     */
+    constructor(itemType: GType, items: List<Object>) : this(itemType) {
+        this.appendAll(items)
+    }
+
 
     fun append(item: Object) = g_list_store_append(gListStorePointer, item.gPointer)
     fun appendAll(vararg items: Object) = items.forEach { append(it) }
