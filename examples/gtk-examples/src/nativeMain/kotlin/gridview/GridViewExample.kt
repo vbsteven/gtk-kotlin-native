@@ -1,4 +1,4 @@
-package listmodel
+package gridview
 
 import bindings.gtk.*
 
@@ -6,10 +6,10 @@ import bindings.gtk.*
  * An example showing how to build a GTK4 [ListView] with string items.
  */
 fun main() {
-    val app = Application("io.quantus.gtk-kotlin-native.example.listviewmodel")
+    val app = Application("io.quantus.gtk-kotlin-native.example.grid")
     app.onActivate {
         val window = ApplicationWindow(app)
-        window.title = "ListModel"
+        window.title = "GridView Example"
         window.defaultSize = Pair(600, 400)
         buildUI(window)
         window.show()
@@ -47,7 +47,7 @@ private fun buildUI(window: Window) {
     }
 
     val selectionModel = SingleSelection(model)
-    val listView = ListView(selectionModel, factory)
+    val gridView = GridView(selectionModel, factory)
 
-    window.child = ScrolledWindow(listView)
+    window.child = ScrolledWindow(gridView)
 }
