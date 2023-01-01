@@ -58,16 +58,6 @@ abstract class ObjectCompanion<T : Object>() {
     }
 
     /**
-     * Convert an [Object] back to an instance of the associated Object subcclass.
-     *
-     * For regular Kotlin classes you can simply use (x as MyClass) style casting but
-     * this won't work for our GObject wrapper classes.
-     */
-    fun fromObject(obj: Object): T {
-        return Type.instanceFromPointer(obj.gPointer)
-    }
-
-    /**
      * Type property of the associated Object class.
      *
      * Accessing this property lazily triggers the type registration process.

@@ -24,9 +24,19 @@ inline fun <T : CPointed> gpointer.asTypedPointer() = this as CPointer<T>
 
 /**
  * Convert a generic [Object] into an instance of the given type class.
+ *
+ * @throws Error when the object cannot be converted
  */
 inline infix fun <reified T : Object> Object.asType(typeInfo: KGType<T>): T {
     return typeInfo.instanceFromPointer(this.gPointer)
+}
+
+/**
+ * Convert an [Object] instance to an instance of the given type class.
+ * @return the converted instance, or null if the instance could not be converted
+ */
+inline fun <reified T : Object> Object.asTypeOrNull(typeInfo: KGType<T>): T? {
+    return typeInfo.instanceFromPointerOrNull(this.gPointer)
 }
 
 
