@@ -4,6 +4,7 @@ import bindings.gobject.asTypedPointer
 import bindings.gtk.Orientable
 import bindings.gtk.Widget
 import bindings.gtk.asWidget
+import internal.BuiltinTypeInfo
 import kotlinx.cinterop.CPointer
 import native.adwaita.*
 import native.gtk.GtkOrientable
@@ -28,4 +29,8 @@ class Clamp : Widget, Orientable {
     var tighteningThreshold: Int
         get() = adw_clamp_get_tightening_threshold(adwClampPointer)
         set(value) = adw_clamp_set_tightening_threshold(adwClampPointer, value)
+
+    companion object {
+        val Type = BuiltinTypeInfo(ADW_TYPE_CLAMP, ::Clamp)
+    }
 }

@@ -1,6 +1,7 @@
 package bindings.gtk
 
 import bindings.gobject.*
+import internal.BuiltinTypeInfo
 import kotlinx.cinterop.CPointer
 import native.gtk.*
 
@@ -24,4 +25,7 @@ class TreeExpander : Widget {
         get() = gtk_tree_expander_get_list_row(gtkTreeExpanderPointer)?.asTreeListRow()
         set(value) = gtk_tree_expander_set_list_row(gtkTreeExpanderPointer, value?.gtkTreeListRowPointer)
 
+    companion object {
+        val Type = BuiltinTypeInfo(GTK_TYPE_TREE_EXPANDER, ::TreeExpander)
+    }
 }

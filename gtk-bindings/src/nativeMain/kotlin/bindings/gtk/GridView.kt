@@ -3,6 +3,7 @@ package bindings.gtk
 import bindings.gobject.asTypedPointer
 import bindings.gobject.boolean
 import bindings.gobject.gboolean
+import internal.BuiltinTypeInfo
 import kotlinx.cinterop.CPointer
 import native.gtk.*
 
@@ -41,4 +42,7 @@ class GridView : ListBase {
         get() = gtk_grid_view_get_max_columns(gtkGridViewPointer).toInt()
         set(value) = gtk_grid_view_set_max_columns(gtkGridViewPointer, value.toUInt())
 
+    companion object {
+        val Type = BuiltinTypeInfo(GTK_TYPE_GRID_VIEW, ::GridView)
+    }
 }

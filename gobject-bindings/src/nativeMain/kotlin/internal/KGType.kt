@@ -60,6 +60,8 @@ class BuiltinTypeInfo<T : Object>(
     override val instanceSize: Long,
     val convertPointerFunc: (CPointer<*>) -> T,
 ) : KGType<T>() {
+    constructor(gType: GType, convertPointerFunc: (CPointer<*>) -> T) : this(gType, -1, -1, convertPointerFunc)
+
     override fun instanceFromPointerOrNull(pointer: CPointer<*>): T? {
         return convertPointerFunc(pointer)
     }

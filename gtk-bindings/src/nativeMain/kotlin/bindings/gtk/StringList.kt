@@ -4,6 +4,7 @@ import bindings.gio.ListModel
 import bindings.gobject.Object
 import bindings.gobject.asTypedPointer
 import bindings.util.toCStringList
+import internal.BuiltinTypeInfo
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.memScoped
 import native.gio.GListModel
@@ -28,6 +29,10 @@ class StringList : Object, ListModel {
 
     // TODO add splice
     // TODO add take?
+
+    companion object {
+        val Type = BuiltinTypeInfo(GTK_TYPE_STRING_LIST, ::StringList)
+    }
 }
 
 private fun createStringList(items: List<String>): CPointer<GtkStringList> = memScoped {

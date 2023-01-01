@@ -1,6 +1,7 @@
 package bindings.gtk
 
 import bindings.gobject.*
+import internal.BuiltinTypeInfo
 import kotlinx.cinterop.CPointer
 import native.gtk.*
 
@@ -38,4 +39,7 @@ class ListItem : Object {
 
     val item: Object? = gtk_list_item_get_item(gtkListItemPointer)?.asObject()
 
+    companion object {
+        val Type = BuiltinTypeInfo(GTK_TYPE_LIST_ITEM, ::ListItem)
+    }
 }

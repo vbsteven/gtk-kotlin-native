@@ -3,6 +3,7 @@ package bindings.gtk
 import bindings.gobject.asTypedPointer
 import bindings.gobject.boolean
 import bindings.gobject.gboolean
+import internal.BuiltinTypeInfo
 import kotlinx.cinterop.CPointer
 import native.gtk.*
 
@@ -24,4 +25,7 @@ class Switch : Widget, Actionable {
 
     // TODO activate and state-set signals
 
+    companion object {
+        val Type = BuiltinTypeInfo(GTK_TYPE_SWITCH, ::Switch)
+    }
 }

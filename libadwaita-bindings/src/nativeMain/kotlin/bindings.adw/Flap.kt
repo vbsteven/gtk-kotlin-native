@@ -5,6 +5,7 @@ import bindings.gobject.boolean
 import bindings.gobject.gboolean
 import bindings.gtk.Widget
 import bindings.gtk.asWidget
+import internal.BuiltinTypeInfo
 import kotlinx.cinterop.CPointer
 import native.adwaita.*
 import native.gtk.GtkPackType
@@ -74,4 +75,8 @@ class Flap : Widget {
     var transitionType: AdwFlapTransitionType
         get() = adw_flap_get_transition_type(adwFlapPointer)
         set(value) = adw_flap_set_transition_type(adwFlapPointer, value)
+
+    companion object {
+        val Type = BuiltinTypeInfo(ADW_TYPE_FLAP, ::Flap)
+    }
 }

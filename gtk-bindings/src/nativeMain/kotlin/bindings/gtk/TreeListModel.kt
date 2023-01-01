@@ -7,6 +7,7 @@ import bindings.gobject.asTypedPointer
 import bindings.gobject.boolean
 import bindings.gobject.gboolean
 import bindings.gtk.internal.staticStableRefDestroy
+import internal.BuiltinTypeInfo
 import kotlinx.cinterop.*
 import native.gio.GListModel
 import native.gobject.gpointer
@@ -52,6 +53,8 @@ class TreeListModel : Widget, ListModel {
                 staticStableRefDestroy.reinterpret()
             )!!
         }
+
+        val Type = BuiltinTypeInfo(GTK_TYPE_TREE_LIST_MODEL, ::TreeListModel)
     }
 
 }

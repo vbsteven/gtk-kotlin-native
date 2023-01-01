@@ -6,6 +6,7 @@ import bindings.gobject.boolean
 import bindings.gobject.gboolean
 import bindings.gtk.Widget
 import bindings.gtk.asWidget
+import internal.BuiltinTypeInfo
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.toKString
 import native.adwaita.*
@@ -46,4 +47,8 @@ class ViewStackPage : Object {
     var visible: Boolean
         get() = adw_view_stack_page_get_visible(adwViewStackPagePointer).boolean
         set(value) = adw_view_stack_page_set_visible(adwViewStackPagePointer, value.gboolean)
+
+    companion object {
+        val Type = BuiltinTypeInfo(ADW_TYPE_VIEW_STACK_PAGE, ::ViewStackPage)
+    }
 }

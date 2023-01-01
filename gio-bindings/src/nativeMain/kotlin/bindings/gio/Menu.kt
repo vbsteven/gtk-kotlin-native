@@ -1,6 +1,7 @@
 package bindings.gio
 
 import bindings.gobject.asTypedPointer
+import internal.BuiltinTypeInfo
 import kotlinx.cinterop.CPointer
 import native.gio.*
 
@@ -48,4 +49,8 @@ class Menu : MenuModel {
 
     fun remove(position: Int) = g_menu_remove(gMenuPointer, position)
     fun removeAll() = g_menu_remove_all(gMenuPointer)
+
+    companion object {
+        val Type = BuiltinTypeInfo(G_TYPE_MENU, ::Menu)
+    }
 }

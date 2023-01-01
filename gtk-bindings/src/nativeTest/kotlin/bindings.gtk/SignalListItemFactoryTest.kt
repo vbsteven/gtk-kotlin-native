@@ -1,5 +1,6 @@
 package bindings.gtk
 
+import bindings.gobject.asType
 import bindings.gtk.testutils.GtkTestBase
 import kotlin.test.Ignore
 import kotlin.test.Test
@@ -19,8 +20,8 @@ class SignalListItemFactoryTest : GtkTestBase() {
             listItem.child = Label()
         }
         factory.onBind { listItem ->
-            val label = listItem.child?.let { Label.fromObject(it) }!!
-            val item = listItem.item?.let { StringObject.fromObject(it) }!!
+            val label = listItem.child!!.asType(Label.Type)
+            val item = listItem.item!!.asType(StringObject.Type)
             label.text = item.string
         }
         factory.onUnbind {

@@ -4,6 +4,7 @@ import bindings.gobject.asTypedPointer
 import bindings.gobject.boolean
 import bindings.gobject.gboolean
 import bindings.gtk.Widget
+import internal.BuiltinTypeInfo
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.toKString
 import native.adwaita.*
@@ -32,4 +33,7 @@ class ViewSwitcherTitle : Widget {
         get() = adw_view_switcher_title_get_view_switcher_enabled(adwViewSwitcherTitlePointer).boolean
         set(value) = adw_view_switcher_title_set_view_switcher_enabled(adwViewSwitcherTitlePointer, value.gboolean)
 
+    companion object {
+        val Type = BuiltinTypeInfo(ADW_TYPE_VIEW_SWITCHER_TITLE, ::ViewSwitcherTitle)
+    }
 }

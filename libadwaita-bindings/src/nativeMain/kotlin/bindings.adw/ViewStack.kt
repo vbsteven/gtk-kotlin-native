@@ -7,6 +7,7 @@ import bindings.gtk.SelectionModel
 import bindings.gtk.Widget
 import bindings.gtk.asSelectionModel
 import bindings.gtk.asWidget
+import internal.BuiltinTypeInfo
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.toKString
 import native.adwaita.*
@@ -59,4 +60,7 @@ class ViewStack : Widget {
 
     fun remove(child: Widget) = adw_view_stack_remove(adwViewStackPointer, child.gtkWidgetPointer)
 
+    companion object {
+        val Type = BuiltinTypeInfo(ADW_TYPE_VIEW_STACK, ::ViewStack)
+    }
 }

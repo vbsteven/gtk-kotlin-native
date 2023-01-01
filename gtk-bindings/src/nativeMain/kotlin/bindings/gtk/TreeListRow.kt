@@ -3,6 +3,7 @@ package bindings.gtk
 import bindings.gio.ListModel
 import bindings.gio.asListModel
 import bindings.gobject.*
+import internal.BuiltinTypeInfo
 import kotlinx.cinterop.CPointer
 import native.gtk.*
 
@@ -24,4 +25,7 @@ class TreeListRow : Object {
 
     val item: Object? get() = gtk_tree_list_row_get_item(gtkTreeListRowPointer)?.asObject()
 
+    companion object {
+        val Type = BuiltinTypeInfo(GTK_TYPE_TREE_LIST_ROW, ::TreeListRow)
+    }
 }

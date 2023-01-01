@@ -3,6 +3,7 @@ package bindings.gtk
 import bindings.gobject.asTypedPointer
 import bindings.gobject.boolean
 import bindings.gobject.gboolean
+import internal.BuiltinTypeInfo
 import kotlinx.cinterop.CPointer
 import native.gtk.*
 
@@ -36,5 +37,9 @@ class AspectFrame : Widget {
     var yalign: Float
         get() = gtk_aspect_frame_get_yalign(gtkAspectFramePointer)
         set(value) = gtk_aspect_frame_set_yalign(gtkAspectFramePointer, value)
+
+    companion object {
+        val Type = BuiltinTypeInfo(GTK_TYPE_ASPECT_FRAME, ::AspectFrame)
+    }
 
 }

@@ -1,5 +1,6 @@
 package listmodel
 
+import bindings.gobject.asType
 import bindings.gtk.*
 
 /**
@@ -37,10 +38,10 @@ private fun buildUI(window: Window) {
     // bind the item row
     factory.onBind { listItem ->
         // get the label from the listItem
-        val label = Label.fromObject(listItem.child!!)
+        val label = listItem.child!!.asType(Label.Type)
 
         // get the StringObject from the listItem
-        val item = StringObject.fromObject(listItem.item!!)
+        val item = listItem.item!!.asType(StringObject.Type)
 
         // update the label
         label.text = item.string

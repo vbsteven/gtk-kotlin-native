@@ -6,6 +6,7 @@ import bindings.gobject.boolean
 import bindings.gobject.gboolean
 import bindings.gtk.Widget
 import bindings.gtk.asWidget
+import internal.BuiltinTypeInfo
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.toKString
 import native.adwaita.*
@@ -55,4 +56,7 @@ class TabPage : Object {
         get() = adw_tab_page_get_tooltip(adwTabPagePointer)?.toKString()
         set(value) = adw_tab_page_set_tooltip(adwTabPagePointer, value)
 
+    companion object {
+        val Type = BuiltinTypeInfo(ADW_TYPE_TAB_PAGE, ::TabPage)
+    }
 }

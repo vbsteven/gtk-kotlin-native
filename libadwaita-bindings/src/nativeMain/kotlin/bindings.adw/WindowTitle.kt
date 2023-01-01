@@ -2,6 +2,7 @@ package bindings.adw
 
 import bindings.gobject.asTypedPointer
 import bindings.gtk.Widget
+import internal.BuiltinTypeInfo
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.toKString
 import native.adwaita.*
@@ -20,4 +21,7 @@ class WindowTitle : Widget {
         get() = adw_window_title_get_subtitle(adwWindowTitlePointer)?.toKString() ?: ""
         set(value) = adw_window_title_set_subtitle(adwWindowTitlePointer, value)
 
+    companion object {
+        val Type = BuiltinTypeInfo(ADW_TYPE_WINDOW_TITLE, ::WindowTitle)
+    }
 }

@@ -3,6 +3,7 @@ package bindings.gtk
 import bindings.gobject.asTypedPointer
 import bindings.gobject.boolean
 import bindings.gobject.gboolean
+import internal.BuiltinTypeInfo
 import kotlinx.cinterop.CPointer
 import native.gtk.*
 
@@ -49,4 +50,7 @@ class ListBox : Widget {
 
     fun selectedRow(): ListBoxRow? = gtk_list_box_get_selected_row(gtkListBoxPointer)?.asListBoxRow()
 
+    companion object {
+        val Type = BuiltinTypeInfo(GTK_TYPE_LIST_BOX, ::ListBox)
+    }
 }

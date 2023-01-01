@@ -42,5 +42,4 @@ open class MenuModel : Object {
             ::MenuModel
         )
     }
-
 }

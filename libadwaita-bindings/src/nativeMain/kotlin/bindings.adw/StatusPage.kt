@@ -3,6 +3,7 @@ package bindings.adw
 import bindings.gobject.asTypedPointer
 import bindings.gtk.Widget
 import bindings.gtk.asWidget
+import internal.BuiltinTypeInfo
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.toKString
 import native.adwaita.*
@@ -32,4 +33,7 @@ class StatusPage : Widget {
 
     // TODO add paintable with GdkPaintable support
 
+    companion object {
+        val Type = BuiltinTypeInfo(ADW_TYPE_STATUS_PAGE, ::StatusPage)
+    }
 }

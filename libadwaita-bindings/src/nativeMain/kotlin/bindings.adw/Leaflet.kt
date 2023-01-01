@@ -7,6 +7,7 @@ import bindings.gtk.SelectionModel
 import bindings.gtk.Widget
 import bindings.gtk.asSelectionModel
 import bindings.gtk.asWidget
+import internal.BuiltinTypeInfo
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.toKString
 import native.adwaita.*
@@ -95,4 +96,7 @@ class Leaflet : Widget {
     fun reorderChildAfter(child: Widget, sibling: Widget) =
         adw_leaflet_reorder_child_after(adwLeafletPointer, child.gtkWidgetPointer, sibling.gtkWidgetPointer)
 
+    companion object {
+        val Type = BuiltinTypeInfo(ADW_TYPE_LEAFLET, ::Leaflet)
+    }
 }

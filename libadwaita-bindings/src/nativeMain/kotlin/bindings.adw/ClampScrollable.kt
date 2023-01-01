@@ -5,6 +5,7 @@ import bindings.gtk.Orientable
 import bindings.gtk.Scrollable
 import bindings.gtk.Widget
 import bindings.gtk.asWidget
+import internal.BuiltinTypeInfo
 import kotlinx.cinterop.CPointer
 import native.adwaita.*
 import native.gtk.GtkOrientable
@@ -30,4 +31,8 @@ open class ClampScrollable : Widget, Scrollable, Orientable {
     var tighteningThreshold: Int
         get() = adw_clamp_scrollable_get_tightening_threshold(adwClampScrollablePointer)
         set(value) = adw_clamp_scrollable_set_tightening_threshold(adwClampScrollablePointer, value)
+
+    companion object {
+        val Type = BuiltinTypeInfo(ADW_TYPE_CLAMP_SCROLLABLE, ::ClampScrollable)
+    }
 }

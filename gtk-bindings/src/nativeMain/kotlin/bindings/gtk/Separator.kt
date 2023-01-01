@@ -1,11 +1,9 @@
 package bindings.gtk
 
 import bindings.gobject.asTypedPointer
+import internal.BuiltinTypeInfo
 import kotlinx.cinterop.CPointer
-import native.gtk.GtkOrientable
-import native.gtk.GtkOrientation
-import native.gtk.GtkSeparator
-import native.gtk.gtk_separator_new
+import native.gtk.*
 
 class Separator : Widget, Orientable {
     val gtkSeparatorPointer get() = gtkWidgetPointer.asTypedPointer<GtkSeparator>()
@@ -14,4 +12,8 @@ class Separator : Widget, Orientable {
 
     constructor(pointer: CPointer<*>) : super(pointer)
     constructor(orientation: GtkOrientation) : this(gtk_separator_new(orientation)!!)
+
+    companion object {
+        val Type = BuiltinTypeInfo(GTK_TYPE_SEPARATOR, ::Separator)
+    }
 }

@@ -4,6 +4,7 @@ import bindings.gobject.asTypedPointer
 import bindings.gobject.boolean
 import bindings.gobject.gboolean
 import bindings.gtk.Widget
+import internal.BuiltinTypeInfo
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.toKString
 import native.adwaita.*
@@ -16,8 +17,8 @@ class Avatar : Widget {
 
     constructor(
         size: Int,
-        text: String?,
-        showInitials: Boolean,
+        text: String? = null,
+        showInitials: Boolean = false,
     ) : this(adw_avatar_new(size, text, showInitials.gboolean)!!)
 
     var iconName: String?
@@ -36,4 +37,7 @@ class Avatar : Widget {
         get() = adw_avatar_get_text(adwAvatarPointer)?.toKString()
         set(value) = adw_avatar_set_text(adwAvatarPointer, value)
 
+    companion object {
+        val Type = BuiltinTypeInfo(ADW_TYPE_AVATAR, ::Avatar)
+    }
 }

@@ -7,6 +7,7 @@ import bindings.gobject.asTypedPointer
 import bindings.gobject.boolean
 import bindings.gobject.gboolean
 import bindings.gtk.*
+import internal.BuiltinTypeInfo
 import kotlinx.cinterop.*
 import native.adwaita.*
 import native.gobject.GCallback
@@ -77,6 +78,9 @@ class SplitButton : Widget, Actionable {
         )
     }
 
+    companion object {
+        val Type = BuiltinTypeInfo(ADW_TYPE_SPLIT_BUTTON, ::SplitButton)
+    }
 }
 
 private val staticButtonClickedFunc: GCallback =

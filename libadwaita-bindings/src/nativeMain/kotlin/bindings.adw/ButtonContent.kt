@@ -4,6 +4,7 @@ import bindings.gobject.asTypedPointer
 import bindings.gobject.boolean
 import bindings.gobject.gboolean
 import bindings.gtk.Widget
+import internal.BuiltinTypeInfo
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.toKString
 import native.adwaita.*
@@ -34,4 +35,8 @@ class ButtonContent : Widget {
     var useUnderline: Boolean
         get() = adw_button_content_get_use_underline(adwButtonContentPointer).boolean
         set(value) = adw_button_content_set_use_underline(adwButtonContentPointer, value.gboolean)
+
+    companion object {
+        val Type = BuiltinTypeInfo(ADW_TYPE_BUTTON_CONTENT, ::ButtonContent)
+    }
 }

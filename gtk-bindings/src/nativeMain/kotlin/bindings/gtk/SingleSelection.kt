@@ -3,6 +3,7 @@ package bindings.gtk
 import bindings.gio.ListModel
 import bindings.gio.asListModel
 import bindings.gobject.*
+import internal.BuiltinTypeInfo
 import kotlinx.cinterop.CPointer
 import native.gtk.*
 
@@ -33,4 +34,8 @@ class SingleSelection : Object, SelectionModel {
 
     val selectedItem: Object?
         get() = gtk_single_selection_get_selected_item(gtkSingleSelectionPointer)?.asObject()
+
+    companion object {
+        val Type = BuiltinTypeInfo(GTK_TYPE_SINGLE_SELECTION, ::SingleSelection)
+    }
 }

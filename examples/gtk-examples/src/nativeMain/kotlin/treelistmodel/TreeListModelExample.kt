@@ -3,6 +3,7 @@ package treelistmodel
 import bindings.gio.ListStore
 import bindings.gobject.Object
 import bindings.gobject.ObjectCompanion
+import bindings.gobject.asType
 import bindings.gobject.asTypedPointer
 import bindings.gtk.*
 import kotlinx.cinterop.CPointer
@@ -84,7 +85,7 @@ private fun buildUI(window: Window) {
     // the trailing lambda is called for an item and needs to return a ListModel for its children
     val treeListModel = TreeListModel(listStore, passthrough = false, autoexpand = true) {
         // convert the object to our Task instance
-        val task = Task.fromObject(it)
+        val task = it.asType(Task.Type)
         if (task.children.isNotEmpty()) {
             // return a listStore of children
             ListStore(task.gType, task.children)

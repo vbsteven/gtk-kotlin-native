@@ -7,6 +7,7 @@ import bindings.gobject.Object
 import bindings.gobject.asTypedPointer
 import bindings.gtk.Widget
 import bindings.gtk.asWidget
+import internal.BuiltinTypeInfo
 import kotlinx.cinterop.*
 import native.adwaita.*
 import native.gobject.GCallback
@@ -73,6 +74,10 @@ class Toast : Object {
             staticStableRefDestroy,
             0
         )
+    }
+
+    companion object {
+        val Type = BuiltinTypeInfo(ADW_TYPE_TOAST, ::Toast)
     }
 }
 

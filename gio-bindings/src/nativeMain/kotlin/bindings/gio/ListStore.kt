@@ -2,6 +2,7 @@ package bindings.gio
 
 import bindings.gobject.Object
 import bindings.gobject.asTypedPointer
+import internal.BuiltinTypeInfo
 import kotlinx.cinterop.CPointer
 import native.gio.*
 import native.gobject.GType
@@ -48,4 +49,7 @@ class ListStore : Object, ListModel {
     // TODO sort
     // TODO splice
 
+    companion object {
+        val Type = BuiltinTypeInfo(G_TYPE_LIST_STORE, ::ListStore)
+    }
 }

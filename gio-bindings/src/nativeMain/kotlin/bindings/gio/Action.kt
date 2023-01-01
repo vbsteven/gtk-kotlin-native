@@ -5,6 +5,7 @@ import bindings.glib.VariantType
 import bindings.glib.asVariant
 import bindings.glib.asVariantType
 import bindings.gobject.boolean
+import internal.BuiltinTypeInfo
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.toKString
 import native.gio.*

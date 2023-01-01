@@ -4,6 +4,7 @@ import bindings.gobject.Object
 import bindings.gobject.asTypedPointer
 import bindings.gobject.boolean
 import bindings.gobject.gboolean
+import internal.BuiltinTypeInfo
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.toKString
 import native.gtk.*
@@ -40,4 +41,7 @@ class StackPage : Object {
         get() = gtk_stack_page_get_visible(gtkStackPagePointer).boolean
         set(value) = gtk_stack_page_set_visible(gtkStackPagePointer, value.gboolean)
 
+    companion object {
+        val Type = BuiltinTypeInfo(GTK_TYPE_STACK_PAGE, ::StackPage)
+    }
 }

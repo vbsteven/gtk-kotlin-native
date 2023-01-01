@@ -2,8 +2,10 @@ package bindings.gtk
 
 import bindings.gobject.Object
 import bindings.gobject.asTypedPointer
+import internal.BuiltinTypeInfo
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.toKString
+import native.gtk.GTK_TYPE_STRING_OBJECT
 import native.gtk.GtkStringObject
 import native.gtk.gtk_string_object_get_string
 import native.gtk.gtk_string_object_new
@@ -18,12 +20,7 @@ class StringObject : Object {
         get() = gtk_string_object_get_string(gtkStringObjectPointer)!!.toKString()
 
     companion object {
-        /**
-         * // TODO can we make this generic for all final non-derivable wrapper classes?
-         * @see [bindings.gobject.ObjectCompanion.fromObject]
-         */
-        fun fromObject(o: Object): StringObject {
-            return StringObject(o.gPointer)
-        }
+
+        val Type = BuiltinTypeInfo(GTK_TYPE_STRING_OBJECT, ::StringObject)
     }
 }

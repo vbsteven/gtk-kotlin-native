@@ -3,6 +3,7 @@ package bindings.gtk
 import bindings.gobject.asTypedPointer
 import bindings.gobject.boolean
 import bindings.gobject.gboolean
+import internal.BuiltinTypeInfo
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.alloc
 import kotlinx.cinterop.memScoped
@@ -93,4 +94,7 @@ class ScrolledWindow : Widget {
 
     fun unsetPlacement() = gtk_scrolled_window_unset_placement(gtkScrolledWindowPointer)
 
+    companion object {
+        val Type = BuiltinTypeInfo(GTK_TYPE_SCROLLED_WINDOW, ::ScrolledWindow)
+    }
 }

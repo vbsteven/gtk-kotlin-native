@@ -3,6 +3,7 @@ package bindings.gtk
 import bindings.gobject.asTypedPointer
 import bindings.gobject.boolean
 import bindings.gobject.gboolean
+import internal.BuiltinTypeInfo
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.toKString
 import native.gtk.*
@@ -24,4 +25,7 @@ class LinkButton : Button {
 
     // TODO activate-link signal with ability to return a boolean
 
+    companion object {
+        val Type = BuiltinTypeInfo(GTK_TYPE_LINK_BUTTON, ::LinkButton)
+    }
 }

@@ -3,6 +3,7 @@ package bindings.gtk
 import bindings.gobject.asTypedPointer
 import bindings.gobject.boolean
 import bindings.gobject.gboolean
+import internal.BuiltinTypeInfo
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.toKString
 import native.gtk.*
@@ -66,4 +67,7 @@ class Stack : Widget {
     fun setVisibleChild(name: String, transitionType: GtkStackTransitionType) =
         gtk_stack_set_visible_child_full(gtkStackPointer, name, transitionType)
 
+    companion object {
+        val Type = BuiltinTypeInfo(GTK_TYPE_STACK, ::Stack)
+    }
 }

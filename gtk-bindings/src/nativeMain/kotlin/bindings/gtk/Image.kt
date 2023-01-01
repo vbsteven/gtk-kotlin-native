@@ -1,6 +1,7 @@
 package bindings.gtk
 
 import bindings.gobject.asTypedPointer
+import internal.BuiltinTypeInfo
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.toKString
 import native.gtk.*
@@ -38,6 +39,8 @@ class Image : Widget {
         fun newFromFile(fileName: String) = Image(gtk_image_new_from_file(fileName)!!)
         fun newFromIconName(iconName: String) = Image(gtk_image_new_from_icon_name(iconName)!!)
         fun newFromResource(resourcePath: String) = Image(gtk_image_new_from_resource(resourcePath)!!)
+
+        val Type = BuiltinTypeInfo(GTK_TYPE_IMAGE, ::Image)
     }
 
 }

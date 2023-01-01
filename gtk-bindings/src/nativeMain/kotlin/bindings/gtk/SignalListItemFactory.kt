@@ -2,10 +2,12 @@ package bindings.gtk
 
 import bindings.gobject.asTypedPointer
 import bindings.gtk.internal.staticStableRefDestroy
+import internal.BuiltinTypeInfo
 import kotlinx.cinterop.*
 import native.gobject.GCallback
 import native.gobject.g_signal_connect_data
 import native.gobject.gpointer
+import native.gtk.GTK_TYPE_SIGNAL_LIST_ITEM_FACTORY
 import native.gtk.GtkListItem
 import native.gtk.GtkSignalListItemFactory
 import native.gtk.gtk_signal_list_item_factory_new
@@ -60,6 +62,9 @@ class SignalListItemFactory : ListItemFactory {
         )
     }
 
+    companion object {
+        val Type = BuiltinTypeInfo(GTK_TYPE_SIGNAL_LIST_ITEM_FACTORY, ::SignalListItemFactory)
+    }
 
 }
 

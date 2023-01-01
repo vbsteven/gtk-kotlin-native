@@ -3,7 +3,9 @@ package bindings.gtk
 import bindings.gobject.asTypedPointer
 import bindings.gobject.boolean
 import bindings.gobject.gboolean
+import internal.BuiltinTypeInfo
 import kotlinx.cinterop.CPointer
+import kotlinx.cinterop.sizeOf
 import native.gtk.*
 
 class SearchBar : Widget {
@@ -30,4 +32,7 @@ class SearchBar : Widget {
         get() = gtk_search_bar_get_show_close_button(gtkSearchBarPointer).boolean
         set(value) = gtk_search_bar_set_show_close_button(gtkSearchBarPointer, value.gboolean)
 
+    companion object {
+        val Type = BuiltinTypeInfo(GTK_TYPE_SEARCH_BAR, ::SearchBar)
+    }
 }

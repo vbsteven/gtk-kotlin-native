@@ -3,6 +3,7 @@ package bindings.gtk
 import bindings.gobject.asTypedPointer
 import bindings.gobject.boolean
 import bindings.gobject.gboolean
+import internal.BuiltinTypeInfo
 import kotlinx.cinterop.CPointer
 import native.gtk.*
 
@@ -36,5 +37,9 @@ class ListView : ListBase {
     var singleClickActivate: Boolean
         get() = gtk_list_view_get_single_click_activate(gtkListViewPointer).boolean
         set(value) = gtk_list_view_set_single_click_activate(gtkListViewPointer, value.gboolean)
+
+    companion object {
+        val Type = BuiltinTypeInfo(GTK_TYPE_LIST_VIEW, ::ListView)
+    }
 }
 

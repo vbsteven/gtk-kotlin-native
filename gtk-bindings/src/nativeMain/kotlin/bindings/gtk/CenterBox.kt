@@ -1,6 +1,7 @@
 package bindings.gtk
 
 import bindings.gobject.asTypedPointer
+import internal.BuiltinTypeInfo
 import kotlinx.cinterop.CPointer
 import native.gtk.*
 
@@ -25,4 +26,8 @@ class CenterBox : Widget {
     var endWidget: Widget?
         get() = gtk_center_box_get_end_widget(gtkCenterBoxPointer)?.asWidget()
         set(value) = gtk_center_box_set_end_widget(gtkCenterBoxPointer, value?.gtkWidgetPointer)
+
+    companion object {
+        val Type = BuiltinTypeInfo(GTK_TYPE_CENTER_BOX, ::CenterBox)
+    }
 }

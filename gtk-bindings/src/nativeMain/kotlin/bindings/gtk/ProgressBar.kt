@@ -3,6 +3,7 @@ package bindings.gtk
 import bindings.gobject.asTypedPointer
 import bindings.gobject.boolean
 import bindings.gobject.gboolean
+import internal.BuiltinTypeInfo
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.toKString
 import native.gtk.*
@@ -41,4 +42,7 @@ class ProgressBar : Widget, Orientable {
 
     fun pulse() = gtk_progress_bar_pulse(gtkProgressBarPointer)
 
+    companion object {
+        val Type = BuiltinTypeInfo(GTK_TYPE_PROGRESS_BAR, ::ProgressBar)
+    }
 }

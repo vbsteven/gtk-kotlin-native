@@ -8,6 +8,7 @@ import bindings.gobject.gboolean
 import bindings.gtk.SelectionModel
 import bindings.gtk.Widget
 import bindings.gtk.asSelectionModel
+import internal.BuiltinTypeInfo
 import kotlinx.cinterop.CPointer
 import native.adwaita.*
 
@@ -109,4 +110,8 @@ class TabView : Widget {
         adw_tab_view_transfer_page(adwTabViewPointer, page.adwTabPagePointer, otherView.adwTabViewPointer, position)
 
     // TODO signal handlers
+
+    companion object {
+        val Type = BuiltinTypeInfo(ADW_TYPE_TAB_VIEW, ::TabView)
+    }
 }

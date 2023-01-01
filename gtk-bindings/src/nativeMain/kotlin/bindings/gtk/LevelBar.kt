@@ -3,6 +3,7 @@ package bindings.gtk
 import bindings.gobject.asTypedPointer
 import bindings.gobject.boolean
 import bindings.gobject.gboolean
+import internal.BuiltinTypeInfo
 import kotlinx.cinterop.*
 import native.gtk.*
 
@@ -44,4 +45,8 @@ class LevelBar : Widget {
     fun removeOffsetValue(name: String) = gtk_level_bar_remove_offset_value(gtkLevelBarPointer, name)
 
     // TODO offset-changed signal
+
+    companion object {
+        val Type = BuiltinTypeInfo(GTK_TYPE_LEVEL_BAR, ::LevelBar)
+    }
 }

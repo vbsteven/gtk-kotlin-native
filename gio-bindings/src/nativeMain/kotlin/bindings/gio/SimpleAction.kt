@@ -7,6 +7,7 @@ import bindings.glib.asVariant
 import bindings.gobject.Object
 import bindings.gobject.asTypedPointer
 import bindings.gobject.gboolean
+import internal.BuiltinTypeInfo
 import kotlinx.cinterop.*
 import native.gio.*
 import native.gobject.GCallback
@@ -51,6 +52,9 @@ class SimpleAction : Object, Action {
         )
     }
 
+    companion object {
+        val Type = BuiltinTypeInfo(G_TYPE_SIMPLE_ACTION, ::SimpleAction)
+    }
 }
 
 

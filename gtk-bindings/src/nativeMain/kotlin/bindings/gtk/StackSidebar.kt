@@ -1,11 +1,9 @@
 package bindings.gtk
 
 import bindings.gobject.asTypedPointer
+import internal.BuiltinTypeInfo
 import kotlinx.cinterop.CPointer
-import native.gtk.GtkStackSidebar
-import native.gtk.gtk_stack_sidebar_get_stack
-import native.gtk.gtk_stack_sidebar_new
-import native.gtk.gtk_stack_sidebar_set_stack
+import native.gtk.*
 
 class StackSidebar : Widget {
     val gtkStackSidebarPointer get() = gtkWidgetPointer.asTypedPointer<GtkStackSidebar>()
@@ -17,4 +15,7 @@ class StackSidebar : Widget {
         get() = gtk_stack_sidebar_get_stack(gtkStackSidebarPointer)?.asStack()
         set(value) = gtk_stack_sidebar_set_stack(gtkStackSidebarPointer, value?.gtkStackPointer)
 
+    companion object {
+        val Type = BuiltinTypeInfo(GTK_TYPE_STACK_SIDEBAR, ::StackSidebar)
+    }
 }

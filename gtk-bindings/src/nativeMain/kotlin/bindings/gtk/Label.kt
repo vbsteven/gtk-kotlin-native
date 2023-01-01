@@ -140,13 +140,5 @@ class Label(pointer: CPointer<*>) : Widget(pointer) {
 
         private fun newPointerWithLabel(text: String?) = gtk_label_new(text)!!
         private fun newPointerWithMnemonic(text: String?) = gtk_label_new_with_mnemonic(text)!!
-
-        /**
-         * // TODO can we make this generic for all final non-derivable wrapper classes?
-         * @see [bindings.gobject.ObjectCompanion.fromObject]
-         */
-        fun fromObject(o: Object): Label {
-            return Label(o.gPointer)
-        }
     }
 }
