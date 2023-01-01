@@ -8,7 +8,7 @@ import kotlin.reflect.KProperty
 /**
  * A property delegate used for gobject properties.
  */
-internal class ObjectPropertyDelegate<T : Any?>(
+class ObjectPropertyDelegate<T : Any?>(
     private val propertyName: String,
     defaultValue: T,
 ) {

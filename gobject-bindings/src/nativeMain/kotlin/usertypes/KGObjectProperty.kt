@@ -25,7 +25,7 @@ abstract class KGObjectProperty<OBJECT_TYPE : Object, PARAM_TYPE : Any?>(
     abstract fun extractValueFromGValue(gValue: CPointer<GValue>, paramSpec: CPointer<GParamSpec>): PARAM_TYPE
     abstract fun insertValueIntoGValue(value: PARAM_TYPE, gValue: CPointer<GValue>, paramSpec: CPointer<GParamSpec>)
 
-    internal operator fun provideDelegate(thisRef: Object, property: KProperty<*>): ObjectPropertyDelegate<PARAM_TYPE> {
+    operator fun provideDelegate(thisRef: Object, property: KProperty<*>): ObjectPropertyDelegate<PARAM_TYPE> {
         return ObjectPropertyDelegate(name, defaultValue)
     }
 
