@@ -43,7 +43,6 @@ open class ListBoxRow : Widget, Actionable {
 
     companion object {
         val Type = BuiltinTypeInfo(
-            "GtkListBoxRow",
             GTK_TYPE_LIST_BOX_ROW,
             sizeOf<GtkListBoxRowClass>(),
             sizeOf<GtkListBoxRow>(),

@@ -52,7 +52,6 @@ open class ActionRow : PreferencesRow {
 
     companion object {
         val Type = BuiltinTypeInfo(
-            "AdwActionRow",
             ADW_TYPE_ACTION_ROW,
             sizeOf<AdwActionRowClass>(),
             sizeOf<AdwActionRow>(),

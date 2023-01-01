@@ -18,7 +18,6 @@ open class Permission : Object {
 
     companion object {
         val Type = BuiltinTypeInfo(
-            "GPermission",
             G_TYPE_PERMISSION,
             sizeOf<GPermissionClass>(),
             sizeOf<GPermission>(),

@@ -1,11 +1,12 @@
 package internal
 
 import bindings.gobject.Object
+import bindings.gobject.typeName
+import internal.objectproperties.ObjectClassProperties
 import kotlinx.cinterop.*
 import native.gobject.*
-import usertypes.ObjectClassInitFunc
 import usertypes.ObjectClass
-import internal.objectproperties.ObjectClassProperties
+import usertypes.ObjectClassInitFunc
 
 internal object TypeRegistry {
 
@@ -21,7 +22,7 @@ internal object TypeRegistry {
         return typeMap.getOrPut(typeName) {
             val registrationResult = buildDynamicTypeInfo(InternalTypeInfo(typeName, superType, classInitFunc))
             val info = DynamicTypeInfo<T>(
-                typeName, registrationResult.gType, registrationResult.classSize, registrationResult.instanceSize,
+                registrationResult.gType, registrationResult.classSize, registrationResult.instanceSize,
                 superType.classSize,
                 superType.instanceSize,
             )
@@ -43,7 +44,7 @@ internal data class InternalTypeInfo(
     val superType: KGType<*>,
     val classInitFunc: ObjectClassInitFunc,
 ) {
-    override fun toString() = "Type: $typeName :: (superType=${superType.name})"
+    override fun toString() = "Type: $typeName :: (superType=${superType.gType.typeName})"
 
     fun getClassPropertiesPointerFromClassInstancePointer(g_class: gpointer): CPointer<CustomObjectClassProperties> {
         val rawPropertiesPointer = g_class.rawValue.plus(this.superType.classSize)
@@ -110,9 +111,6 @@ private val staticCustomObjectClassInit: GClassInitFunc =
 
         val cl = g_class as CPointer<CustomObjectClass>
 
-
-        // TODO install property getter/setter functions
-        // TODO enable these again
         cl.pointed.parent_class.set_property = staticKGObjectSetPropertyFunc
         cl.pointed.parent_class.get_property = staticKGObjectGetPropertyFunc
         cl.pointed.parent_class.dispose = staticKGObjectInstanceDispose.reinterpret()
@@ -189,7 +187,8 @@ private val staticKGObjectSetPropertyFunc =
             ?.data
 
         if (instanceRef != null) {
-            val objectClassProperties = typeInfo.getObjectClassPropertiesForClassPointer(gobj!!.pointed.g_type_instance.g_class!!)
+            val objectClassProperties =
+                typeInfo.getObjectClassPropertiesForClassPointer(gobj.pointed.g_type_instance.g_class!!)
             objectClassProperties.setPropertyValue(instanceRef, prop_id, value!!, paramSpec!!)
         }
 
@@ -214,7 +213,8 @@ private val staticKGObjectGetPropertyFunc =
             ?.data
 
         if (instanceRef != null) {
-            val objectClassProperties = typeInfo.getObjectClassPropertiesForClassPointer(gobj!!.pointed.g_type_instance.g_class!!)
+            val objectClassProperties =
+                typeInfo.getObjectClassPropertiesForClassPointer(gobj!!.pointed.g_type_instance.g_class!!)
             objectClassProperties.getPropertyValue(instanceRef, prop_id, value!!, paramSpec!!)
         }
 

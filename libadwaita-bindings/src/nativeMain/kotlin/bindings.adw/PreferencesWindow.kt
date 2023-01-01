@@ -57,7 +57,6 @@ open class PreferencesWindow : Window {
 
     companion object {
         val Type = BuiltinTypeInfo(
-            "AdwPreferencesWindow",
             ADW_TYPE_PREFERENCES_WINDOW,
             sizeOf<AdwPreferencesWindowClass>(),
             sizeOf<AdwPreferencesWindow>(),

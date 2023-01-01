@@ -33,7 +33,6 @@ open class PreferencesGroup : Widget {
 
     companion object {
         val Type = BuiltinTypeInfo(
-            "AdwPreferencesGroup",
             ADW_TYPE_PREFERENCES_GROUP,
             sizeOf<AdwPreferencesGroupClass>(),
             sizeOf<AdwPreferencesGroup>(),

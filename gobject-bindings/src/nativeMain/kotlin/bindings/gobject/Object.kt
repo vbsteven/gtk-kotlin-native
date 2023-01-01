@@ -154,7 +154,6 @@ open class Object(pointer: CPointer<*>) {
 
     companion object {
         val Type = BuiltinTypeInfo(
-            "GObject",
             G_TYPE_OBJECT,
             sizeOf<GObjectClass>(),
             sizeOf<GObject>(),

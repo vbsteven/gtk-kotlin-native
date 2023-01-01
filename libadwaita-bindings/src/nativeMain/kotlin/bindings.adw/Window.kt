@@ -25,7 +25,6 @@ open class Window : GtkWindow {
 
     companion object {
         val Type = BuiltinTypeInfo(
-            "AdwWindow",
             ADW_TYPE_WINDOW,
             sizeOf<AdwWindowClass>(),
             sizeOf<AdwWindow>(),

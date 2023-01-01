@@ -41,7 +41,6 @@ open class PreferencesPage : Widget {
 
     companion object {
         val Type = BuiltinTypeInfo(
-            "AdwPreferencesPage",
             ADW_TYPE_PREFERENCES_PAGE,
             sizeOf<AdwPreferencesPageClass>(),
             sizeOf<AdwPreferencesPage>(),

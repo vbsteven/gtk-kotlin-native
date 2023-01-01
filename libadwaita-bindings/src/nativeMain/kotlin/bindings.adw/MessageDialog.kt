@@ -110,7 +110,6 @@ open class MessageDialog : Window {
 
     companion object {
         val Type = BuiltinTypeInfo(
-            "AdwMessageDialog",
             ADW_TYPE_MESSAGE_DIALOG,
             sizeOf<AdwMessageDialogClass>(),
             sizeOf<AdwMessageDialog>(),

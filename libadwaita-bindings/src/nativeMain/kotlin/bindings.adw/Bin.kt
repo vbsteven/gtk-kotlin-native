@@ -20,7 +20,6 @@ open class Bin : Widget {
 
     companion object {
         val Type = BuiltinTypeInfo(
-            "AdwBin",
             ADW_TYPE_BIN,
             sizeOf<AdwBinClass>(),
             sizeOf<AdwBin>(),

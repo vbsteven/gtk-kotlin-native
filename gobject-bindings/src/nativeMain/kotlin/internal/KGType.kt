@@ -1,6 +1,7 @@
 package internal
 
 import bindings.gobject.Object
+import bindings.gobject.typeName
 import internal.objectproperties.ObjectClassProperties
 import kotlinx.cinterop.*
 import native.gobject.*
@@ -9,11 +10,6 @@ import native.gobject.*
  * Info about a GObject type.
  */
 abstract class KGType<T : Object> {
-    /**
-     * Name of this type.
-     */
-    abstract val name: String
-
     /**
      * GType identifier.
      */
@@ -50,7 +46,7 @@ abstract class KGType<T : Object> {
      */
     fun instanceFromPointer(pointer: CPointer<*>): T = instanceFromPointerOrNull(pointer)!!
 
-    override fun toString() = "TypeInfo [type:$name, gType:$gType]"
+    override fun toString() = "TypeInfo [gType:$gType typeName: ${gType.typeName}]"
 }
 
 /**
@@ -59,7 +55,6 @@ abstract class KGType<T : Object> {
  * This should not be used for implementing custom types. Use [DynamicTypeInfo] instead.
  */
 class BuiltinTypeInfo<T : Object>(
-    override val name: String,
     override val gType: GType,
     override val classSize: Long,
     override val instanceSize: Long,
@@ -75,7 +70,6 @@ class BuiltinTypeInfo<T : Object>(
  * Type info for dynamically registered types
  */
 internal class DynamicTypeInfo<T : Object>(
-    override val name: String,
     override val gType: GType,
     override val classSize: Long,
     override val instanceSize: Long,

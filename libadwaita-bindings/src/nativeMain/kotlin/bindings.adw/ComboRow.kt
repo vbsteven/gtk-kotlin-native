@@ -37,7 +37,6 @@ open class ComboRow : ActionRow {
 
     companion object {
         val Type = BuiltinTypeInfo(
-            "AdwComboRow",
             ADW_TYPE_COMBO_ROW,
             sizeOf<AdwComboRowClass>(),
             sizeOf<AdwComboRow>(),

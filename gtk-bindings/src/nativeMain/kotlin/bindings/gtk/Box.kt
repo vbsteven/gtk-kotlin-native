@@ -41,7 +41,6 @@ open class Box : Widget, Orientable {
 
     companion object {
         val Type = BuiltinTypeInfo(
-            "GtkBox",
             GTK_TYPE_BOX,
             sizeOf<GtkBoxClass>(),
             sizeOf<GtkBox>(),

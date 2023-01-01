@@ -21,7 +21,6 @@ open class Application(pointer: CPointer<*>) : Application(pointer) {
     companion object {
         val Type =
             BuiltinTypeInfo(
-                "GtkApplication",
                 GTK_TYPE_APPLICATION,
                 sizeOf<GtkApplicationClass>(),
                 sizeOf<GtkApplication>(),

@@ -56,7 +56,6 @@ open class Button : Widget, Actionable {
 
     companion object {
         val Type = BuiltinTypeInfo(
-            "GtkButton",
             GTK_TYPE_BUTTON,
             sizeOf<native.gtk.GtkButtonClass>(),
             sizeOf<native.gtk.GtkButton>(),

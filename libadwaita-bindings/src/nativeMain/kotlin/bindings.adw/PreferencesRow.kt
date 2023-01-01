@@ -40,7 +40,6 @@ open class PreferencesRow : ListBoxRow, Actionable {
 
     companion object {
         val Type = BuiltinTypeInfo(
-            "AdwPreferencesRow",
             ADW_TYPE_PREFERENCES_ROW,
             sizeOf<AdwPreferencesRowClass>(),
             sizeOf<AdwPreferencesRow>(),

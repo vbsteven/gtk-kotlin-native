@@ -61,7 +61,6 @@ open class Application(pointer: CPointer<*>) : Object(pointer), ActionMap {
 
     companion object {
         val Type = BuiltinTypeInfo(
-            "GApplication",
             G_TYPE_APPLICATION,
             sizeOf<GApplicationClass>(),
             sizeOf<GApplication>(),

@@ -3,6 +3,7 @@ package bindings.gobject
 import internal.KGType
 import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
+import kotlinx.cinterop.toKString
 import native.gobject.*
 
 /*
@@ -36,3 +37,5 @@ fun CPointer<GObject>.asObject(): Object = Object(this)
 
 fun CPointer<GParamSpec>.asParamSpec(): ParamSpec = ParamSpec(this)
 fun CPointer<GParamSpecString>.asParamSpecString(): ParamSpecString = ParamSpecString(this)
+
+val GType.typeName: String get() = g_type_name(this)?.toKString() ?: "unknown"

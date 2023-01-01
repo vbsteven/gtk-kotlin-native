@@ -69,7 +69,6 @@ open class Popover : Widget, ShortcutManager {
 
     companion object {
         val Type = BuiltinTypeInfo(
-            "GtkPopover",
             GTK_TYPE_POPOVER,
             sizeOf<GtkPopoverClass>(),
             sizeOf<GtkPopover>(),

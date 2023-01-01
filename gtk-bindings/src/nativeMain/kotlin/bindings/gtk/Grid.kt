@@ -66,7 +66,6 @@ open class Grid : Widget, Orientable {
 
     companion object {
         val Type = BuiltinTypeInfo(
-            "GtkGrid",
             GTK_TYPE_GRID,
             sizeOf<GtkGridClass>(),
             sizeOf<GtkGrid>(),

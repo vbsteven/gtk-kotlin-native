@@ -48,7 +48,6 @@ open class ExpanderRow : PreferencesRow {
 
     companion object {
         val Type = BuiltinTypeInfo(
-            "AdwExpanderRow",
             ADW_TYPE_EXPANDER_ROW,
             sizeOf<AdwExpanderRowClass>(),
             sizeOf<AdwExpanderRow>(),

@@ -131,7 +131,7 @@ class Label(pointer: CPointer<*>) : Widget(pointer) {
 
 
     companion object {
-        val Type = BuiltinTypeInfo<Label>("GtkLabel", GTK_TYPE_LABEL, -1, -1, ::Label)
+        val Type = BuiltinTypeInfo<Label>(GTK_TYPE_LABEL, -1, -1, ::Label)
 
         /* helpers for constructor */
         private fun newPointer(text: String?, withMnemonic: Boolean) =
