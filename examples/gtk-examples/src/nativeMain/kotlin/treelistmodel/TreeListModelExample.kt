@@ -66,16 +66,16 @@ private fun buildUI(window: Window) {
         val box = listItem.child?.let { Box(it.gPointer) }!!
 
         // get the expander and label widgets from the box
-        val expander = box.firstChild!!.gPointer.asTypedPointer<GtkTreeExpander>().asTreeExpander()
-        val label = box.lastChild!!.gPointer.asTypedPointer<GtkLabel>().asLabel()
+        val expander = box.firstChild!!.asType(TreeExpander.Type)
+        val label = box.lastChild!!.asType(Label.Type)
 
         // get the row from the listItem
-        val row = TreeListRow(listItem.item!!.gPointer)
+        val row = listItem.item!!.asType(TreeListRow.Type)
         // associate the expander with the row
         expander.listRow = row
 
         // get the task object from the row
-        val task = Task.fromObject(row.item!!)
+        val task = row.item!!.asType(Task.Type)
 
         // set the label text
         label.text = task.name
