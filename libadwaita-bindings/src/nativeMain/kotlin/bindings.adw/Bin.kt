@@ -19,7 +19,7 @@ open class Bin : Widget {
         set(value) = adw_bin_set_child(adwBinPointer, value?.gtkWidgetPointer)
 
     companion object {
-        val typeInfo = BuiltinTypeInfo(
+        val Type = BuiltinTypeInfo(
             "AdwBin",
             ADW_TYPE_BIN,
             sizeOf<AdwBinClass>(),

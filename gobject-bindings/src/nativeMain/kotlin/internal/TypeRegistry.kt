@@ -14,7 +14,7 @@ internal object TypeRegistry {
 
     fun <T : Object, S : Object> registerType(
         typeName: String,
-        superType: KGTypeInfo<S>,
+        superType: KGType<S>,
         classInitFunc: ObjectClassInitFunc
     ): DynamicTypeInfo<T> {
         @Suppress("UNCHECKED_CAST")
@@ -40,7 +40,7 @@ internal object TypeRegistry {
  */
 internal data class InternalTypeInfo(
     val typeName: String,
-    val superType: KGTypeInfo<*>,
+    val superType: KGType<*>,
     val classInitFunc: ObjectClassInitFunc,
 ) {
     override fun toString() = "Type: $typeName :: (superType=${superType.name})"

@@ -68,7 +68,7 @@ open class Popover : Widget, ShortcutManager {
     fun setDefaultWidget(widget: Widget?) = gtk_popover_set_default_widget(gtkPopoverPointer, widget?.gtkWidgetPointer)
 
     companion object {
-        val typeInfo = BuiltinTypeInfo(
+        val Type = BuiltinTypeInfo(
             "GtkPopover",
             GTK_TYPE_POPOVER,
             sizeOf<GtkPopoverClass>(),

@@ -79,7 +79,7 @@ open class EntryRow : PreferencesRow, Editable {
     }
 
     companion object {
-        val typeInfo = BuiltinTypeInfo(
+        val Type = BuiltinTypeInfo(
             "AdwEntryRow",
             ADW_TYPE_ENTRY_ROW,
             sizeOf<AdwEntryRowClass>(),

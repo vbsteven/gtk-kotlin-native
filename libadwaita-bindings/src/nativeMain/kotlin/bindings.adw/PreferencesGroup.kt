@@ -32,7 +32,7 @@ open class PreferencesGroup : Widget {
     fun remove(widget: Widget) = adw_preferences_group_remove(adwPreferencesGroupPointer, widget.gtkWidgetPointer)
 
     companion object {
-        val typeInfo = BuiltinTypeInfo(
+        val Type = BuiltinTypeInfo(
             "AdwPreferencesGroup",
             ADW_TYPE_PREFERENCES_GROUP,
             sizeOf<AdwPreferencesGroupClass>(),

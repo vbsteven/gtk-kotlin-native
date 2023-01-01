@@ -8,7 +8,7 @@ import native.gobject.*
 /**
  * Info about a GObject type.
  */
-abstract class KGTypeInfo<T : Object> {
+abstract class KGType<T : Object> {
     /**
      * Name of this type.
      */
@@ -64,7 +64,7 @@ class BuiltinTypeInfo<T : Object>(
     override val classSize: Long,
     override val instanceSize: Long,
     val convertPointerFunc: (CPointer<*>) -> T,
-) : KGTypeInfo<T>() {
+) : KGType<T>() {
     override fun instanceFromPointerOrNull(pointer: CPointer<*>): T? {
         return convertPointerFunc(pointer)
     }
@@ -81,7 +81,7 @@ internal class DynamicTypeInfo<T : Object>(
     override val instanceSize: Long,
     val parentClassSize: Long,
     val parentInstanceSize: Long,
-) : KGTypeInfo<T>() {
+) : KGType<T>() {
     override fun instanceFromPointerOrNull(pointer: CPointer<*>): T? {
         return getInstanceDataPointer(pointer)?.asStableRef<InstanceDataHolder>()?.get()?.data as T?
     }

@@ -51,7 +51,7 @@ open class ActionRow : PreferencesRow {
         set(value) = adw_action_row_set_subtitle_lines(adwActionRowPointer, value)
 
     companion object {
-        val typeInfo = BuiltinTypeInfo(
+        val Type = BuiltinTypeInfo(
             "AdwActionRow",
             ADW_TYPE_ACTION_ROW,
             sizeOf<AdwActionRowClass>(),

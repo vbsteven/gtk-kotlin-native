@@ -47,7 +47,7 @@ open class ExpanderRow : PreferencesRow {
     fun remove(widget: Widget) = adw_expander_row_remove(adwExpanderRowPointer, widget.gtkWidgetPointer)
 
     companion object {
-        val typeInfo = BuiltinTypeInfo(
+        val Type = BuiltinTypeInfo(
             "AdwExpanderRow",
             ADW_TYPE_EXPANDER_ROW,
             sizeOf<AdwExpanderRowClass>(),

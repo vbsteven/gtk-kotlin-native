@@ -35,7 +35,7 @@ open class MenuModel : Object {
 
 
     companion object {
-        val typeInfo = BuiltinTypeInfo(
+        val Type = BuiltinTypeInfo(
             "GMenuModel",
             G_TYPE_MENU_MODEL,
             sizeOf<GMenuModelClass>(),

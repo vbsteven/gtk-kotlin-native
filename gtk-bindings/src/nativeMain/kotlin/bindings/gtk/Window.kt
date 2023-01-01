@@ -131,7 +131,7 @@ open class Window : Widget, Root, ShortcutManager {
 
         // TODO listToplevels
 
-        val typeInfo = BuiltinTypeInfo(
+        val Type = BuiltinTypeInfo(
             "GtkWindow",
             GTK_TYPE_WINDOW,
             sizeOf<GtkWindowClass>(),

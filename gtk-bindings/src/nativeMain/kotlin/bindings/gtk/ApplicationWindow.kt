@@ -28,7 +28,7 @@ open class ApplicationWindow : Window, ActionMap {
         set(value) = gtk_application_window_set_show_menubar(gtkApplicationWindowPointer, value.gboolean)
 
     companion object {
-        val typeInfo = BuiltinTypeInfo(
+        val Type = BuiltinTypeInfo(
             "GtkApplicationWindow",
             GTK_TYPE_APPLICATION_WINDOW,
             sizeOf<GtkApplicationWindowClass>(),

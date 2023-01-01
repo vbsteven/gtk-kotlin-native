@@ -24,7 +24,7 @@ open class ApplicationWindow : GtkApplicationWindow {
     override var child = this.content
 
     companion object {
-        val typeInfo = BuiltinTypeInfo(
+        val Type = BuiltinTypeInfo(
             "AdwApplicationWindow",
             ADW_TYPE_APPLICATION_WINDOW,
             sizeOf<AdwApplicationWindowClass>(),

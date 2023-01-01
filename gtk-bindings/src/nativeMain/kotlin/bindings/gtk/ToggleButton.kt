@@ -43,7 +43,7 @@ open class ToggleButton : Button {
     }
 
     companion object {
-        val typeInfo = BuiltinTypeInfo(
+        val Type = BuiltinTypeInfo(
             "GtkToggleButton",
             GTK_TYPE_TOGGLE_BUTTON,
             sizeOf<GtkToggleButtonClass>(),

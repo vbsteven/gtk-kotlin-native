@@ -61,6 +61,6 @@ private class MyCustomWidget : Box {
 
     companion object : WidgetCompanion<MyCustomWidget>() {
         override val typeName = "MyCustomWidget"
-        override val parentType = Box.typeInfo
+        override val parentType = Box.Type
     }
 }

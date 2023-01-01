@@ -2,7 +2,7 @@ package bindings.gtk.usertypes
 
 import bindings.gtk.Button
 import bindings.gtk.Widget
-import internal.KGTypeInfo
+import internal.KGType
 import internal.objectproperties.ObjectClassProperties
 import kotlinx.cinterop.*
 import native.gobject.GVariant
@@ -33,9 +33,9 @@ abstract class WidgetCompanion<T : Widget> {
      * This should be the typeInfo object of the class that your own class extends.
      *
      * For example if your class subclasses [Button] this value should
-     * be set to [Button.typeInfo].
+     * be set to [Button.Type].
      */
-    abstract val parentType: KGTypeInfo<*>
+    abstract val parentType: KGType<*>
 
     /**
      * Class initializer.
@@ -56,14 +56,14 @@ abstract class WidgetCompanion<T : Widget> {
      *
      * @return a pointer to the instance
      */
-    fun newInstancePointer(): CPointer<*> = g_object_new(typeInfo.gType, null)!!
+    fun newInstancePointer(): CPointer<*> = g_object_new(Type.gType, null)!!
 
     /**
-     * TypeInfo property of the associated Widget class.
+     * Type property of the associated Widget class.
      *
      * Accessing this property lazily triggers the type registration process.
      */
-    val typeInfo by lazy {
+    val Type by lazy {
         // lazy register because we want gtk_init to be called first
         registerType()
     }
@@ -75,7 +75,7 @@ abstract class WidgetCompanion<T : Widget> {
     internal fun invokeActionOnInstance(instancePointer: CPointer<GtkWidget>, actionName: String) {
         // dispatch
         actionHandlerMap[actionName]?.invoke(
-            typeInfo.instanceFromPointer(instancePointer)
+            Type.instanceFromPointer(instancePointer)
         )
     }
 
@@ -84,7 +84,7 @@ abstract class WidgetCompanion<T : Widget> {
     /**
      * Actual type registration, this should only be called once.
      */
-    private fun registerType(): KGTypeInfo<T> {
+    private fun registerType(): KGType<T> {
         val info = registerTypeClass<T>(
             typeName,
             parentType

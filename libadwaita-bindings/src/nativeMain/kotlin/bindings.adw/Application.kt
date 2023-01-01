@@ -23,7 +23,7 @@ open class Application : GtkApplication {
     )
 
     companion object {
-        val typeInfo = BuiltinTypeInfo(
+        val Type = BuiltinTypeInfo(
             "AdwApplication",
             ADW_TYPE_APPLICATION,
             sizeOf<AdwApplicationClass>(),

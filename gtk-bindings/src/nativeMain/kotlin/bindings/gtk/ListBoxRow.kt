@@ -42,7 +42,7 @@ open class ListBoxRow : Widget, Actionable {
     fun changed() = gtk_list_box_row_changed(gtkListBoxRowPointer)
 
     companion object {
-        val typeInfo = BuiltinTypeInfo(
+        val Type = BuiltinTypeInfo(
             "GtkListBoxRow",
             GTK_TYPE_LIST_BOX_ROW,
             sizeOf<GtkListBoxRowClass>(),

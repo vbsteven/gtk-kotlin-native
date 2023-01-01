@@ -1,5 +1,6 @@
 package gridview
 
+import bindings.gobject.asType
 import bindings.gtk.*
 
 /**
@@ -37,7 +38,8 @@ private fun buildUI(window: Window) {
     // bind the item row
     factory.onBind { listItem ->
         // get the label from the listItem
-        val label = Label.fromObject(listItem.child!!)
+        val label = listItem.child!! asType Label.Type
+//        val label = Label.fromObject(listItem.child!!)
 
         // get the StringObject from the listItem
         val item = StringObject.fromObject(listItem.item!!)

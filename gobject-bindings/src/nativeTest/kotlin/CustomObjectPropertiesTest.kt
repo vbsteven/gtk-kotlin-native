@@ -122,7 +122,7 @@ private class MyPerson : Object {
 
     companion object : ObjectCompanion<MyPerson>() {
         override val typeName = "MyPerson"
-        override val parentType = Object.typeInfo
+        override val parentType = Object.Type
 
         private val NAME_PROPERTY = stringProperty(
             MyPerson::name,

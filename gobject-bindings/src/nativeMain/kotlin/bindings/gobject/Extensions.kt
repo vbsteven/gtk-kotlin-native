@@ -1,5 +1,6 @@
 package bindings.gobject
 
+import internal.KGType
 import kotlinx.cinterop.CPointed
 import kotlinx.cinterop.CPointer
 import native.gobject.*
@@ -19,6 +20,13 @@ inline val Boolean.gboolean: gboolean
  */
 @Suppress("UNCHECKED_CAST")
 inline fun <T : CPointed> gpointer.asTypedPointer() = this as CPointer<T>
+
+/**
+ * Convert a generic [Object] into an instance of the given type class.
+ */
+inline infix fun <reified T : Object> Object.asType(typeInfo: KGType<T>): T {
+    return typeInfo.instanceFromPointer(this.gPointer)
+}
 
 
 fun gpointer.asObject(): Object = Object(this)

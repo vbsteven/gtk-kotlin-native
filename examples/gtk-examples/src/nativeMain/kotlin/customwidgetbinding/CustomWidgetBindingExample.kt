@@ -77,7 +77,7 @@ private class CounterWidget : Box {
 
     companion object : WidgetCompanion<CounterWidget>() {
         override val typeName = "CounterWidget"
-        override val parentType = Box.typeInfo
+        override val parentType = Box.Type
 
         private val VALUE_PROPERTY = intProperty(
             CounterWidget::value,

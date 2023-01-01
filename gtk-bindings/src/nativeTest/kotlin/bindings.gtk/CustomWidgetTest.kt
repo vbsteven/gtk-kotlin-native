@@ -33,11 +33,11 @@ class MyCustomWidget : Button {
 }
 
 val MyCustomWidgetTypeInfo = registerTypeClass<MyCustomWidget>(
-    "MyCustomWidget", Button.typeInfo,
+    "MyCustomWidget", Button.Type,
 )
 
 class AnotherWidget : Object {
     constructor() : super(AnotherWidgetTypeInfo.newInstancePointer())
 }
 
-val AnotherWidgetTypeInfo = registerTypeClass<AnotherWidget>("AnotherWidget", Button.typeInfo)
+val AnotherWidgetTypeInfo = registerTypeClass<AnotherWidget>("AnotherWidget", Button.Type)

@@ -178,7 +178,7 @@ open class Widget(pointer: CPointer<*>) : Object(pointer) {
     data class SizeRequest(val width: Int, val height: Int)
 
     companion object {
-        val typeInfo = BuiltinTypeInfo(
+        val Type = BuiltinTypeInfo(
             "GtkWidget",
             GTK_TYPE_WIDGET,
             sizeOf<GtkWidgetClass>(),

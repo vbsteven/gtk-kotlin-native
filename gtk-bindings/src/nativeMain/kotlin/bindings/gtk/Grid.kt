@@ -65,7 +65,7 @@ open class Grid : Widget, Orientable {
         gtk_grid_attach_next_to(gtkGridPointer, child.gtkWidgetPointer, sibling.gtkWidgetPointer, side, width, height)
 
     companion object {
-        val typeInfo = BuiltinTypeInfo(
+        val Type = BuiltinTypeInfo(
             "GtkGrid",
             GTK_TYPE_GRID,
             sizeOf<GtkGridClass>(),

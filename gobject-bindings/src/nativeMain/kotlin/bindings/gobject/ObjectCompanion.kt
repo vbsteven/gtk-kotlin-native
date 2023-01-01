@@ -1,6 +1,6 @@
 package bindings.gobject
 
-import internal.KGTypeInfo
+import internal.KGType
 import kotlinx.cinterop.CPointer
 import native.gobject.g_object_new
 import usertypes.ObjectClass
@@ -20,9 +20,9 @@ abstract class ObjectCompanion<T : Object>() {
     /**
      * Parent type info.
      *
-     * This should be the typeInfo object of the class that your own class extends.
+     * This should be the Type object of the class that your own class extends.
      */
-    abstract val parentType: KGTypeInfo<*>
+    abstract val parentType: KGType<*>
 
     /**
      * Class initializer.
@@ -43,7 +43,7 @@ abstract class ObjectCompanion<T : Object>() {
      *
      * @return a pointer to the instance
      */
-    fun newInstancePointer(): CPointer<*> = g_object_new(typeInfo.gType, null)!!
+    fun newInstancePointer(): CPointer<*> = g_object_new(Type.gType, null)!!
 
     /**
      * Convert a [CPointer] back to an instance of the associated Object subclass.
@@ -54,7 +54,7 @@ abstract class ObjectCompanion<T : Object>() {
      * @exception Error when the pointer is not a valid pointer to an instance.
      */
     fun instanceFromPointer(pointer: CPointer<*>): T {
-        return typeInfo.instanceFromPointer(pointer)
+        return Type.instanceFromPointer(pointer)
     }
 
     /**
@@ -64,15 +64,15 @@ abstract class ObjectCompanion<T : Object>() {
      * this won't work for our GObject wrapper classes.
      */
     fun fromObject(obj: Object): T {
-        return typeInfo.instanceFromPointer(obj.gPointer)
+        return Type.instanceFromPointer(obj.gPointer)
     }
 
     /**
-     * TypeInfo property of the associated Object class.
+     * Type property of the associated Object class.
      *
      * Accessing this property lazily triggers the type registration process.
      */
-    val typeInfo by lazy {
+    val Type by lazy {
         registerType()
     }
 
@@ -81,7 +81,7 @@ abstract class ObjectCompanion<T : Object>() {
     /**
      * Actual type registration, this should only be called once.
      */
-    private fun registerType(): KGTypeInfo<T> {
+    private fun registerType(): KGType<T> {
         val info = registerTypeClass<T>(
             typeName,
             parentType

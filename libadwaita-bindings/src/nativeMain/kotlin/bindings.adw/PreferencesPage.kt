@@ -40,7 +40,7 @@ open class PreferencesPage : Widget {
         adw_preferences_page_remove(adwPreferencesPagePointer, group.adwPreferencesGroupPointer)
 
     companion object {
-        val typeInfo = BuiltinTypeInfo(
+        val Type = BuiltinTypeInfo(
             "AdwPreferencesPage",
             ADW_TYPE_PREFERENCES_PAGE,
             sizeOf<AdwPreferencesPageClass>(),

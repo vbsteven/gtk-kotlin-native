@@ -17,7 +17,7 @@ open class Permission : Object {
     // TODO implement
 
     companion object {
-        val typeInfo = BuiltinTypeInfo(
+        val Type = BuiltinTypeInfo(
             "GPermission",
             G_TYPE_PERMISSION,
             sizeOf<GPermissionClass>(),

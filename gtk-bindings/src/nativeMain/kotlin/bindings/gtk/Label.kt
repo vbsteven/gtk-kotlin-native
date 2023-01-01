@@ -6,6 +6,7 @@ import bindings.gobject.Object
 import bindings.gobject.asTypedPointer
 import bindings.gobject.boolean
 import bindings.gobject.gboolean
+import internal.BuiltinTypeInfo
 import kotlinx.cinterop.*
 import native.gtk.*
 
@@ -130,6 +131,7 @@ class Label(pointer: CPointer<*>) : Widget(pointer) {
 
 
     companion object {
+        val Type = BuiltinTypeInfo<Label>("GtkLabel", GTK_TYPE_LABEL, -1, -1, ::Label)
 
         /* helpers for constructor */
         private fun newPointer(text: String?, withMnemonic: Boolean) =

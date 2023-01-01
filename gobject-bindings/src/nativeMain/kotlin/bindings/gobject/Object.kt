@@ -15,7 +15,7 @@ open class Object(pointer: CPointer<*>) {
      */
     val gType: GType by lazy { gPointer.asTypedPointer<GObject>().pointed!!.g_type_instance.g_class!!.pointed.g_type }
 
-    constructor() : this(typeInfo.newInstancePointer())
+    constructor() : this(Type.newInstancePointer())
 
     init {
         associateCustomObject()
@@ -149,8 +149,11 @@ open class Object(pointer: CPointer<*>) {
         return "Object :: $objectTypeName :: ${super.toString()})"
     }
 
+
+
+
     companion object {
-        val typeInfo = BuiltinTypeInfo(
+        val Type = BuiltinTypeInfo(
             "GObject",
             G_TYPE_OBJECT,
             sizeOf<GObjectClass>(),

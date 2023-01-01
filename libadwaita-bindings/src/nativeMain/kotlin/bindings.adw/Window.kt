@@ -24,7 +24,7 @@ open class Window : GtkWindow {
     override var child = this.content
 
     companion object {
-        val typeInfo = BuiltinTypeInfo(
+        val Type = BuiltinTypeInfo(
             "AdwWindow",
             ADW_TYPE_WINDOW,
             sizeOf<AdwWindowClass>(),

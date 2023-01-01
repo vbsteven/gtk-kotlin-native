@@ -50,7 +50,7 @@ open class CheckButton : Widget {
     }
 
     companion object {
-        val typeInfo = BuiltinTypeInfo(
+        val Type = BuiltinTypeInfo(
             "GtkCheckButton",
             GTK_TYPE_CHECK_BUTTON,
             sizeOf<GtkCheckButtonClass>(),

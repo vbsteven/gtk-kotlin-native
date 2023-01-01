@@ -39,7 +39,7 @@ open class PreferencesRow : ListBoxRow, Actionable {
         set(value) = adw_preferences_row_set_title_selectable(adwPreferencesRowPointer, value.gboolean)
 
     companion object {
-        val typeInfo = BuiltinTypeInfo(
+        val Type = BuiltinTypeInfo(
             "AdwPreferencesRow",
             ADW_TYPE_PREFERENCES_ROW,
             sizeOf<AdwPreferencesRowClass>(),

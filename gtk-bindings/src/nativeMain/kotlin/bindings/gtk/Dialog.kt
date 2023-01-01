@@ -88,7 +88,7 @@ open class Dialog : Window {
 
 
     companion object {
-        val typeInfo = BuiltinTypeInfo(
+        val Type = BuiltinTypeInfo(
             "GtkDialog",
             GTK_TYPE_DIALOG,
             sizeOf<GtkDialogClass>(),

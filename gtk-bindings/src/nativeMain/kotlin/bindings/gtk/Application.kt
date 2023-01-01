@@ -19,7 +19,7 @@ open class Application(pointer: CPointer<*>) : Application(pointer) {
     val gtkApplicationPointer get() = gPointer.asTypedPointer<GtkApplication>()
 
     companion object {
-        val typeInfo =
+        val Type =
             BuiltinTypeInfo(
                 "GtkApplication",
                 GTK_TYPE_APPLICATION,

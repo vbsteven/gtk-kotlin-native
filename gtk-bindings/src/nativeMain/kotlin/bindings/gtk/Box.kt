@@ -40,7 +40,7 @@ open class Box : Widget, Orientable {
         set(value) = gtk_box_set_spacing(gtkBoxPointer, value)
 
     companion object {
-        val typeInfo = BuiltinTypeInfo(
+        val Type = BuiltinTypeInfo(
             "GtkBox",
             GTK_TYPE_BOX,
             sizeOf<GtkBoxClass>(),

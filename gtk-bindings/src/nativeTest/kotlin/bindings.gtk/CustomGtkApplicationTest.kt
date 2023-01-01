@@ -31,6 +31,6 @@ class MyGtkApplication : Application {
 
     companion object : ObjectCompanion<MyGtkApplication>() {
         override val typeName = "MyGtkApplication"
-        override val parentType = Application.typeInfo
+        override val parentType = Application.Type
     }
 }

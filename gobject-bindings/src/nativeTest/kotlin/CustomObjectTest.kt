@@ -15,9 +15,9 @@ class CustomObjectTest {
     fun testCustomObjectCreation() {
         val o = MyCustomObject()
         assertEquals("", o.name)
-        assertTrue(g_type_check_instance_is_a(o.gPointer.reinterpret(), MyCustomObject.typeInfo.gType).boolean)
-        assertTrue(g_type_check_instance_is_a(o.gPointer.reinterpret(), Object.typeInfo.gType).boolean)
-        assertFalse(g_type_check_instance_is_a(o.gPointer.reinterpret(), AnotherClass.typeInfo.gType).boolean)
+        assertTrue(g_type_check_instance_is_a(o.gPointer.reinterpret(), MyCustomObject.Type.gType).boolean)
+        assertTrue(g_type_check_instance_is_a(o.gPointer.reinterpret(), Object.Type.gType).boolean)
+        assertFalse(g_type_check_instance_is_a(o.gPointer.reinterpret(), AnotherClass.Type.gType).boolean)
     }
 
     @Test
@@ -52,7 +52,7 @@ private class MyCustomObject : Object {
 
     companion object : ObjectCompanion<MyCustomObject>() {
         override val typeName = "MyCustomObject"
-        override val parentType = Object.typeInfo
+        override val parentType = Object.Type
     }
 }
 
@@ -61,6 +61,6 @@ private class AnotherClass : Object {
 
     companion object : ObjectCompanion<AnotherClass>() {
         override val typeName = "AnotherClass"
-        override val parentType = Object.typeInfo
+        override val parentType = Object.Type
     }
 }

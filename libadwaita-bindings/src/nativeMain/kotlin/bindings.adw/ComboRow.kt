@@ -36,7 +36,7 @@ open class ComboRow : ActionRow {
         set(value) = adw_combo_row_set_use_subtitle(adwComboRowPointer, value.gboolean)
 
     companion object {
-        val typeInfo = BuiltinTypeInfo(
+        val Type = BuiltinTypeInfo(
             "AdwComboRow",
             ADW_TYPE_COMBO_ROW,
             sizeOf<AdwComboRowClass>(),

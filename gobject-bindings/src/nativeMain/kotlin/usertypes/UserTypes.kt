@@ -2,7 +2,7 @@ package usertypes
 
 import bindings.gobject.Object
 import bindings.gobject.asTypedPointer
-import internal.KGTypeInfo
+import internal.KGType
 import internal.TypeRegistry
 import internal.objectproperties.IntObjectProperty
 import internal.objectproperties.NullableStringObjectProperty
@@ -68,9 +68,9 @@ open class ObjectClass<T : Object> constructor(
  */
 fun <T : Object> registerTypeClass(
     typeName: String,
-    superType: KGTypeInfo<*>,
+    superType: KGType<*>,
     classInitFunc: ObjectClassInitFunc = {}
-): KGTypeInfo<T> {
+): KGType<T> {
     return TypeRegistry.registerType(typeName, superType, classInitFunc)
 }
 

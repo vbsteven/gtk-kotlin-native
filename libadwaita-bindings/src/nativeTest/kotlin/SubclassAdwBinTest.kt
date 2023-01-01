@@ -61,7 +61,7 @@ class MyWidget : Bin {
 
     companion object : WidgetCompanion<MyWidget>() {
         override val typeName = "MyWidget"
-        override val parentType = Bin.typeInfo
+        override val parentType = Bin.Type
 
         const val TEST_SIGNAL = "test-signal"
 

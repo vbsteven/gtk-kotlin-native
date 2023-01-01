@@ -433,7 +433,7 @@ Deriving custom widgets is currently possible with limited support for actions a
 * Add a (primary) constructor that takes a `CPointer<*>` argument and pass the pointer to `super` constructor.
 * Add a companion object that extends `WidgetCompanion<T>` where `T` is your class.
   * Override the `typeName` property with the name for your class.
-  * Override the `parentType` property with the `typeInfo` object from your parent class.
+  * Override the `parentType` property with the `Type` object from your parent class.
   * Override `classInit` and install any signals, actions or properties your widget provides.
 * Add a secondary constructor that calls `newInstancePointer()` from your companion object and pass the resulting pointer to the primary constructor.
 * (optional) The secondary constructor block can assign instance properties from your constructor arguments.
@@ -460,7 +460,7 @@ class MyWidget(pointer: CPointer<*>) : Bin(pointer) {
 
     companion object : WidgetCompanion<MyWidget>() {
         override val typeName = "MyWidget"
-        override val parentType = Bin.typeInfo
+        override val parentType = Bin.Type
 
         const val TEST_SIGNAL = "test-signal"
 
@@ -481,7 +481,7 @@ class MyWidget(pointer: CPointer<*>) : Bin(pointer) {
 * Add a (primary) constructor that takes a `CPointer<*>` argument and pass the pointer to `super` constructor.
 * Add a companion object that extends `ObjectCompanion<T>` where `T` is your class.
   * Override the `typeName` property with the name for your class.
-  * Override the `parentType` property with the `typeInfo` object from your parent class.
+  * Override the `parentType` property with the `Type` object from your parent class.
   * Override `classInit` and install any signals or properties your object provides.
 * Add a secondary constructor that calls `newInstancePointer()` from your companion object and pass the resulting pointer to the primary constructor.
 * (optional) The secondary constructor block can assign instance properties from your constructor arguments.
@@ -499,7 +499,7 @@ private class MyPerson : Object {
 
     companion object : ObjectCompanion<MyPerson>() {
         override val typeName = "MyPerson"
-        override val parentType = Object.typeInfo
+        override val parentType = Object.Type
 
         private val NAME_PROPERTY = stringProperty(MyPerson::name, "name", defaultValue = "")
         private val SURNAME_PROPERTY = nullableStringProperty(MyPerson::surname, "surname", defaultValue = null)

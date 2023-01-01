@@ -29,7 +29,7 @@ fun main() {
 
 private fun buildUI(window: Window) {
     // create a listStore to store the items
-    val listStore = ListStore(Task.typeInfo.gType)
+    val listStore = ListStore(Task.Type.gType)
 
     // build a tree of Tasks with children
     listStore.appendAll(
@@ -118,6 +118,6 @@ private class Task : Object {
 
     companion object : ObjectCompanion<Task>() {
         override val typeName = "Task"
-        override val parentType = Object.typeInfo
+        override val parentType = Object.Type
     }
 }
