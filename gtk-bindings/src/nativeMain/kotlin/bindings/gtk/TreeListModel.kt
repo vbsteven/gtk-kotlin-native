@@ -8,11 +8,13 @@ import bindings.gobject.boolean
 import bindings.gobject.gboolean
 import bindings.gtk.internal.staticStableRefDestroy
 import kotlinx.cinterop.*
+import native.gio.GListModel
 import native.gobject.gpointer
 import native.gtk.*
 
-class TreeListModel : Widget {
+class TreeListModel : Widget, ListModel {
     val gtkTreeListModelPointer get() = gtkWidgetPointer.asTypedPointer<GtkTreeListModel>()
+    override val gListModelPointer get() = gtkWidgetPointer.asTypedPointer<GListModel>()
 
     constructor(pointer: CPointer<*>) : super(pointer)
     constructor(
