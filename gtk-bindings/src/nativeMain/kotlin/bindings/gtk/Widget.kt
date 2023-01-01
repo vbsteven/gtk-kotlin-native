@@ -127,6 +127,11 @@ open class Widget(pointer: CPointer<*>) : Object(pointer) {
 
     val isFocus: Boolean get() = gtk_widget_is_focus(gtkWidgetPointer).boolean
 
+    /* Children */
+
+    val firstChild: Widget? get() = gtk_widget_get_first_child(gtkWidgetPointer)?.asWidget()
+    val lastChild: Widget? get() = gtk_widget_get_last_child(gtkWidgetPointer)?.asWidget()
+
 
     /* Other */
 
