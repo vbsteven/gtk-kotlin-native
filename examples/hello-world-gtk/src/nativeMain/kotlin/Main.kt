@@ -9,9 +9,7 @@ fun main() {
         val window = ApplicationWindow(app)
         window.title = "Hello World"
         window.defaultSize = Pair(600, 400)
-
         window.child = Label("Hello from Kotlin/Native")
-
         window.show()
     }
 

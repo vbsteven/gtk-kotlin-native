@@ -61,9 +61,7 @@ fun main() {
         val window = ApplicationWindow(app)
         window.title = "Hello World"
         window.defaultSize = Pair(600, 400)
-
         window.child = Label("Hello from Kotlin/Native")
-
         window.show()
     }
 
@@ -77,34 +75,34 @@ fun main() {
 A counter example using only GTK.
 
 ```kotlin
-import bindings.gtk.*
-import native.gtk.GtkAlign.GTK_ALIGN_CENTER
-import native.gtk.GtkOrientation.GTK_ORIENTATION_VERTICAL
-
 fun main() {
-    val app = Application("com.example.app")
+    val app = Application("com.example.counter")
 
     var counter = 0
 
     app.onActivate {
+        // create the window
         val window = ApplicationWindow(app)
         window.title = "Hello World"
         window.defaultSize = Pair(600, 400)
 
+        // create the widgets
         val label = Label()
-
         val button = Button("Click me")
+
+        // attach a button click handler
         button.onClicked {
             label.text = "You clicked ${++counter} times"
         }
 
-        val box = Box(GTK_ORIENTATION_VERTICAL, 20)
-        box.valign = GTK_ALIGN_CENTER
-        box.append(button)
-        box.append(label)
+        // wrap in a box for layout
+        window.child = Box(GTK_ORIENTATION_VERTICAL, 20).apply {
+            valign = GTK_ALIGN_CENTER
+            append(button)
+            append(label)
+        }
 
-        window.child = box
-
+        // show the window
         window.show()
     }
 
@@ -112,6 +110,13 @@ fun main() {
     app.unref()
 }
 ```
+
+Other examples:
+* [TreeListModel](examples/gtk-examples/src/nativeMain/kotlin/treelistmodel/TreeListModelExample.kt)
+* [ListModel](examples/gtk-examples/src/nativeMain/kotlin/listmodel/ListModelExample.kt)
+* [GridView](examples/gtk-examples/src/nativeMain/kotlin/gridview/GridViewExample.kt)
+* [Custom Widget subclass and property binding](examples/gtk-examples/src/nativeMain/kotlin/customwidgetbinding/CustomWidgetBindingExample.kt)
+
 
 See the [examples](examples) folder for more examples.
 
@@ -579,4 +584,21 @@ person.age = 42
 println(anotherPerson.age) // prints 42
 
 ```
+
+## Casting Object instances to user types
+
+Some GTK API's (for example list models or list item factories) return a pointer to a `GObject` which this library wraps in 
+an instance of the `Object` class. These instances cannot be simple downcasted to a user-defined class using the Kotlin `myobject as MyWidget` syntax.
+
+Instead, these objects should be converted back to a target class instance by using the `asType` extension on `Object`.
+
+```kotlin
+val task = row.item.asType(Task.Type) // Throws on type error
+// or
+val task = row.item.asTypeOrNull(Task.Type) // null on type error
+```
+
+The `Type` property is available on every wrapped class and on every user-defined class that implements the `ObjectCompanion` or `WidgetCompanion` companion object.
+
+See the [TreeListModel example](examples/gtk-examples/src/nativeMain/kotlin/treelistmodel/TreeListModelExample.kt) for more examples.
 

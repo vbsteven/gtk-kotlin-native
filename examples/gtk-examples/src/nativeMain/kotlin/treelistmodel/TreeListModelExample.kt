@@ -63,7 +63,7 @@ private fun buildUI(window: Window) {
     // bind a Task item to a row
     factory.onBind { listItem ->
         // get the box widget from the listItem
-        val box = listItem.child?.let { Box(it.gPointer) }!!
+        val box = listItem.child!!.asType(Box.Type)
 
         // get the expander and label widgets from the box
         val expander = box.firstChild!!.asType(TreeExpander.Type)
