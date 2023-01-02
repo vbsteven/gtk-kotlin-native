@@ -19,10 +19,21 @@ kotlin {
         val nativeTest by getting
     }
 
-    // native main for testing
     nativeTarget.apply {
         compilations["main"].cinterops {
             val gobject by creating
+        }
+
+        binaries {
+            all {
+                if (isMingwX64) {
+                    val userHome = File(System.getenv("USERPROFILE"))
+                    linkerOpts(
+                        "-L${userHome}\\.konan\\dependencies\\msys2-mingw-w64-x86_64-2\\x86_64-w64-mingw32\\lib",
+                        "-LC:\\msys64\\mingw64\\lib",
+                    )
+                }
+            }
         }
     }
 }

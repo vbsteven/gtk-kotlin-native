@@ -101,7 +101,7 @@ open class Object(pointer: CPointer<*>) {
      * @param handler handler to be invoked on signal emission
      * @return handler id
      */
-    fun connectSignal(signalName: String, flags: GSignalFlags = 0.toUInt(), handler: () -> Unit): ULong =
+    fun connectSignal(signalName: String, flags: GSignalFlags = 0.toUInt(), handler: () -> Unit) =
         g_signal_connect_data(
             gPointer, signalName,
             staticNoArgSignalHandler,

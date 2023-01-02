@@ -33,6 +33,13 @@ kotlin {
             packageDirs.forEach { pkg ->
                 executable(pkg.name) {
                     entryPoint = "${pkg.name}.main"
+                    if (isMingwX64) {
+                        val userHome = File(System.getenv("USERPROFILE"))
+                        linkerOpts(
+                            "-L${userHome}\\.konan\\dependencies\\msys2-mingw-w64-x86_64-2\\x86_64-w64-mingw32\\lib",
+                            "-LC:\\msys64\\mingw64\\lib",
+                        )
+                    }
                 }
             }
         }
