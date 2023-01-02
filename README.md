@@ -115,9 +115,7 @@ fun main() {
 
 See the [examples](examples) folder for more examples.
 
-## Building
-
-### Dependencies
+## Dependencies
 
 Currently building this project requires fairly recent versions of its dependencies. I'll try to get the required
 dependency versions down a little in the near future.
@@ -126,27 +124,47 @@ dependency versions down a little in the near future.
 * gtk4 >= 4.6.6
 * libadwaita-1 >= 1.2 (optional, only when using libadwaita-bindings
 
-Ubuntu
 
-`apt install libgtk4-dev gcc-multilib`
+## Building on Linux
 
-Arch
+Ubuntu dependencies
 
-`pacman -S gtk4 libadwaita`
+```shell
+apt install libgtk4-dev gcc-multilib
+```
+
+Arch dependencies
+
+```shell
+pacman -S gtk4 libadwaita
+```
 
 Building the full project (requires libadwaita >= 1.2)
 
 ```shell
-./gradlew build
+./gradlew build -x test
 ```
 
 Building only the gtk bindings
 
 ```shell
-./gradlew gtk-bindings:build
+./gradlew gtk-bindings:build -x test
 ```
 
-Building a gtk-only example
+## Building on Windows
+
+The project can be built on Windows in the Mingw64 environment.
+
+* Download and install [Mingw64](https://www.mingw-w64.org/)
+* Install dependencies in the mingw64 shell 
+```shell
+pacman -S base-devel mingw-w64-x86_64-toolchain mingw-x86_64-gtk4 mingw-w64-x86_64-libadwaita
+```
+* Trigger the build
+```shell
+./gradlew build -x test
+```
+
 
 ### Using the binding libraries
 
@@ -154,7 +172,7 @@ This project is not yet published to a repository. The best way to get started i
 to your local Maven repository.
 
 ```shell
-./gradlew publishToMavenLocal
+./gradlew publishToMavenLocal -x test
 ```
 
 And then in your own project build.gradle.kts file:
@@ -208,6 +226,7 @@ and some parts of GIO (lists, actions, icons, files).
     * Window
     * ApplicationWindow
     * PreferencesWindow
+    * ShortcutsWindow
   * Widgets
     * Widget
     * Label
@@ -220,11 +239,34 @@ and some parts of GIO (lists, actions, icons, files).
     * StackPage
     * StackSidebar
     * ToggleButton
+    * AspectFrame
+    * CenterBox
+    * CheckButton
+    * Grid
+    * GridView
+    * HeaderBar
+    * Image
+    * LevelBar
+    * LinkButton
+    * ListView
+    * LockButton
+    * Popover
+    * ProgressBar
+    * ScrolledWindow
+    * SearchBar
+    * Separator
+    * Switch
   * Dialogs
     * AboutDialog
     * MessageDialog
-  * Lists
+  * Lists and Trees
     * StringList
+    * ListItem
+    * ListItemFactory
+    * SignalListItemFactory
+    * TreeExpander
+    * TreeListModel
+    * TreeListRow
   * Interfaces
     * Actionable
     * Editable
