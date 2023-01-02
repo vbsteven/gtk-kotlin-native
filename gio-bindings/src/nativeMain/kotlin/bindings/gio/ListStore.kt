@@ -3,6 +3,7 @@ package bindings.gio
 import bindings.gobject.Object
 import bindings.gobject.asTypedPointer
 import internal.BuiltinTypeInfo
+import internal.KGType
 import kotlinx.cinterop.CPointer
 import native.gio.*
 import native.gobject.GType
@@ -12,8 +13,9 @@ class ListStore : Object, ListModel {
 
     val gListStorePointer get() = gPointer.asTypedPointer<GListStore>()
 
-    constructor(itemType: GType) : super(g_list_store_new(itemType)!!)
     constructor(pointer: CPointer<*>) : super(pointer)
+    constructor(itemType: GType) : super(g_list_store_new(itemType)!!)
+    constructor(itemType: KGType<*>) : this(itemType.gType)
 
     /**
      * Utility constructor for creating a listStore with initial items.
@@ -32,6 +34,9 @@ class ListStore : Object, ListModel {
     constructor(itemType: GType, items: List<Object>) : this(itemType) {
         this.appendAll(items)
     }
+
+    constructor(itemType: KGType<*>, vararg items: Object) : this(itemType.gType, *items)
+
 
 
     fun append(item: Object) = g_list_store_append(gListStorePointer, item.gPointer)
