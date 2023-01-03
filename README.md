@@ -39,7 +39,7 @@ extensions and utility libraries.
 |---------------------|------------------------------------------------------------------------------------------------------------------|
 | gobject-bindings    | Kotlin bindings for [GObject](https://docs.gtk.org/gobject/).                                                    |
 | gio-bindings        | Kotlin bindings for [GIO](https://docs.gtk.org/gio/).                                                            |
-| gtk-bindings        | Kotlin bindings for [GTK4](https://docs.gtk.org/gtk4/).                                   |
+| gtk-bindings        | Kotlin bindings for [GTK4](https://docs.gtk.org/gtk4/).                                                          |
 | libadwaita-bindings | Kotlin bindings for [libadwaita](https://gnome.pages.gitlab.gnome.org/libadwaita/doc/1.2/) (target version 1.2). |
 
 
@@ -127,7 +127,7 @@ dependency versions down a little in the near future.
 
 * gio >= 2.74
 * gtk4 >= 4.6.6
-* libadwaita-1 >= 1.2 (optional, only when using libadwaita-bindings
+* libadwaita-1 >= 1.2 (optional, only when using libadwaita-bindings)
 
 
 ## Building on Linux
@@ -348,15 +348,35 @@ type is known, it can return a `ListModel<SomeType>`.
 
 ### Better support for subclassing GObject and GtkWidget
 
-Find a better way to create GObject subclasses and create custom widgets.
+~~Find a better way to create GObject subclasses and create custom widgets.~~
+
+See [Deriving custom widget classes](#deriving-custom-widget-classes) 
+and [Deriving custom object classes with properties](#deriving-custom-object-classes-with-properties)
 
 ### Building on Windows and macOS
 
-Currently the build only works on Linux. Windows and macOS support are on my list.
+Currently it builds on Linux and Window. macOS support is on my list.
+
+### Generate bindings using GIR
+
+While [GObject Introspection - GIR](https://gi.readthedocs.io/en/latest/) provides a way to extract type information from
+GObject-based libaries, I decided to not use it for now and write the first version manually. Writing the bindings manually
+forces me to look at the GObject API in detail (which I had not worked with before), and allows me to iterate fast on various
+approaches.
+
+When the library matures and I have a few applications under my belt, I should have a better view of what the bindings
+should look like, what works and what does not, and then I will have another look at automated GIR-based bindings.
 
 ### GLib reference counting
 
 Find a clean way to integrate GLib reference counting.
+
+### Support Webkit2gtk and gtksourceview
+
+There is already a [WIP branch](https://github.com/vbsteven/gtk-kotlin-native/tree/wip/webkit2gtk) with [webkit2gtk-5.0](https://webkitgtk.org/)
+support.
+
+[GtkSourceView](https://wiki.gnome.org/Projects/GtkSourceView) is another library I would like to add in the near future.
 
 
 ## Notes on wrapping types
@@ -522,7 +542,7 @@ class MyWidget(pointer: CPointer<*>) : Bin(pointer) {
 
 ```
 
-### Deriving custom object classes with properties
+## Deriving custom object classes with properties
 
 * Declare a Kotlin class that extends `Object` (or another class subclasses from Object).
 * Add a (primary) constructor that takes a `CPointer<*>` argument and pass the pointer to `super` constructor.
