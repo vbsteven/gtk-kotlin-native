@@ -11,13 +11,13 @@ fun main() {
 
         var counter = 0
 
-        val textBuffer = EntryBuffer(counter.toString())
-        val textField = Entry(textBuffer)
+        val textField = Entry()
+        textField.text = counter.toString()
 
         val button = Button("Count").apply {
             onClicked {
                 counter++
-                textBuffer.text = counter.toString()
+                textField.text = counter.toString()
             }
         }
 
