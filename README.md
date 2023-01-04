@@ -116,6 +116,9 @@ Other examples:
 * [ListModel](examples/gtk-examples/src/nativeMain/kotlin/listmodel/ListModelExample.kt)
 * [GridView](examples/gtk-examples/src/nativeMain/kotlin/gridview/GridViewExample.kt)
 * [Custom Widget subclass and property binding](examples/gtk-examples/src/nativeMain/kotlin/customwidgetbinding/CustomWidgetBindingExample.kt)
+* [7GUIs - #1 Counter](examples/sevenguis-1-counter/src/nativeMain/kotlin/Main.kt)
+* [7GUIs - #2 Temperature Converter](examples/sevenguis-2-temperature-converter/src/nativeMain/kotlin/Main.kt)
+* [7GUIs - #3 Flight Booker](examples/sevenguis-3-flight-booker/src/nativeMain/kotlin/Main.kt)
 
 
 See the [examples](examples) folder for more examples.
@@ -237,6 +240,7 @@ and some parts of GIO (lists, actions, icons, files).
     * Label
     * Button
     * Box
+    * DropDown
     * ListBox
     * ListBoxRow
     * MenuButton
