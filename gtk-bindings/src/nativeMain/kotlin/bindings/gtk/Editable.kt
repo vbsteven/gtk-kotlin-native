@@ -11,7 +11,7 @@ import native.gobject.gpointer
 import native.gtk.*
 
 interface Editable {
-    var gtkEditablePointer: CPointer<GtkEditable>
+    val gtkEditablePointer: CPointer<GtkEditable>
 
     fun deleteSelection() = gtk_editable_delete_selection(gtkEditablePointer)
     fun deleteText(startPos: Int, endPos: Int) = gtk_editable_delete_text(gtkEditablePointer, startPos, endPos)
