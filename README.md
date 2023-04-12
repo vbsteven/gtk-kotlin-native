@@ -1,4 +1,9 @@
-# GTK Kotlin/Native bindings
+
+# Deprecated Project
+
+**Note: This project is no longer actively maintained and my attention has moved to the community project [gtk-kn](https://gitlab.com/gtk-kn/gtk-kn).**
+
+# GTK Kotlin/Native bindings (old readme)
 
 Write GTK applications using Kotlin/Native.
 
